@@ -1,0 +1,40 @@
+/* Backgrounds */
+@define-color bg0 #1d2021;
+@define-color bg1 #282828;
+@define-color bg2 #3c3836;
+@define-color bg3 #504945;
+@define-color bg4 #665c54;
+
+/* Foreground */
+@define-color fg #ebdbb2;
+@define-color fg-dim #a89984;
+@define-color fg-bright #fbf1c7;
+
+/* Bright colors */
+@define-color white #fbfff7;
+@define-color red #c22917;
+@define-color green #679440;
+@define-color yellow #fabd2f;
+@define-color blue #83a598;
+@define-color purple #d3869b;
+@define-color aqua #8ec07c;
+@define-color orange #d16b17;
+
+/* Neutral */
+@define-color gray0 #636362;
+@define-color gray1 #3b3b39;
+
+/* Dark (dim) colors */
+@define-color red-dim #cc241d;
+@define-color green-dim #98971a;
+@define-color yellow-dim #d79921;
+@define-color blue-dim #458588;
+@define-color purple-dim #b16286;
+@define-color aqua-dim #689d6a;
+@define-color orange-dim #d65d0e;
+
+/* UI */
+@define-color border #504945;
+@define-color separator #665c54;
+@define-color bg-hover #3c3836;
+@define-color bg-active #504945;

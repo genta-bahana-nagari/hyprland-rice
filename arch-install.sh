@@ -33,6 +33,7 @@ sudo pacman -S \
     rofi-wayland \
     waybar \
     nwg-look \
+    awww \
     jq \
     brightnessctl \
     pavucontrol \
@@ -75,6 +76,8 @@ sudo systemctl enable sddm.service
 sudo systemctl enable NetworkManager
 sudo systemctl enable power-profiles-daemon
 find "$HOME/.config/hypr/scripts" -type f -name "*.sh" -exec chmod +x {} \;
+
+cp "./.config/*" "~/.config/"
 
 echo "Setup complete! Rebooting in 10 seconds..."
 sleep 10

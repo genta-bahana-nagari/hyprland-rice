@@ -64,12 +64,8 @@ curl -s https://ohmyposh.dev/install.sh | bash -s
 echo "Setting up prompt themes..."
 BASHRC="$HOME/.bashrc"
 
-add_if_missing() {
-    grep -qxF "$1" "$BASHRC" || echo "$1" >> "$BASHRC"
-}
-
-add_if_missing 'export PATH="$PATH:$HOME/.local/bin"'
-add_if_missing 'eval "$(oh-my-posh init bash --config $HOME/.config/kitty/custom-theme.omp.json)"'
+echo 'export PATH="$PATH:$HOME/.local/bin"' >> $HOME/.bashrc
+echo 'eval "$(oh-my-posh init bash --config $HOME/.config/kitty/custom-theme.omp.json)"' >> $HOME/.bashrc
 
 echo "Enabling services and scripts..."
 sudo systemctl enable sddm.service
@@ -77,7 +73,7 @@ sudo systemctl enable NetworkManager
 sudo systemctl enable power-profiles-daemon
 find "$HOME/.config/hypr/scripts" -type f -name "*.sh" -exec chmod +x {} \;
 
-cp "./.config/*" "~/.config/"
+cp -rf .config/* "$HOME/.config/"
 
 echo "Setup complete! Rebooting in 10 seconds..."
 sleep 10

@@ -63,6 +63,8 @@ echo "Deploying configuration files..."
 mkdir -p "$HOME/.config"
 cp -rf .config/* "$HOME/.config/"
 
+find "$HOME/.config/hypr/scripts" -type f -name "*.sh" -exec chmod +x {} \; 2>/dev/null || true
+
 echo "Installing Oh My Posh prompt engine..."
 curl -s https://ohmyposh.dev/install.sh | bash -s
 
@@ -71,11 +73,7 @@ echo 'export PATH="$PATH:$HOME/.local/bin"' >> "$HOME/.bashrc"
 echo 'eval "$(oh-my-posh init bash --config $HOME/.config/kitty/custom-theme.omp.json)"' >> "$HOME/.bashrc"
 
 echo "Enabling services and scripts..."
-sudo systemctl enable sddm.service
-sudo systemctl enable NetworkManager
-sudo systemctl enable power-profiles-daemon
-find "$HOME/.config/hypr/scripts" -type f -name "*.sh" -exec chmod +x {} \;
-
+sudo systemctl enable sddm NetworkManager power-profiles-daemon
 
 echo "Setup complete! Rebooting in 10 seconds..."
 sleep 10

@@ -45,7 +45,6 @@ sudo pacman -S \
     tree \
     cmatrix \
     power-profiles-daemon \
-    adwaita-gtk-theme \
     adw-gtk-theme \
     htop \
     fastfetch \

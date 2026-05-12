@@ -5,25 +5,27 @@
       "alignment": "left",
       "segments": [
         {
-          "foreground": "cyan",
           "style": "powerline",
           "template": "{{ .Icon }}",
           "type": "os"
         },
         {
-          "foreground": "cyan",
           "options": {
             "style": "full"
           },
           "style": "plain",
-          "template": " {{ .Path }} ",
+          "template": "  {{ .Path }} ",
           "type": "path"
         },
         {
-          "foreground": "lightYellow",
           "style": "plain",
-          "template": ":: <lightBlue>git(</>{{ .HEAD }}<lightBlue>)</>",
+          "template": ":: </>{{ .HEAD }}",
           "type": "git"
+        },
+        {
+          "style": "plain",
+          "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "type": "node"
         }
       ],
       "type": "prompt"
@@ -33,10 +35,7 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "lightGreen",
-          "foreground_templates": [
-            "{{ if gt .Code 0 }}red{{ end }}"
-          ],
+          "foreground_templates": ["{{ if gt .Code 0 }} {{ end }}"],
           "options": {
             "always_enabled": true
           },

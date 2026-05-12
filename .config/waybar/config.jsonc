@@ -192,7 +192,7 @@
     "tooltip-format-ethernet": "{ifname} ",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 40,
-    "on-click": "~/.config/hypr/scripts/wifimananger.sh",
+    "on-click": "~/.config/hypr/scripts/wifi-mananger.sh",
   },
 
   "battery": {

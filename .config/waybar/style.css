@@ -89,12 +89,12 @@ tooltip {
 
 #battery.warning {
   background-color: @orange;
-  color: @white;
+  color: @bg1;
 }
 
 #battery.critical {
   background-color: @red;
-  color: @white;
+  color: @bg1;
 }
 
 #custom-updatetoggler {

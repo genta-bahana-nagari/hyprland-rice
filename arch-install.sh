@@ -26,6 +26,7 @@ sudo pacman -S \
     hyprpolkitagent \
     sddm \
     kitty \
+    hypridle \
     hyprlock \
     hyprshot \
     nano \

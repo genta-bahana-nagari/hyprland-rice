@@ -43,6 +43,9 @@ packages=(
     "curl"
     "wget"
     "ttf-jetbrains-mono-nerd"
+    "wf-recorder"
+    "vlc"
+    "vlc-plugin-ffmpeg"
 )
 
 aur_packages=(

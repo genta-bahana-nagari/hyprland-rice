@@ -47,6 +47,7 @@ packages=(
     "nautilus"
     "loupe"
     "swaync"
+    "swayosd"
     "cliphist"
     "tree"
     "cmatrix"

@@ -48,6 +48,7 @@ packages=(
     "nautilus"
     "loupe"
     "swaync"
+    "swayosd"
     "cliphist"
     "tree"
     "cmatrix"
@@ -131,8 +132,10 @@ _enableCoprRepositories() {
         echo ":: Enabling solopasha/hyprland COPR..."
 
         sudo dnf copr enable -y solopasha/hyprland
+        sudo dnf copr enable -y erikreider/swayosd
     else
         echo ":: solopasha/hyprland COPR is already enabled."
+        echo ":: erikreider/swayosd COPR is already enabled."
     fi
 
     echo ":: COPR repositories enabled."

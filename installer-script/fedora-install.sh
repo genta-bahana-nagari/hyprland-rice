@@ -25,8 +25,8 @@ NONE='\033[0m'
 packages=(
     "hyprland"
     "xdg-desktop-portal-hyprland"
-    "qt5-wayland"
-    "qt6-wayland"
+    "qt5-qtwayland"
+    "qt6-qtwayland"
     "hyprpolkitagent"
     "sddm"
     "kitty"
@@ -40,10 +40,11 @@ packages=(
     "waybar"
     "nwg-look"
     "awww"
+    "cava"
     "jq"
     "brightnessctl"
     "pavucontrol"
-    "networkmanager"
+    "NetworkManager"
     "nautilus"
     "loupe"
     "swaync"
@@ -52,21 +53,15 @@ packages=(
     "cmatrix"
     "kate"
     "power-profiles-daemon"
-    "adw-gtk-theme"
+    "adw-gtk3-theme"
     "htop"
     "fastfetch"
     "unzip"
     "curl"
     "wget"
-    "ttf-jetbrains-mono-nerd"
+    "jetbrains-mono-fonts"
     "wf-recorder"
     "vlc"
-    "vlc-plugin-ffmpeg"
-)
-
-aur_packages=(
-    "ttf-rubik"
-    "ttf-rubik-vf"
 )
 
 # ----------------------------------------------------------
@@ -90,7 +85,7 @@ _checkCommandExists() {
 _isInstalled() {
     local package="$1"
 
-    if pacman -Q "$package" &>/dev/null; then
+    if rpm -q "$package" &>/dev/null; then
         echo 0
     else
         echo 1
@@ -98,27 +93,49 @@ _isInstalled() {
 }
 
 # ----------------------------------------------------------
-# Install yay
+# Enable RPM Fusion
 # ----------------------------------------------------------
 
-_installYay() {
-    echo ":: Installing yay AUR helper..."
+_enableRpmFusion() {
+    echo ":: Enabling RPM Fusion repositories..."
 
-    sudo pacman -S --needed --noconfirm base-devel git
+    if ! rpm -q \
+        rpmfusion-free-release \
+        >/dev/null 2>&1; then
 
-    rm -rf /tmp/yay
+        sudo dnf install -y \
+            "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+    else
+        echo ":: RPM Fusion Free is already installed."
+    fi
 
-    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    if ! rpm -q \
+        rpmfusion-nonfree-release \
+        >/dev/null 2>&1; then
 
-    cd /tmp/yay
+        sudo dnf install -y \
+            "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+    else
+        echo ":: RPM Fusion Nonfree is already installed."
+    fi
+}
 
-    makepkg -si --noconfirm
+# ----------------------------------------------------------
+# Enable COPR repositories
+# ----------------------------------------------------------
 
-    cd "$PROJECT_DIR"
+_enableCoprRepositories() {
+    echo ":: Enabling COPR repositories..."
 
-    rm -rf /tmp/yay
+    if ! dnf repolist 2>/dev/null | grep -q "copr:copr.fedorainfracloud.org:solopasha:hyprland"; then
+        echo ":: Enabling solopasha/hyprland COPR..."
 
-    echo ":: yay installed successfully."
+        sudo dnf copr enable -y solopasha/hyprland
+    else
+        echo ":: solopasha/hyprland COPR is already enabled."
+    fi
+
+    echo ":: COPR repositories enabled."
 }
 
 # ----------------------------------------------------------
@@ -134,24 +151,7 @@ _installPackages() {
 
         echo ":: Installing ${pkg} ..."
 
-        sudo pacman -S --needed --noconfirm "$pkg"
-    done
-}
-
-# ----------------------------------------------------------
-# Install AUR packages
-# ----------------------------------------------------------
-
-_installAurPackages() {
-    for pkg in "$@"; do
-        if [[ $(_isInstalled "$pkg") == 0 ]]; then
-            echo ":: ${pkg} is already installed."
-            continue
-        fi
-
-        echo ":: Installing AUR package ${pkg} ..."
-
-        yay -S --needed --noconfirm "$pkg"
+        sudo dnf install -y "$pkg"
     done
 }
 
@@ -249,7 +249,7 @@ _enableServices() {
 
 while true; do
     read -rp \
-        "DO YOU WANT TO START THE ARCH INSTALLATION NOW? (Yy/Nn): " \
+        "DO YOU WANT TO START THE FEDORA INSTALLATION NOW? (Yy/Nn): " \
         yn
 
     case "$yn" in
@@ -273,11 +273,11 @@ while true; do
 done
 
 # ----------------------------------------------------------
-# Verify Arch Linux
+# Verify Fedora
 # ----------------------------------------------------------
 
-if [[ ! -f /etc/arch-release ]]; then
-    echo -e "${RED}:: This installer is intended for Arch Linux.${NONE}"
+if [[ ! -f /etc/fedora-release ]]; then
+    echo -e "${RED}:: This installer is intended for Fedora Linux.${NONE}"
     exit 1
 fi
 
@@ -285,41 +285,39 @@ fi
 # System update
 # ----------------------------------------------------------
 
-echo ":: Updating system packages..."
+echo ":: Updating Fedora packages..."
 
-sudo pacman -Syu --noconfirm
-
-# ----------------------------------------------------------
-# Install yay if needed
-# ----------------------------------------------------------
-
-if [[ $(_checkCommandExists "yay") == 0 ]]; then
-    echo ":: yay is already installed."
-else
-    echo ":: yay is not installed."
-
-    _installYay
-fi
+sudo dnf upgrade -y
 
 # ----------------------------------------------------------
-# Install official packages
+# Enable RPM Fusion
+# ----------------------------------------------------------
+
+_enableRpmFusion
+
+# ----------------------------------------------------------
+# Enable COPR repositories
+# ----------------------------------------------------------
+
+_enableCoprRepositories
+
+# ----------------------------------------------------------
+# Refresh package metadata
+# ----------------------------------------------------------
+
+echo ":: Refreshing package metadata..."
+
+sudo dnf makecache
+
+# ----------------------------------------------------------
+# Install packages
 # ----------------------------------------------------------
 
 echo
-echo ":: Installing official repository packages..."
+echo ":: Installing Fedora packages..."
 echo
 
 _installPackages "${packages[@]}"
-
-# ----------------------------------------------------------
-# Install AUR packages
-# ----------------------------------------------------------
-
-echo
-echo ":: Installing AUR packages..."
-echo
-
-_installAurPackages "${aur_packages[@]}"
 
 # ----------------------------------------------------------
 # Deploy configuration
@@ -329,7 +327,7 @@ echo
 _deployConfigs
 
 # ----------------------------------------------------------
-# Deploy wallpapers
+# Deploy wallpaper
 # ----------------------------------------------------------
 
 echo

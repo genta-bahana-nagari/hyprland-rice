@@ -15,9 +15,9 @@
   "modules-right": ["custom/notifications"],
 
   "custom/updatetoggler": {
-    "format": "󰣇",
+    "format": "󰨇",
     "tooltip": false,
-    "on-click": "kitty bash -c 'sudo pacman -Syyu; exec bash'",
+    "on-click": "~/.config/waybar/scripts/system-update.sh",
   },
 
   "clock": {

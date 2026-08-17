@@ -133,7 +133,7 @@ _enableCoprRepositories() {
     echo ":: Enabling COPR repositories..."
 
     if ! dnf repolist 2>/dev/null | grep -q "copr:copr.fedorainfracloud.org:solopasha:hyprland"; then
-        echo ":: Enabling solopasha/hyprland COPR..."
+        echo ":: Enabling COPR repositories..."
 
         sudo dnf copr enable -y solopasha/hyprland
         sudo dnf copr enable -y erikreider/swayosd

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 KEYBINDS="$HOME/.config/hypr/modules/keybinds.conf"
-THEME="$HOME/.config/rofi/styles/simple.rasi"
+THEME="$HOME/.config/rofi/styles/keybind-dictionary.rasi"
 
 awk '
 

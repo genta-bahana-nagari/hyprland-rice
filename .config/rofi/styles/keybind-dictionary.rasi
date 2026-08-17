@@ -1,0 +1,206 @@
+@import "../shared/colors.rasi"
+@import "../shared/fonts.rasi"
+
+* {
+    border-colour:       var(selected);
+    background-colour:   var(background);
+    foreground-colour:   var(foreground);
+    alternate-background: var(background-alt);
+    accent-colour:       var(selected);
+}
+
+/*****----- Main Window -----*****/
+window {
+    enabled:                     true;
+    location:                    center;
+    anchor:                      center;
+
+    width:                       760px;
+    height:                      620px;
+
+    border:                      1px;
+    border-radius:               16px;
+    border-color:                @border-colour;
+
+    background-color:            @background-colour;
+
+    padding:                     18px;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                     true;
+
+    spacing:                     12px;
+    margin:                      0px;
+    padding:                     0px;
+
+    background-color:            transparent;
+
+    children:                    [ "inputbar", "listview" ];
+}
+
+/*****----- Search Bar -----*****/
+inputbar {
+    enabled:                     true;
+
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     11px 14px;
+
+    border:                      1px;
+    border-radius:               10px;
+    border-color:                transparent;
+
+    background-color:            @alternate-background;
+    text-color:                  @foreground-colour;
+
+    children:                    [ "prompt", "entry" ];
+}
+
+prompt {
+    enabled:                     true;
+
+    padding:                     0px;
+
+    background-color:            transparent;
+    text-color:                  @accent-colour;
+}
+
+entry {
+    enabled:                     true;
+
+    padding:                     0px;
+
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+
+    cursor:                      text;
+
+    placeholder:                 "Search keybinds...";
+    placeholder-color:           @foreground-colour;
+}
+
+/*****----- List -----*****/
+listview {
+    enabled:                     true;
+
+    columns:                     1;
+    lines:                       14;
+
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+
+    layout:                      vertical;
+    reverse:                     false;
+
+    spacing:                     4px;
+
+    margin:                      0px;
+    padding:                     0px;
+
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+
+    cursor:                      default;
+}
+
+/*****----- Scrollbar -----*****/
+scrollbar {
+    enabled:                     false;
+}
+
+/*****----- Keybind Element -----*****/
+element {
+    enabled:                     true;
+
+    spacing:                     12px;
+    margin:                      0px;
+    padding:                     9px 12px;
+
+    border:                      1px;
+    border-radius:               9px;
+    border-color:                transparent;
+
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+
+    cursor:                      pointer;
+}
+
+element normal.normal {
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+}
+
+element alternate.normal {
+    background-color:            @alternate-background;
+    text-color:                  @foreground-colour;
+}
+
+/*****----- Selected -----*****/
+element selected.normal {
+    background-color:            @accent-colour;
+    text-color:                  @background-colour;
+
+    border-color:                @accent-colour;
+}
+
+element selected.active {
+    background-color:            @accent-colour;
+    text-color:                  @background-colour;
+
+    border-color:                @accent-colour;
+}
+
+/*****----- Element Text -----*****/
+element-text {
+    enabled:                     true;
+
+    background-color:            transparent;
+    text-color:                  inherit;
+
+    highlight:                   none;
+
+    cursor:                      inherit;
+
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+/*****----- Element Icon -----*****/
+element-icon {
+    enabled:                     true;
+
+    background-color:            transparent;
+    text-color:                  inherit;
+
+    size:                        20px;
+
+    cursor:                      inherit;
+}
+
+/*****----- Message -----*****/
+message {
+    enabled:                     false;
+}
+
+/*****----- Textbox -----*****/
+textbox {
+    enabled:                     true;
+
+    padding:                     8px 12px;
+
+    border:                      0px;
+    border-radius:               8px;
+
+    background-color:            @alternate-background;
+    text-color:                  @foreground-colour;
+
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+
+    highlight:                   none;
+    markup:                      true;
+}

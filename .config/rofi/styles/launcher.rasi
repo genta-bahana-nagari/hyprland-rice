@@ -1,0 +1,267 @@
+/**
+ * Rofi Application Launcher
+ * Clean / Rounded / Minimal
+ **/
+
+/*****----- Configuration -----*****/
+configuration {
+    modi:                       "drun";
+    show-icons:                 true;
+    display-drun:               "󰣇";
+    drun-display-format:        "{name}";
+}
+
+/*****----- Theme -----*****/
+@import "../shared/colors.rasi"
+@import "../shared/fonts.rasi"
+
+/*****----- Main Window -----*****/
+window {
+    enabled:                    true;
+
+    location:                   center;
+    anchor:                     center;
+
+    fullscreen:                 false;
+
+    width:                      760px;
+
+    x-offset:                   0px;
+    y-offset:                   0px;
+
+    margin:                     0px;
+    padding:                    18px;
+
+    border:                     1px;
+    border-radius:              16px;
+    border-color:               @selected;
+
+    background-color:           @background;
+
+    cursor:                     "default";
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                    true;
+
+    spacing:                    12px;
+
+    margin:                     0px;
+    padding:                    0px;
+
+    border:                     0px;
+    border-radius:              0px;
+
+    background-color:           transparent;
+
+    children:                   [ "inputbar", "listview" ];
+}
+
+/*****----- Search -----*****/
+inputbar {
+    enabled:                    true;
+
+    spacing:                    10px;
+
+    margin:                     0px;
+    padding:                    12px 14px;
+
+    border:                     1px;
+    border-radius:              10px;
+    border-color:               @selected;
+
+    background-color:           @background-alt;
+
+    text-color:                 @foreground;
+
+    children:                   [ "prompt", "entry" ];
+}
+
+prompt {
+    enabled:                    true;
+
+    padding:                    0px;
+
+    background-color:           transparent;
+    text-color:                 @selected;
+}
+
+entry {
+    enabled:                    true;
+
+    padding:                    0px;
+
+    background-color:           transparent;
+    text-color:                 @foreground;
+
+    cursor:                     text;
+
+    placeholder:                "Search applications...";
+    placeholder-color:          @foreground;
+}
+
+/*****----- List -----*****/
+listview {
+    enabled:                    true;
+
+    columns:                    2;
+    lines:                      5;
+
+    cycle:                      true;
+    dynamic:                    true;
+
+    scrollbar:                  false;
+
+    layout:                     vertical;
+    reverse:                    false;
+
+    fixed-height:               true;
+    fixed-columns:              true;
+
+    spacing:                    6px;
+
+    margin:                     0px;
+    padding:                    0px;
+
+    border:                     0px;
+
+    background-color:           transparent;
+    text-color:                 @foreground;
+
+    cursor:                     default;
+}
+
+/*****----- Scrollbar -----*****/
+scrollbar {
+    enabled:                    false;
+
+    handle-width:               4px;
+    handle-color:               @selected;
+
+    border-radius:              4px;
+
+    background-color:           transparent;
+}
+
+/*****----- Elements -----*****/
+element {
+    enabled:                    true;
+
+    spacing:                    12px;
+
+    margin:                     0px;
+    padding:                    10px 12px;
+
+    border:                     1px solid;
+    border-radius:              10px;
+    border-color:               transparent;
+
+    background-color:           transparent;
+    text-color:                 @foreground;
+
+    orientation:                horizontal;
+
+    cursor:                     pointer;
+}
+
+/*****----- Normal -----*****/
+element normal.normal {
+    background-color:           transparent;
+    text-color:                 @foreground;
+}
+
+/*****----- Alternate -----*****/
+element alternate.normal {
+    background-color:           @background-alt;
+    text-color:                 @foreground;
+}
+
+/*****----- Selected -----*****/
+element selected.normal {
+    border-color:               @selected;
+    background-color:           @selected;
+    text-color:                 @background;
+}
+
+/*****----- Urgent -----*****/
+element normal.urgent {
+    background-color:           @urgent;
+    text-color:                 @background;
+}
+
+element selected.urgent {
+    border-color:               @urgent;
+    background-color:           @urgent;
+    text-color:                 @background;
+}
+
+/*****----- Active -----*****/
+element normal.active {
+    background-color:           @active;
+    text-color:                 @background;
+}
+
+element selected.active {
+    border-color:               @active;
+    background-color:           @active;
+    text-color:                 @background;
+}
+
+/*****----- Icons -----*****/
+element-icon {
+    enabled:                    true;
+
+    background-color:           transparent;
+    text-color:                 inherit;
+
+    size:                       30px;
+
+    cursor:                     inherit;
+}
+
+/*****----- Text -----*****/
+element-text {
+    enabled:                    true;
+
+    background-color:           transparent;
+    text-color:                 inherit;
+
+    highlight:                  inherit;
+
+    cursor:                     inherit;
+
+    vertical-align:             0.5;
+    horizontal-align:           0.0;
+}
+
+/*****----- Error Message -----*****/
+error-message {
+    enabled:                    true;
+
+    padding:                    12px;
+
+    border:                     0px;
+    border-radius:              10px;
+
+    background-color:           @background-alt;
+    text-color:                 @foreground;
+}
+
+/*****----- Textbox -----*****/
+textbox {
+    enabled:                    true;
+
+    padding:                    10px;
+
+    border:                     0px;
+    border-radius:              8px;
+
+    background-color:           transparent;
+    text-color:                 @foreground;
+
+    vertical-align:             0.5;
+    horizontal-align:           0.0;
+
+    highlight:                  none;
+}

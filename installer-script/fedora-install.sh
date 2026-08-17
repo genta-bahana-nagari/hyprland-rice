@@ -65,6 +65,10 @@ packages=(
     "vlc"
 )
 
+wallpaper_repos=(
+    "https://github.com/genta-bahana-nagari/wp-collection.git"
+)
+
 # ----------------------------------------------------------
 # Check if command exists
 # ----------------------------------------------------------
@@ -159,6 +163,43 @@ _installPackages() {
 }
 
 # ----------------------------------------------------------
+# Install extra fonts
+# ----------------------------------------------------------
+
+_installExtraFonts() {
+    echo ":: Installing extra fonts..."
+
+    local font_dir="$HOME/.local/share/fonts"
+    local temp_dir
+
+    mkdir -p "$font_dir"
+
+    temp_dir="$(mktemp -d)"
+
+    echo ":: Downloading Rubik fonts..."
+
+    curl -L \
+        "https://github.com/google/fonts/archive/refs/heads/main.zip" \
+        -o "$temp_dir/fonts.zip"
+
+    unzip -q "$temp_dir/fonts.zip" -d "$temp_dir"
+
+    find "$temp_dir" \
+        -type f \
+        \( \
+            -iname "Rubik*.ttf" \
+            -o -iname "Rubik*.otf" \
+        \) \
+        -exec cp {} "$font_dir/" \;
+
+    rm -rf "$temp_dir"
+
+    fc-cache -f "$font_dir"
+
+    echo ":: Extra fonts installed."
+}
+
+# ----------------------------------------------------------
 # Deploy dotfiles
 # ----------------------------------------------------------
 
@@ -194,11 +235,11 @@ _deployConfigs() {
 }
 
 # ----------------------------------------------------------
-# Deploy wallpapers
+# Deploy initial wallpapers
 # ----------------------------------------------------------
 
 _deployWallpapers() {
-    echo ":: Deploying wallpapers..."
+    echo ":: Deploying initial wallpapers..."
 
     mkdir -p "$HOME/Pictures/Wallpaper"
 
@@ -206,6 +247,48 @@ _deployWallpapers() {
         "$HOME/Pictures/Wallpaper/"
 
     echo ":: Wallpapers deployed to ~/Pictures/Wallpaper/"
+}
+
+# ----------------------------------------------------------
+# Download wallpaper collections
+# ----------------------------------------------------------
+
+_downloadWallpaperCollections() {
+    echo ":: Downloading wallpaper collections..."
+
+    local wallpaper_dir="$HOME/Pictures/Wallpaper"
+    local temp_dir
+    local repo
+    local repo_name
+
+    mkdir -p "$wallpaper_dir"
+
+    temp_dir="$(mktemp -d)"
+
+    for repo in "${wallpaper_repos[@]}"; do
+        repo_name="$(basename "$repo" .git)"
+
+        echo ":: Downloading ${repo_name}..."
+
+        git clone --depth 1 "$repo" "$temp_dir/$repo_name"
+
+        echo ":: Copying wallpapers from ${repo_name}..."
+
+        find "$temp_dir/$repo_name" \
+            -type f \
+            \( \
+                -iname "*.jpg" \
+                -o -iname "*.jpeg" \
+                -o -iname "*.png" \
+                -o -iname "*.webp" \
+            \) \
+            -exec cp -n {} "$wallpaper_dir/" \;
+    done
+
+    rm -rf "$temp_dir"
+
+    echo ":: Wallpaper collections downloaded."
+    echo ":: Wallpapers are located in ~/Pictures/Wallpaper/"
 }
 
 # ----------------------------------------------------------
@@ -323,6 +406,16 @@ echo
 _installPackages "${packages[@]}"
 
 # ----------------------------------------------------------
+# Install extra fonts
+# ----------------------------------------------------------
+
+echo
+echo ":: Installing extra fonts..."
+echo
+
+_installExtraFonts
+
+# ----------------------------------------------------------
 # Deploy configuration
 # ----------------------------------------------------------
 
@@ -335,6 +428,36 @@ _deployConfigs
 
 echo
 _deployWallpapers
+
+# ----------------------------------------------------------
+# Optional wallpaper collections
+# ----------------------------------------------------------
+
+while true; do
+    read -rp \
+        "DO YOU WANT TO DOWNLOAD ADDITIONAL WALLPAPER COLLECTIONS? (Yy/Nn): " \
+        yn
+
+    case "$yn" in
+        [Yy]*)
+            echo
+            _downloadWallpaperCollections
+            echo
+            break
+            ;;
+
+        [Nn]*)
+            echo
+            echo ":: Skipping additional wallpaper collections."
+            echo
+            break
+            ;;
+
+        *)
+            echo ":: Please answer yes or no."
+            ;;
+    esac
+done
 
 # ----------------------------------------------------------
 # Install Oh My Posh

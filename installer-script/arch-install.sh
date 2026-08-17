@@ -70,6 +70,10 @@ aur_packages=(
     "ttf-rubik-vf"
 )
 
+wallpaper_repos=(
+    "https://github.com/genta-bahana-nagari/wp-collection.git"
+)
+
 # ----------------------------------------------------------
 # Check if command exists
 # ----------------------------------------------------------
@@ -192,11 +196,11 @@ _deployConfigs() {
 }
 
 # ----------------------------------------------------------
-# Deploy wallpapers
+# Deploy initial wallpapers
 # ----------------------------------------------------------
 
 _deployWallpapers() {
-    echo ":: Deploying wallpapers..."
+    echo ":: Deploying initial wallpapers..."
 
     mkdir -p "$HOME/Pictures/Wallpaper"
 
@@ -204,6 +208,48 @@ _deployWallpapers() {
         "$HOME/Pictures/Wallpaper/"
 
     echo ":: Wallpapers deployed to ~/Pictures/Wallpaper/"
+}
+
+# ----------------------------------------------------------
+# Download wallpaper collections
+# ----------------------------------------------------------
+
+_downloadWallpaperCollections() {
+    echo ":: Downloading wallpaper collections..."
+
+    local wallpaper_dir="$HOME/Pictures/Wallpaper"
+    local temp_dir
+    local repo
+    local repo_name
+
+    mkdir -p "$wallpaper_dir"
+
+    temp_dir="$(mktemp -d)"
+
+    for repo in "${wallpaper_repos[@]}"; do
+        repo_name="$(basename "$repo" .git)"
+
+        echo ":: Downloading ${repo_name}..."
+
+        git clone --depth 1 "$repo" "$temp_dir/$repo_name"
+
+        echo ":: Copying wallpapers from ${repo_name}..."
+
+        find "$temp_dir/$repo_name" \
+            -type f \
+            \( \
+                -iname "*.jpg" \
+                -o -iname "*.jpeg" \
+                -o -iname "*.png" \
+                -o -iname "*.webp" \
+            \) \
+            -exec cp -n {} "$wallpaper_dir/" \;
+    done
+
+    rm -rf "$temp_dir"
+
+    echo ":: Wallpaper collections downloaded."
+    echo ":: Wallpapers are located in ~/Pictures/Wallpaper/"
 }
 
 # ----------------------------------------------------------
@@ -335,6 +381,36 @@ _deployConfigs
 
 echo
 _deployWallpapers
+
+# ----------------------------------------------------------
+# Optional wallpaper collections
+# ----------------------------------------------------------
+
+while true; do
+    read -rp \
+        "DO YOU WANT TO DOWNLOAD ADDITIONAL WALLPAPER COLLECTIONS? (Yy/Nn): " \
+        yn
+
+    case "$yn" in
+        [Yy]*)
+            echo
+            _downloadWallpaperCollections
+            echo
+            break
+            ;;
+
+        [Nn]*)
+            echo
+            echo ":: Skipping additional wallpaper collections."
+            echo
+            break
+            ;;
+
+        *)
+            echo ":: Please answer yes or no."
+            ;;
+    esac
+done
 
 # ----------------------------------------------------------
 # Install Oh My Posh

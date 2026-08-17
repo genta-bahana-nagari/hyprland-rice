@@ -1,0 +1,112 @@
+{
+  "spacing": 18,
+  "margin-top": 5,
+
+  "modules-left": ["custom/updatetoggler"],
+
+  "modules-center": [
+    "hyprland/workspaces",
+    "clock",
+    "pulseaudio",
+    "network",
+    "battery",
+  ],
+
+  "modules-right": ["custom/notifications"],
+
+  "custom/updatetoggler": {
+    "format": "󰣇",
+    "tooltip": false,
+    "on-click": "kitty bash -c 'sudo pacman -Syyu; exec bash'",
+  },
+
+  "clock": {
+    "interval": 60,
+    "format": "{:%I:%M %p}",
+    "format-alt": "󰃭 {:%A, %B %d}",
+    "tooltip-format": "<tt><span size='12pt' font='JetBrainsMono Nerd Font'>{calendar}</span></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffb786'><b>{}</b></span>",
+        "days": "<span color='#e2e2e2'>{}</span>",
+        "today": "<span color='#131313' background='#ffb786'><b>{}</b></span>",
+      },
+    },
+  },
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "warp-on-scroll": false,
+    "sort-by-number": true,
+    "show-special": false,
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "persistent-workspaces": {
+      "*": 5,
+    },
+    "format": "{icon}",
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": "",
+    "format-bluetooth": "{volume}% {icon} ",
+    "format-icons": {
+      "default": ["", ""],
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol",
+    "ignored-sinks": ["Easy Effects Sink"],
+    "tooltip-format": "{desc}\nVolume: {volume}%",
+  },
+
+  "network": {
+    "interface": "wlan0",
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+    "format-disconnected": "No WiFi 󰤭",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 40,
+    "on-click": "~/.config/hypr/scripts/wifi-mananger.sh",
+  },
+
+  "battery": {
+    "states": {
+      "middle": 40,
+      "warning": 20,
+      "critical": 10,
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󱐋",
+    "format-plugged": "{capacity}% ",
+    "format-icons": ["", "", "", "", ""],
+  },
+
+  "custom/notifications": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "swaync-client -t",
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "~/.config/rofi/powermenu/type-2/powermenu.sh &",
+  },
+}

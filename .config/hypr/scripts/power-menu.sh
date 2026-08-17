@@ -1,23 +1,27 @@
 theme="$HOME/.config/rofi/styles/powermenu-style.rasi"
 
-options="Shutdown\nReboot\nLock\nLogout\nSuspend"
+options="󰐥  Shutdown
+󰜉  Reboot
+󰌾  Lock
+󰍃  Logout
+󰤄  Suspend"
 
-chosen=$(echo -e "$options" | rofi -dmenu -theme "$theme" -p "Power")
+chosen=$(printf '%s\n' "$options" | rofi -dmenu -theme "$theme" -p "Power")
 
 case "$chosen" in
-    Shutdown)
+    "󰐥  Shutdown")
         systemctl poweroff
         ;;
-    Reboot)
+    "󰜉  Reboot")
         systemctl reboot
         ;;
-    Lock)
+    "󰌾  Lock")
         hyprlock
         ;;
-    Logout)
+    "󰍃  Logout")
         hyprctl dispatch exit
         ;;
-    Suspend)
+    "󰤄  Suspend")
         systemctl suspend
         ;;
 esac

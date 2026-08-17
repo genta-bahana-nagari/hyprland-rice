@@ -2,7 +2,7 @@
   "spacing": 18,
   "margin-top": 5,
 
-  "modules-left": ["custom/updatetoggler"],
+  "modules-left": ["custom/launcher", "custom/updatetoggler"],
 
   "modules-center": [
     "hyprland/workspaces",
@@ -12,11 +12,19 @@
     "battery",
   ],
 
-  "modules-right": ["custom/notifications"],
+  "modules-right": ["custom/notifications", "custom/power"],
+
+  "custom/launcher": {
+    "format": "",
+    "tooltip": true,
+    "tooltip-format": "App Launcher",
+    "on-click": "~/.config/rofi/launcher.sh",
+  },
 
   "custom/updatetoggler": {
     "format": "󰨇",
-    "tooltip": false,
+    "tooltip": true,
+    "tooltip-format": "System Update",
     "on-click": "~/.config/waybar/scripts/system-update.sh",
   },
 
@@ -100,13 +108,15 @@
 
   "custom/notifications": {
     "format": "",
-    "tooltip": false,
+    "tooltip": true,
+    "tooltip-format": "Notifications",
     "on-click": "swaync-client -t",
   },
 
   "custom/power": {
-    "format": "⏻",
-    "tooltip": false,
-    "on-click": "~/.config/rofi/powermenu/type-2/powermenu.sh &",
+    "format": "󰐥",
+    "tooltip": true,
+    "tooltip-format": "Power Menu",
+    "on-click": "~/.config/hypr/scripts/power-menu.sh",
   },
 }

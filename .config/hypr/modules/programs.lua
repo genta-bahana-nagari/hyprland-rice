@@ -1,0 +1,24 @@
+---------------------
+---- MY PROGRAMS ----
+---------------------
+
+local programs = {
+    terminal = "kitty",
+    browser = "firefox",
+    code = "code",
+    menu = "~/.config/rofi/launcher.sh",
+    fileManager = "nautilus",
+
+    wifiManager = "~/.config/hypr/scripts/wifi-mananger.sh",
+    wifiDisconnect = "~/.config/hypr/scripts/wifi-disconnect.sh",
+
+    rofiLogout = "~/.config/hypr/scripts/power-menu.sh",
+    wallpaperSwitcher = "~/.config/hypr/scripts/wallpaper-switch.sh",
+    screenRecord = "~/.config/hypr/scripts/screen-record.sh",
+
+    waybarSwitcher = "~/.config/waybar/scripts/theme-switcher.sh",
+
+    keybinds = "~/.config/hypr/scripts/keybinds.sh",
+}
+
+return programs

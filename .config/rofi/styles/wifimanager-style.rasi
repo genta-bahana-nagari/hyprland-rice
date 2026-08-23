@@ -1,6 +1,5 @@
 @import                          "../shared/colors.rasi"
 @import                          "../shared/fonts.rasi"
-@import                          "~/.config/rofi/styles/main-style.rasi"  
 
 * {
     border-colour:               var(selected);

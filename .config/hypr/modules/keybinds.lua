@@ -105,7 +105,10 @@ hl.bind(
 -- Fullscreen
 hl.bind(
     mainMod .. " + M",
-    hl.dsp.window.fullscreen()
+    hl.dsp.window.fullscreen({
+        mode = "maximized",
+        action = "toggle"
+    })
 )
 
 -- Toggle floating

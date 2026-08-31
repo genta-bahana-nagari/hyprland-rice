@@ -70,7 +70,7 @@
   // --- MODULE CONFIGURATION ---
 
   "custom/launcher": {
-    "format": "󰣇",
+    "format": "󰨇",
     "on-click": "kitty bash -c 'sudo pacman -Syyu; exec bash'",
     "on-click-right": "~/.config/rofi/launcher.sh",
     "tooltip-format": "Control Center",

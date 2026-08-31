@@ -1,0 +1,277 @@
+{
+    "layer": "top",
+    "position": "top",
+
+    "height": 42,
+    "spacing": 6,
+
+    "margin-top": 8,
+    "margin-left": 10,
+    "margin-right": 10,
+
+    "modules-left": [
+        "custom/menu",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "cpu",
+        "memory",
+        "temperature",
+        "disk",
+        "network",
+        "pulseaudio",
+        "backlight",
+        "battery",
+        "tray",
+        "custom/power"
+    ],
+
+
+    // ─────────────────────────────────────────────
+    // MENU
+    // ─────────────────────────────────────────────
+
+    "custom/menu": {
+        "format": "",
+        "tooltip": "App Launcher",
+        "on-click": "~/.config/rofi/launcher.sh"
+    },
+
+
+    // ─────────────────────────────────────────────
+    // WORKSPACES
+    // ─────────────────────────────────────────────
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+
+        "format": "{icon}",
+
+        "format-icons": {
+            "1": "󰲠",
+            "2": "󰲢",
+            "3": "󰲤",
+            "4": "󰲦",
+            "5": "󰲨",
+            "6": "󰲪",
+            "7": "󰲬",
+            "8": "󰲮",
+            "9": "󰲰",
+            "10": "󰿬"
+        }
+    },
+
+
+    // ─────────────────────────────────────────────
+    // WINDOW TITLE
+    // ─────────────────────────────────────────────
+
+    "hyprland/window": {
+        "format": "󰣆  {}",
+        "max-length": 45,
+        "separate-outputs": true
+    },
+
+
+    // ─────────────────────────────────────────────
+    // CLOCK
+    // ─────────────────────────────────────────────
+
+    "clock": {
+        "format": "󰥔  {:%H:%M:%S}",
+        "format-alt": "󰃭  {:%A, %d %B %Y}",
+
+        "tooltip-format": "<tt>{calendar}</tt>",
+
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+
+            "format": {
+                "months": "<span color='#88c0d0'><b>{}</b></span>",
+                "days": "<span color='#d8dee9'>{}</span>",
+                "weeks": "<span color='#81a1c1'>W{}</span>",
+                "weekdays": "<span color='#88c0d0'><b>{}</b></span>",
+                "today": "<span color='#bf616a'><b>{}</b></span>"
+            }
+        }
+    },
+
+
+    // ─────────────────────────────────────────────
+    // CPU
+    // ─────────────────────────────────────────────
+
+    "cpu": {
+        "interval": 2,
+        "format": "󰻠  {usage}%",
+        "tooltip": true,
+
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+
+    // ─────────────────────────────────────────────
+    // MEMORY
+    // ─────────────────────────────────────────────
+
+    "memory": {
+        "interval": 2,
+        "format": "󰍛  {percentage}%",
+        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G"
+    },
+
+
+    // ─────────────────────────────────────────────
+    // TEMPERATURE
+    // ─────────────────────────────────────────────
+
+    "temperature": {
+        "interval": 5,
+        "format": "󰔏  {temperatureC}°C",
+        "critical-threshold": 80,
+
+        "tooltip-format": "Temperature: {temperatureC}°C"
+    },
+
+
+    // ─────────────────────────────────────────────
+    // DISK
+    // ─────────────────────────────────────────────
+
+    "disk": {
+        "interval": 30,
+
+        "format": "󰋊  {percentage_used}%",
+        "path": "/",
+
+        "tooltip-format": "{used} / {total}"
+    },
+
+
+    // ─────────────────────────────────────────────
+    // NETWORK
+    // ─────────────────────────────────────────────
+
+    "network": {
+        "format-wifi": "󰤨  {essid}  {signalStrength}%",
+        "format-ethernet": "󰈀  {ifname}",
+        "format-disconnected": "󰤭  Offline",
+
+        "tooltip-format-wifi":
+            "SSID: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}\nInterface: {ifname}",
+
+        "tooltip-format-ethernet":
+            "Interface: {ifname}\nIP: {ipaddr}",
+
+        "tooltip-format-disconnected":
+            "Network disconnected"
+    },
+
+
+    // ─────────────────────────────────────────────
+    // AUDIO
+    // ─────────────────────────────────────────────
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "󰂰  {volume}%",
+        "format-muted": "󰝟  Muted",
+
+        "format-icons": {
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
+        },
+
+        "scroll-step": 5,
+
+        "tooltip-format": "{desc}\nVolume: {volume}%",
+
+        "on-click": "pavucontrol"
+    },
+
+
+    // ─────────────────────────────────────────────
+    // BRIGHTNESS
+    // ─────────────────────────────────────────────
+
+    "backlight": {
+        "format": "{icon}  {percent}%",
+
+        "format-icons": [
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ],
+
+        "tooltip-format": "Brightness: {percent}%"
+    },
+
+
+    // ─────────────────────────────────────────────
+    // BATTERY
+    // ─────────────────────────────────────────────
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "󰂄  {capacity}%",
+
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+
+        "tooltip-format":
+            "Battery: {capacity}%\nStatus: {status}\nTime: {time}"
+    },
+
+
+    // ─────────────────────────────────────────────
+    // SYSTEM TRAY
+    // ─────────────────────────────────────────────
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 8
+    },
+
+
+    // ─────────────────────────────────────────────
+    // POWER
+    // ─────────────────────────────────────────────
+
+    "custom/power": {
+        "format": "󰐥",
+        "tooltip": false,
+
+        "on-click": "~/.config/hypr/scripts/power-menu.sh"
+    }
+}

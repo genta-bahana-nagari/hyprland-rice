@@ -1,0 +1,116 @@
+/*
+ * aurora_simple_v2
+ * Simple v2
+ */
+
+* {
+    border: none;
+    min-height: 0;
+
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #e8edf5;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#network,
+#pulseaudio,
+#battery {
+    background: #121620;
+    margin: 5px 2px;
+    padding: 7px 12px;
+    border-radius: 10px;
+}
+
+#custom-menu {
+    color: #88c0d0;
+    background: #222a3c;
+}
+
+#workspaces {
+    padding: 3px;
+}
+
+#workspaces button {
+    color: #e8edf5;
+    background: transparent;
+
+    padding: 5px 8px;
+    margin: 0 1px;
+
+    border-radius: 7px;
+}
+
+#workspaces button:hover {
+    color: #88c0d0;
+    background: #222a3c;
+}
+
+#workspaces button.active {
+    color: #121620;
+    background: #88c0d0;
+}
+
+#window {
+    background: transparent;
+}
+
+#clock {
+    color: #88c0d0;
+    background: #222a3c;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#network {
+    color: #b48ead;
+}
+
+#network.disconnected {
+    color: #bf616a;
+}
+
+#pulseaudio {
+    color: #88c0d0;
+}
+
+#pulseaudio.muted {
+    color: #bf616a;
+}
+
+#battery {
+    color: #b48ead;
+}
+
+#battery.warning {
+    color: #bf616a;
+}
+
+#battery.critical {
+    color: #bf616a;
+}
+
+#battery.charging {
+    color: #88c0d0;
+}
+
+tooltip {
+    background: #121620;
+    border: 1px solid #88c0d0;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #e8edf5;
+    padding: 6px;
+}

@@ -1,0 +1,121 @@
+@define-color background     #111318;
+@define-color background-alt #1a1d24;
+@define-color foreground     #d8dee9;
+
+@define-color selected       #88c0d0;
+@define-color active         #81a1c1;
+@define-color urgent         #bf616a;
+@define-color muted          #616875;
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: 500;
+
+    border: none;
+    min-height: 0;
+}
+
+
+window#waybar {
+    background: transparent;
+    color: @foreground;
+}
+
+
+#workspaces,
+#clock,
+#network,
+#pulseaudio,
+#battery {
+    background: @background;
+
+    color: @foreground;
+
+    padding: 0 10px;
+
+    border: 2px solid @selected;
+    border-radius: 12px;
+}
+
+
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: @muted;
+
+    padding: 0 8px;
+    margin: 3px 2px;
+
+    border-radius: 8px;
+}
+
+#workspaces button:hover {
+    background: @background-alt;
+    color: @foreground;
+}
+
+#workspaces button.active {
+    background: @selected;
+    color: @background;
+}
+
+#workspaces button.urgent {
+    background: @urgent;
+    color: @background;
+}
+
+
+#clock {
+    background: @background-alt;
+    color: @selected;
+
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+#network.wifi {
+    color: @selected;
+}
+
+#network.ethernet {
+    color: @active;
+}
+
+#network.disconnected {
+    color: @urgent;
+}
+
+#pulseaudio.muted {
+    color: @muted;
+}
+
+#battery.charging {
+    color: @selected;
+}
+
+#battery.warning {
+    color: @active;
+}
+
+#battery.critical:not(.charging) {
+    color: @urgent;
+}
+
+tooltip {
+    background: @background;
+
+    color: @foreground;
+
+    border: 2px solid @selected;
+    border-radius: 12px;
+
+    padding: 10px;
+}
+
+tooltip label {
+    color: @foreground;
+}

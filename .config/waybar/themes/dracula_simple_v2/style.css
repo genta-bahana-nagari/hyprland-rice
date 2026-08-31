@@ -1,0 +1,116 @@
+/*
+ * dracula_simple_v2
+ * Simple v2
+ */
+
+* {
+    border: none;
+    min-height: 0;
+
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #f8f8f2;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#network,
+#pulseaudio,
+#battery {
+    background: #242631;
+    margin: 5px 2px;
+    padding: 7px 12px;
+    border-radius: 10px;
+}
+
+#custom-menu {
+    color: #ff79c6;
+    background: #373948;
+}
+
+#workspaces {
+    padding: 3px;
+}
+
+#workspaces button {
+    color: #f8f8f2;
+    background: transparent;
+
+    padding: 5px 8px;
+    margin: 0 1px;
+
+    border-radius: 7px;
+}
+
+#workspaces button:hover {
+    color: #ff79c6;
+    background: #373948;
+}
+
+#workspaces button.active {
+    color: #242631;
+    background: #ff79c6;
+}
+
+#window {
+    background: transparent;
+}
+
+#clock {
+    color: #ff79c6;
+    background: #373948;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#network {
+    color: #8be9fd;
+}
+
+#network.disconnected {
+    color: #ff5555;
+}
+
+#pulseaudio {
+    color: #ff79c6;
+}
+
+#pulseaudio.muted {
+    color: #ff5555;
+}
+
+#battery {
+    color: #8be9fd;
+}
+
+#battery.warning {
+    color: #ff5555;
+}
+
+#battery.critical {
+    color: #ff5555;
+}
+
+#battery.charging {
+    color: #ff79c6;
+}
+
+tooltip {
+    background: #242631;
+    border: 1px solid #ff79c6;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #f8f8f2;
+    padding: 6px;
+}

@@ -1,0 +1,182 @@
+/*
+ * forest_maximum_v1
+ * Maximum v1
+ */
+
+* {
+    border: none;
+    min-height: 0;
+
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #d9e7dc;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#tray,
+#custom-power {
+    margin: 4px 2px;
+    padding: 8px 12px;
+
+    background: #17211b;
+    border-radius: 10px;
+
+    transition: all 150ms ease;
+}
+
+#custom-menu {
+    color: #8fbc8f;
+    background: #24352a;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#workspaces {
+    padding: 3px 5px;
+}
+
+#workspaces button {
+    color: #d9e7dc;
+    background: transparent;
+
+    margin: 0 2px;
+    padding: 6px 10px;
+
+    border-radius: 8px;
+}
+
+#workspaces button:hover {
+    background: #24352a;
+    color: #8fbc8f;
+}
+
+#workspaces button.active {
+    background: #8fbc8f;
+    color: #17211b;
+
+    box-shadow: inset 0 -2px #a3be8c;
+}
+
+#workspaces button.urgent {
+    background: #d08770;
+    color: #17211b;
+}
+
+#window {
+    background: #24352a;
+    color: #d9e7dc;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#clock {
+    color: #8fbc8f;
+
+    padding-left: 18px;
+    padding-right: 18px;
+
+    border: 1px solid #8fbc8f;
+}
+
+#cpu {
+    color: #a3be8c;
+}
+
+#memory {
+    color: #8fbc8f;
+}
+
+#temperature {
+    color: #d9e7dc;
+}
+
+#temperature.critical {
+    color: #d08770;
+}
+
+#disk {
+    color: #a3be8c;
+}
+
+#network {
+    color: #8fbc8f;
+}
+
+#network.disconnected {
+    color: #d08770;
+}
+
+#pulseaudio {
+    color: #a3be8c;
+}
+
+#pulseaudio.muted {
+    color: #d08770;
+}
+
+#backlight {
+    color: #8fbc8f;
+}
+
+#battery {
+    color: #8fbc8f;
+}
+
+#battery.warning {
+    color: #a3be8c;
+}
+
+#battery.critical {
+    color: #d08770;
+}
+
+#battery.charging {
+    color: #a3be8c;
+}
+
+#tray {
+    background: #24352a;
+}
+
+#custom-power {
+    color: #d08770;
+    background: #24352a;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#custom-power:hover {
+    color: #17211b;
+    background: #d08770;
+}
+
+tooltip {
+    background: #17211b;
+    border: 1px solid #8fbc8f;
+    border-radius: 10px;
+}
+
+tooltip label {
+    color: #d9e7dc;
+    padding: 7px;
+}

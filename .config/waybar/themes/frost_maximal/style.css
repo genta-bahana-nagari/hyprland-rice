@@ -1,0 +1,367 @@
+/* =========================================================
+   FROST MAXIMAL
+   Detailed / layered / information-rich
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   PALETTE
+   --------------------------------------------------------- */
+
+@define-color background     #111318;
+@define-color background-alt #1a1d24;
+@define-color foreground     #d8dee9;
+
+@define-color selected       #88c0d0;
+@define-color active         #81a1c1;
+@define-color urgent         #bf616a;
+
+@define-color muted          #616875;
+@define-color surface       #20242d;
+
+
+/* ---------------------------------------------------------
+   GLOBAL
+   --------------------------------------------------------- */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: 500;
+
+    border: none;
+    min-height: 0;
+}
+
+
+/* ---------------------------------------------------------
+   BAR
+   --------------------------------------------------------- */
+
+window#waybar {
+    background: transparent;
+    color: @foreground;
+}
+
+
+/* ---------------------------------------------------------
+   LEFT SIDE
+   --------------------------------------------------------- */
+
+#custom-menu {
+    background: @selected;
+    color: @background;
+
+    padding: 0 14px;
+
+    border-radius: 12px;
+}
+
+#custom-menu:hover {
+    background: @active;
+}
+
+
+/* ---------------------------------------------------------
+   WORKSPACES
+   --------------------------------------------------------- */
+
+#workspaces {
+    background: @background;
+
+    padding: 0 5px;
+
+    border: 2px solid @selected;
+    border-radius: 12px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: @muted;
+
+    padding: 0 9px;
+    margin: 4px 2px;
+
+    border-radius: 8px;
+}
+
+#workspaces button:hover {
+    background: @background-alt;
+    color: @foreground;
+}
+
+#workspaces button.active {
+    background: @selected;
+    color: @background;
+}
+
+#workspaces button.urgent {
+    background: @urgent;
+    color: @background;
+}
+
+
+/* ---------------------------------------------------------
+   WINDOW TITLE
+   --------------------------------------------------------- */
+
+#window {
+    background: @background-alt;
+    color: @foreground;
+
+    padding: 0 14px;
+
+    border-left: 2px solid @active;
+    border-radius: 10px;
+}
+
+
+/* ---------------------------------------------------------
+   CENTER CLOCK
+   --------------------------------------------------------- */
+
+#clock {
+    background: @background;
+
+    color: @selected;
+
+    padding: 0 18px;
+
+    border: 2px solid @selected;
+    border-radius: 12px;
+
+    font-weight: 700;
+}
+
+
+/* ---------------------------------------------------------
+   RIGHT SIDE — BASE
+   --------------------------------------------------------- */
+
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#tray,
+#custom-power {
+    background: @background;
+
+    color: @foreground;
+
+    padding: 0 10px;
+
+    border-radius: 10px;
+}
+
+
+/* ---------------------------------------------------------
+   CPU
+   --------------------------------------------------------- */
+
+#cpu {
+    border-bottom: 2px solid @selected;
+}
+
+#cpu.warning {
+    color: @active;
+}
+
+#cpu.critical {
+    color: @urgent;
+}
+
+
+/* ---------------------------------------------------------
+   MEMORY
+   --------------------------------------------------------- */
+
+#memory {
+    border-bottom: 2px solid @active;
+}
+
+
+/* ---------------------------------------------------------
+   TEMPERATURE
+   --------------------------------------------------------- */
+
+#temperature {
+    border-bottom: 2px solid @selected;
+}
+
+#temperature.critical {
+    color: @urgent;
+}
+
+
+/* ---------------------------------------------------------
+   DISK
+   --------------------------------------------------------- */
+
+#disk {
+    color: @foreground;
+    border-bottom: 2px solid @muted;
+}
+
+
+/* ---------------------------------------------------------
+   NETWORK
+   --------------------------------------------------------- */
+
+#network {
+    border-bottom: 2px solid @selected;
+}
+
+#network.wifi {
+    color: @selected;
+}
+
+#network.ethernet {
+    color: @active;
+}
+
+#network.disconnected {
+    color: @urgent;
+}
+
+
+/* ---------------------------------------------------------
+   AUDIO
+   --------------------------------------------------------- */
+
+#pulseaudio {
+    border-bottom: 2px solid @active;
+}
+
+#pulseaudio.bluetooth {
+    color: @selected;
+}
+
+#pulseaudio.muted {
+    color: @muted;
+}
+
+
+/* ---------------------------------------------------------
+   BACKLIGHT
+   --------------------------------------------------------- */
+
+#backlight {
+    border-bottom: 2px solid @selected;
+}
+
+
+/* ---------------------------------------------------------
+   BATTERY
+   --------------------------------------------------------- */
+
+#battery {
+    border-bottom: 2px solid @selected;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: @selected;
+}
+
+#battery.warning {
+    color: @active;
+}
+
+#battery.critical:not(.charging) {
+    color: @urgent;
+
+    animation-name: battery-critical;
+    animation-duration: 1s;
+    animation-timing-function: steps(2);
+    animation-iteration-count: infinite;
+}
+
+@keyframes battery-critical {
+    to {
+        background: @urgent;
+        color: @background;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   TRAY
+   --------------------------------------------------------- */
+
+#tray {
+    padding: 0 8px;
+
+    border: 2px solid @background-alt;
+}
+
+#tray > .passive {
+    opacity: 0.6;
+}
+
+#tray > .needs-attention {
+    background: @urgent;
+    color: @background;
+
+    border-radius: 8px;
+}
+
+
+/* ---------------------------------------------------------
+   POWER
+   --------------------------------------------------------- */
+
+#custom-power {
+    background: @urgent;
+    color: @background;
+
+    padding: 0 13px;
+
+    border-radius: 12px;
+}
+
+#custom-power:hover {
+    background: @selected;
+    color: @background;
+}
+
+
+/* ---------------------------------------------------------
+   TOOLTIPS
+   --------------------------------------------------------- */
+
+tooltip {
+    background: @background;
+
+    color: @foreground;
+
+    border: 2px solid @selected;
+    border-radius: 12px;
+
+    padding: 10px;
+}
+
+tooltip label {
+    color: @foreground;
+}
+
+
+/* ---------------------------------------------------------
+   SPACING
+   --------------------------------------------------------- */
+
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#tray {
+    margin-left: 2px;
+    margin-right: 2px;
+}

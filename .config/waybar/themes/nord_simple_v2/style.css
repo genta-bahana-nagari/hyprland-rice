@@ -1,0 +1,116 @@
+/*
+ * nord_simple_v2
+ * Simple v2
+ */
+
+* {
+    border: none;
+    min-height: 0;
+
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #eceff4;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#network,
+#pulseaudio,
+#battery {
+    background: #2e3440;
+    margin: 5px 2px;
+    padding: 7px 12px;
+    border-radius: 10px;
+}
+
+#custom-menu {
+    color: #8fbcbb;
+    background: #434c5e;
+}
+
+#workspaces {
+    padding: 3px;
+}
+
+#workspaces button {
+    color: #eceff4;
+    background: transparent;
+
+    padding: 5px 8px;
+    margin: 0 1px;
+
+    border-radius: 7px;
+}
+
+#workspaces button:hover {
+    color: #8fbcbb;
+    background: #434c5e;
+}
+
+#workspaces button.active {
+    color: #2e3440;
+    background: #8fbcbb;
+}
+
+#window {
+    background: transparent;
+}
+
+#clock {
+    color: #8fbcbb;
+    background: #434c5e;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#network {
+    color: #88c0d0;
+}
+
+#network.disconnected {
+    color: #bf616a;
+}
+
+#pulseaudio {
+    color: #8fbcbb;
+}
+
+#pulseaudio.muted {
+    color: #bf616a;
+}
+
+#battery {
+    color: #88c0d0;
+}
+
+#battery.warning {
+    color: #bf616a;
+}
+
+#battery.critical {
+    color: #bf616a;
+}
+
+#battery.charging {
+    color: #8fbcbb;
+}
+
+tooltip {
+    background: #2e3440;
+    border: 1px solid #8fbcbb;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #eceff4;
+    padding: 6px;
+}

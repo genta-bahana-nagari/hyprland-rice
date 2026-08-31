@@ -1,0 +1,263 @@
+/*
+ * nord_simple_v1
+ * Generated Waybar theme
+ */
+
+* {
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #d8dee9;
+}
+
+
+/* =========================================================
+ * WAYBAR
+ * ========================================================= */
+
+window#waybar {
+    background: transparent;
+}
+
+
+/* =========================================================
+ * COMMON MODULES
+ * ========================================================= */
+
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#tray,
+#custom-power {
+    background: #2e3440;
+    color: #d8dee9;
+
+    margin: 4px 2px;
+    padding: 6px 10px;
+
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+ * MENU
+ * ========================================================= */
+
+#custom-menu {
+    color: #88c0d0;
+    background: #3b4252;
+
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+
+/* =========================================================
+ * WORKSPACES
+ * ========================================================= */
+
+#workspaces {
+    padding: 3px 5px;
+    background: #2e3440;
+}
+
+#workspaces button {
+    color: #d8dee9;
+    background: transparent;
+
+    padding: 5px 9px;
+    margin: 0 2px;
+
+    border-radius: 8px;
+
+    transition: all 150ms ease;
+}
+
+#workspaces button:hover {
+    background: #3b4252;
+    color: #88c0d0;
+}
+
+#workspaces button.active {
+    background: #88c0d0;
+    color: #2e3440;
+
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+#workspaces button.urgent {
+    background: #bf616a;
+    color: #2e3440;
+}
+
+
+/* =========================================================
+ * WINDOW
+ * ========================================================= */
+
+#window {
+    color: #d8dee9;
+    background: #2e3440;
+
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+window#waybar.empty #window {
+    background: transparent;
+}
+
+
+/* =========================================================
+ * CLOCK
+ * ========================================================= */
+
+#clock {
+    color: #88c0d0;
+
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+
+/* =========================================================
+ * SYSTEM
+ * ========================================================= */
+
+#cpu {
+    color: #81a1c1;
+}
+
+#memory {
+    color: #88c0d0;
+}
+
+#temperature {
+    color: #d8dee9;
+}
+
+#temperature.critical {
+    color: #bf616a;
+}
+
+#disk {
+    color: #d8dee9;
+}
+
+
+/* =========================================================
+ * NETWORK
+ * ========================================================= */
+
+#network {
+    color: #88c0d0;
+}
+
+#network.disconnected {
+    color: #bf616a;
+}
+
+
+/* =========================================================
+ * AUDIO
+ * ========================================================= */
+
+#pulseaudio {
+    color: #81a1c1;
+}
+
+#pulseaudio.muted {
+    color: #bf616a;
+}
+
+
+/* =========================================================
+ * BRIGHTNESS
+ * ========================================================= */
+
+#backlight {
+    color: #88c0d0;
+}
+
+
+/* =========================================================
+ * BATTERY
+ * ========================================================= */
+
+#battery {
+    color: #88c0d0;
+}
+
+#battery.warning {
+    color: #81a1c1;
+}
+
+#battery.critical {
+    color: #bf616a;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #88c0d0;
+}
+
+
+/* =========================================================
+ * TRAY
+ * ========================================================= */
+
+#tray {
+    background: #3b4252;
+
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+
+/* =========================================================
+ * POWER
+ * ========================================================= */
+
+#custom-power {
+    color: #bf616a;
+    background: #3b4252;
+
+    padding-left: 13px;
+    padding-right: 13px;
+}
+
+#custom-power:hover {
+    background: #bf616a;
+    color: #2e3440;
+}
+
+
+/* =========================================================
+ * TOOLTIPS
+ * ========================================================= */
+
+tooltip {
+    background: #2e3440;
+    border: 1px solid #88c0d0;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #d8dee9;
+    padding: 6px;
+}

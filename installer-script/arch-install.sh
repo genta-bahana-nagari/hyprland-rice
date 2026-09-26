@@ -94,6 +94,7 @@ packages=(
     "curl"
     "wget"
     "git"
+    "swayosd"
 
     # ------------------------------------------------------
     # Audio / wallpaper / recording

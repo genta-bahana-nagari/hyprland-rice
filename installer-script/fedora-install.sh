@@ -78,6 +78,7 @@ packages=(
     "wget"
     "git"
     "unzip"
+    "swayosd"
 
     # Audio / wallpaper / recording
     "cava"

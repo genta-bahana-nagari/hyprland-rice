@@ -10,7 +10,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("swaync")
 
     hl.exec_cmd("hypridle")
-    hl.exec_cmd("swayosd-server")
+    hl.exec_cmd("swayosd-server -s ~/.config/swayosd/style.css")
 
     hl.exec_cmd(
         "wl-paste --type text --watch cliphist store"

@@ -40,6 +40,16 @@ hl.bind(
 )
 
 hl.bind(
+    mainMod .. " + SHIFT + D",
+    hl.dsp.exec_cmd("flatpak run com.discordapp.Discord")
+)
+
+hl.bind(
+    mainMod .. " + SHIFT + M",
+    hl.dsp.exec_cmd("flatpak run com.spotify.Client")
+)
+
+hl.bind(
     mainMod .. " + N",
     hl.dsp.exec_cmd("swaync-client -t")
 )
@@ -52,6 +62,11 @@ hl.bind(
 hl.bind(
     mainMod .. " + CTRL + N",
     hl.dsp.exec_cmd(programs.wifiDisconnect)
+)
+
+hl.bind(
+    mainMod .. " + R",
+    hl.dsp.exec_cmd("hyprctl reload")
 )
 
 -- Screen Record
@@ -106,8 +121,8 @@ hl.bind(
 hl.bind(
     mainMod .. " + M",
     hl.dsp.window.fullscreen({
-        mode = "maximized",
-        action = "toggle"
+	mode = "maximized",
+	action = "toggle"
     })
 )
 

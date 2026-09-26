@@ -8,7 +8,6 @@ local programs = {
     code = "code",
     menu = "~/.config/rofi/launcher.sh",
     fileManager = "nautilus",
-
     wifiManager = "~/.config/hypr/scripts/wifi-mananger.sh",
     wifiDisconnect = "~/.config/hypr/scripts/wifi-disconnect.sh",
 

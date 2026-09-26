@@ -25,10 +25,13 @@ descriptions = {
     "SUPER + B": "Open Web Browser",
     "SUPER + C": "Open Code Editor",
     "SUPER + D": "Open Application Launcher",
+    "SUPER + SHIFT + D": "Open Discord",
     "SUPER + P": "Open Postman",
+    "SUPER + SHIFT + M": "Open Spotify",
     "SUPER + N": "Open Notification Center",
     "SUPER + SHIFT + N": "Open Wi-Fi Manager",
     "SUPER + CTRL + N": "Disconnect Wi-Fi",
+    "SUPER + R": "Reload Hyprland",
     "SUPER + SHIFT + R": "Start Screen Recording",
     "SUPER + K": "Show Keybind Dictionary",
 

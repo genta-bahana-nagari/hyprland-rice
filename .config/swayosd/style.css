@@ -1,0 +1,60 @@
+@define-color background  #1d1e26;
+@define-color grey        #c7c7c7;
+
+* {
+    --screen-width: 1920px;
+    --screen-scaling: 0.9;
+    --window-side-padding: 20px;
+    --container-width: 250px;
+    --container-margin: 16px;
+    --window-edge-offset: 50px;
+    --window-width: calc(var(--container-width) + 2*var(--window-side-padding) + 2*var(--container-margin));
+    --screen-edge-distance: calc(var(--screen-width) / var(--screen-scaling) - var(--window-width));
+}
+
+window#osd {
+  border-radius: 10px;
+  border: 2px solid @grey;
+  background: alpha(@background, 0.95);
+}
+
+window#osd #container {
+  margin: 4px;
+  padding: 4px;
+  background: transparent;
+}
+
+window#osd image {
+  -gtk-icon-transform: scale(0.8);
+}
+
+window#osd image,
+window#osd label {
+  color: @grey;
+}
+
+window#osd progressbar:disabled,
+window#osd image:disabled {
+  opacity: 0.2;
+}
+
+window#osd progressbar {
+  min-height: 6px;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+}
+
+window#osd trough {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: alpha(@grey, 0.3);
+}
+
+window#osd progress {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: @grey;
+}

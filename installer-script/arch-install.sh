@@ -540,6 +540,39 @@ _deployConfigs() {
 }
 
 # ----------------------------------------------------------
+# Deploy user systemd services
+# ----------------------------------------------------------
+
+_deployUserServices() {
+    echo ":: Deploying user systemd services..."
+
+    local service_source="$PROJECT_DIR/.config/hypr/service"
+    local service_target="$HOME/.config/systemd/user"
+
+    if [[ ! -d "$service_source" ]]; then
+        echo -e "${YELLOW}:: User service directory not found.${NONE}"
+        echo "   $service_source"
+        echo ":: Skipping user services."
+        return 0
+    fi
+
+    mkdir -p "$service_target"
+
+    find "$service_source" \
+        -type f \
+        -name "*.service" \
+        -exec cp -f {} "$service_target/" \;
+
+    echo ":: User services deployed to:"
+    echo "   $service_target"
+
+    # Tell systemd user manager to re-read unit files.
+    systemctl --user daemon-reload
+
+    echo ":: User systemd daemon reloaded."
+}
+
+# ----------------------------------------------------------
 # Deploy local wallpapers
 # ----------------------------------------------------------
 
@@ -826,6 +859,8 @@ echo ":: Deploying configuration..."
 echo
 
 _deployConfigs
+
+_deployUserServices
 
 # ----------------------------------------------------------
 # Deploy local wallpapers

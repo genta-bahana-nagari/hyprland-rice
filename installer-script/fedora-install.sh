@@ -61,7 +61,6 @@ packages=(
     "waybar"
     "nwg-look"
     "swaync"
-    "swayosd"
 
     # Utilities
     "jq"
@@ -206,18 +205,35 @@ _enableRpmFusion() {
 # Enable COPR repositories
 # ----------------------------------------------------------
 
+# _enableCoprRepositories() {
+#     echo ":: Enabling COPR repositories..."
+#
+#     # Main Hyprland COPR.
+#     if ! dnf repolist 2>/dev/null | grep -q \
+#         "copr:copr.fedorainfracloud.org:sdegler:hyprland"; then
+#
+#         echo ":: Enabling sdegler/hyprland..."
+#
+#         sudo dnf copr enable -y sdegler/hyprland
+#     else
+#         echo ":: sdegler/hyprland is already enabled."
+#     fi
+#
+#     echo ":: COPR repositories configured."
+# }
+
 _enableCoprRepositories() {
     echo ":: Enabling COPR repositories..."
 
     # Main Hyprland COPR.
-    if ! dnf repolist 2>/dev/null | grep -q \
-        "copr:copr.fedorainfracloud.org:sdegler:hyprland"; then
+      if ! dnf repolist 2>/dev/null | grep -q \
+	 "copr:copr.fedorainfracloud.org:lionheartp:Hyprland"; then
 
-        echo ":: Enabling sdegler/hyprland..."
+        echo ":: Enabling lionheartp/Hyprland..."
 
-        sudo dnf copr enable -y sdegler/hyprland
+        sudo dnf copr enable -y lionheartp/Hyprland
     else
-        echo ":: sdegler/hyprland is already enabled."
+        echo ":: lionheart/Hyprland is already enabled."
     fi
 
     echo ":: COPR repositories configured."

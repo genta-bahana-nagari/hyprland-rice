@@ -55,6 +55,7 @@ packages=(
     "nautilus"
     "loupe"
     "vlc"
+    "qalculate-gtk"
 
     # Desktop / launcher / bar
     "rofi-wayland"

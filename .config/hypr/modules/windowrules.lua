@@ -71,6 +71,17 @@ hl.window_rule({
     float = true,
 })
 
+-- Qalculate
+hl.window_rule({
+    name = "qalculate-float",
+    match = {
+        class = "qalculate-gtk",
+    },
+
+    float = true,
+    center = true,
+})
+
 -- Spotify
 hl.window_rule({
     name = "spotify-float",

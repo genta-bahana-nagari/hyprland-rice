@@ -67,6 +67,7 @@ packages=(
     "kate"
     "vlc"
     "vlc-plugin-ffmpeg"
+    "qalculate-gtk"
 
     # ------------------------------------------------------
     # Desktop / launcher / bar

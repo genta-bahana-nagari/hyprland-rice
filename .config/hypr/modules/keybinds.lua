@@ -546,12 +546,12 @@ hl.bind(
 
 -- Bluetooth manager
 hl.bind(
-    mainMod .. " + SHIFT + CTRL + B",
+    mainMod .. " + CTRL + B",
     hl.dsp.exec_cmd(programs.bluetooth)
 )
 
 -- Audio device switcher
 hl.bind(
-    mainMod .. " + CTRL + SHIFT + A",
+    mainMod .. " + CTRL + A",
     hl.dsp.exec_cmd(programs.audioSwitcher)
 )

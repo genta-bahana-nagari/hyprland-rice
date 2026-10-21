@@ -24,6 +24,10 @@ NONE='\033[0m'
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 
+# Shared interactive application selection.
+# shellcheck source=apps.sh
+source "$SCRIPT_DIR/apps.sh"
+
 # ----------------------------------------------------------
 # Error handler
 # ----------------------------------------------------------
@@ -53,21 +57,9 @@ packages=(
     "sdbus-cpp"
 
     # ------------------------------------------------------
-    # Login / terminal
+    # Login
     # ------------------------------------------------------
     "sddm"
-    "kitty"
-
-    # ------------------------------------------------------
-    # Applications
-    # ------------------------------------------------------
-    "firefox"
-    "nautilus"
-    "loupe"
-    "kate"
-    "vlc"
-    "vlc-plugin-ffmpeg"
-    "qalculate-gtk"
 
     # ------------------------------------------------------
     # Desktop / launcher / bar
@@ -86,6 +78,10 @@ packages=(
     "pavucontrol"
     "networkmanager"
     "cliphist"
+    "playerctl"
+    "wl-clipboard"
+    "wl-clip-persist"
+    "flatpak"
     "tree"
     "cmatrix"
     "htop"
@@ -95,11 +91,11 @@ packages=(
     "curl"
     "wget"
     "git"
-    "swayosd"
 
     # ------------------------------------------------------
     # Audio / wallpaper / recording
     # ------------------------------------------------------
+    "cava"
     "awww"
     "wf-recorder"
 
@@ -389,7 +385,6 @@ _verifyPackages() {
         "waybar"
         "rofi-wayland"
         "nwg-look"
-        "kitty"
         "sddm"
         "networkmanager"
         "power-profiles-daemon"
@@ -808,6 +803,15 @@ _checkSudo
 _checkDiskSpace
 
 # ----------------------------------------------------------
+# Application selection
+# ----------------------------------------------------------
+
+_apps_select arch
+
+packages+=("${APPS_OFFICIAL[@]}")
+aur_packages+=("${APPS_AUR[@]}")
+
+# ----------------------------------------------------------
 # System update
 # ----------------------------------------------------------
 
@@ -845,6 +849,13 @@ echo
 _installAurPackages "${aur_packages[@]}"
 
 # ----------------------------------------------------------
+# Flatpak applications
+# ----------------------------------------------------------
+
+echo
+_apps_install_flatpaks
+
+# ----------------------------------------------------------
 # Verify packages
 # ----------------------------------------------------------
 
@@ -869,6 +880,8 @@ echo
 _deployConfigs
 
 _deployUserServices
+
+_apps_write_programs
 
 # ----------------------------------------------------------
 # Deploy local wallpapers

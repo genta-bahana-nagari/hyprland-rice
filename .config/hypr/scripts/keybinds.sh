@@ -43,7 +43,7 @@ descriptions = {
     "SUPER + CTRL + W": "Open Waybar Switcher",
     "SUPER + M": "Toggle Fullscreen",
     "SUPER + SPACE": "Toggle Floating Window",
-    "SUPER + SHIFT + P": "Toggle Pseudo-Tiling",
+    "SUPER + ALT + P": "Toggle Pseudo-Tiling",
 
     "SUPER + left": "Focus Window Left",
     "SUPER + right": "Focus Window Right",

@@ -47,7 +47,9 @@ extend — not a giant all-in-one distribution.
 | **SwayNC** | Notification daemon and control center (Nova Dark theme) |
 | **Rofi** | Application launcher, power menu, clipboard, Wi-Fi, wallpaper and theme pickers |
 | **CAVA** | Audio visualizer with custom GLSL shaders and two themes |
-| **Kitty** | Terminal with a custom Oh My Posh prompt |
+| **Kitty** | Default terminal with a custom Oh My Posh prompt (swappable) |
+| **Apps** | Optional browser, file manager, editor, viewer, player and calculator |
+| **Dev tools** | Optional VS Code, Postman, Discord and Spotify (Flatpak) |
 | **Fastfetch** | System information with a custom ASCII logo |
 | **Hyprlock** | Lock screen |
 | **Hypridle** | Idle and power management |
@@ -89,15 +91,38 @@ The installer installs packages but does **not** partition disks, install a
 bootloader, configure GPU drivers, or create user accounts. Start from a
 working Arch or Fedora installation.
 
-### Optional extras
+### Optional applications
 
-A few features rely on packages that are not in every installer package list:
+The installer asks which applications you want instead of forcing one set.
+Press **Enter** to accept the recommended choice in each category:
 
-- `wl-clipboard` and `wl-clip-persist` for clipboard history
-- `playerctl` for media keys
-- `cava` on Arch (installed on Fedora)
-- `postman`, Discord and Spotify keybinds are optional; edit or remove them
-  if you do not use those applications.
+| Category | Options | Recommended |
+| --- | --- | --- |
+| Browser | Firefox, Chromium, Brave*, Google Chrome* | Firefox |
+| File manager | Nautilus, Dolphin, Thunar, Nemo | Nautilus |
+| Terminal | Kitty, Foot, Alacritty, WezTerm* | Kitty |
+| Code editor | Visual Studio Code, Kate, GNOME Text Editor, Gedit | Visual Studio Code |
+| Image viewer | Loupe, imv, Gwenview | Loupe |
+| Video player | VLC, mpv, Haruna*, GNOME Videos** | VLC |
+| Calculator | Qalculate-GTK, GNOME Calculator, KCalc | Qalculate-GTK |
+
+`*` Arch only (AUR packages for Brave/Chrome, plus WezTerm and Haruna).
+On Fedora use Flatpak if you need Brave or Chrome.
+`**` Fedora only (GNOME Videos).
+
+It also asks about **Postman**, **Discord** and **Spotify**:
+
+- Postman: native AUR package on Arch, Flatpak on Fedora.
+- Discord and Spotify: Flatpak from Flathub.
+- Flatpak itself is always installed, so these apps work out of the box.
+
+Your choices are written to
+`~/.config/hypr/modules/programs.local.lua`, so `Super + B`, `Super + E`,
+`Super + Return`, `Super + C` and the Postman/Discord/Spotify keybinds launch
+what you picked. `update.sh` does not touch that file.
+
+Clipboard history (`wl-clipboard`, `wl-clip-persist`), media keys
+(`playerctl`) and CAVA on Arch are now installed by default.
 
 ---
 
@@ -147,6 +172,11 @@ Please select your distribution:
 Choose your distribution and confirm the prompt. The selected installer takes
 over from there.
 
+Next you get the **application selection** menu. Press **Enter** to accept
+every recommended choice, or type a number to switch browser, file manager,
+terminal, editor, viewer, player and calculator. See
+[Optional applications](#optional-applications) for the list.
+
 You can also run a distribution installer directly:
 
 ```bash
@@ -185,16 +215,20 @@ Both installers follow the same basic flow:
 
 1. Check that the system is the expected distribution and that there is enough
    disk space.
-2. Update the system and install the required packages.
-3. Install fonts and rebuild the font cache.
-4. Copy `.config/*` into `~/.config/` (**overwriting existing files**).
-5. Copy Hyprland systemd user services into `~/.config/systemd/user/`.
-6. Copy the bundled wallpapers into `~/Pictures/Wallpaper/`.
-7. Optionally clone extra wallpaper collections and copy them into the same
-   folder (existing files are not overwritten).
-8. Install **Oh My Posh** and append its init line to `~/.bashrc`.
-9. Enable `sddm`, `NetworkManager` and `power-profiles-daemon`.
-10. Offer to reboot.
+2. Ask which applications you want (Enter accepts the recommendations).
+3. Update the system and install the required packages.
+4. Add the Microsoft VS Code repository on Fedora if VS Code was selected.
+5. Install Flatpak apps (Postman on Fedora, Discord, Spotify) from Flathub.
+6. Install fonts and rebuild the font cache.
+7. Copy `.config/*` into `~/.config/` (**overwriting existing files**).
+8. Save your app choices to `~/.config/hypr/modules/programs.local.lua`.
+9. Copy Hyprland systemd user services into `~/.config/systemd/user/`.
+10. Copy the bundled wallpapers into `~/Pictures/Wallpaper/`.
+11. Optionally clone extra wallpaper collections and copy them into the same
+    folder (existing files are not overwritten).
+12. Install **Oh My Posh** and append its init line to `~/.bashrc`.
+13. Enable `sddm`, `NetworkManager` and `power-profiles-daemon`.
+14. Offer to reboot.
 
 > [!NOTE]
 > The installer does not create a backup of your existing configuration.
@@ -226,12 +260,14 @@ Arch-specific installer. Main steps:
 | Step | Details |
 | --- | --- |
 | Checks | Not root, sudo available, `/etc/arch-release` present, 5 GB free |
+| App selection | Browser, file manager, terminal, editor, viewers, Postman, Discord, Spotify |
 | System update | `pacman -Syu` |
 | AUR helper | Installs `yay` from the AUR if missing |
-| Official packages | Hyprland, portals, Hypridle/Hyprlock/Hyprshot, Waybar, Rofi, SwayNC, Kitty, SDDM, NetworkManager, fonts, utilities |
-| AUR packages | `ttf-rubik`, `ttf-rubik-vf` |
+| Official packages | Hyprland, portals, Hypridle/Hyprlock/Hyprshot, Waybar, Rofi, SwayNC, SDDM, NetworkManager, CAVA, Flatpak, fonts, clipboard/media utilities |
+| AUR packages | `ttf-rubik`, `ttf-rubik-vf`, plus selected AUR apps (Brave, Chrome, Postman) |
+| Flatpak | Flathub remote + selected Flatpak apps |
 | Verification | Checks important packages and commands, then font matching |
-| Deployment | Configs, user services, wallpapers, Oh My Posh |
+| Deployment | Configs, app choices, user services, wallpapers, Oh My Posh |
 | Services | Enables `sddm`, `NetworkManager`, `power-profiles-daemon` |
 
 ### `installer-script/fedora-install.sh`
@@ -241,11 +277,14 @@ Fedora-specific installer, written for **Fedora 43**. Main steps:
 | Step | Details |
 | --- | --- |
 | Checks | `/etc/fedora-release`, Fedora version (warns if not 43), 5 GB free |
+| App selection | Browser, file manager, terminal, editor, viewers, Postman, Discord, Spotify |
 | System update | `dnf upgrade` |
 | Repositories | RPM Fusion Free/Nonfree and the `lionheartp/Hyprland` COPR |
-| Packages | Hyprland stack, Waybar, Rofi, SwayNC, Kitty, SDDM, CAVA, fonts, utilities |
+| VS Code repo | Microsoft repo, only when VS Code was selected |
+| Packages | Hyprland stack, Waybar, Rofi, SwayNC, SDDM, CAVA, Flatpak, fonts, clipboard/media utilities |
+| Flatpak | Flathub remote + selected Flatpak apps (Postman, Discord, Spotify) |
 | Fonts | `jetbrains-mono-fonts`, `google-rubik-fonts`, font cache rebuild |
-| Deployment | Configs, user services, wallpapers, Oh My Posh |
+| Deployment | Configs, app choices, user services, wallpapers, Oh My Posh |
 | Services | Enables `sddm`, `NetworkManager`, `power-profiles-daemon` |
 
 Both installers are idempotent for packages: already-installed packages are
@@ -279,11 +318,13 @@ chmod +x update.sh
 4. Runs `git pull --ff-only`.
 5. Copies the latest `.config/*` into `~/.config/`.
 6. Restores your selected Waybar theme (or uses `default`).
-7. Makes shell scripts executable, updates user systemd services and reloads
+7. Leaves `programs.local.lua` alone, so your browser/terminal/editor choices
+   survive the update.
+8. Makes shell scripts executable, updates user systemd services and reloads
    the user systemd manager.
-8. Adds new bundled wallpapers **without overwriting** wallpapers you already
+9. Adds new bundled wallpapers **without overwriting** wallpapers you already
    have.
-9. Reloads Hyprland, Waybar and SwayNC if they are running.
+10. Reloads Hyprland, Waybar and SwayNC if they are running.
 
 It does **not** update packages, install new dependencies, re-enable services,
 or modify `~/.bashrc`. If an update introduces a new dependency, re-run the
@@ -359,6 +400,7 @@ hyprctl reload
 │       └── style.css            # symlink to the active theme
 ├── Wallpaper/
 ├── installer-script/
+│   ├── apps.sh                  # shared application menu
 │   ├── arch-install.sh
 │   └── fedora-install.sh
 ├── install.sh
@@ -503,14 +545,19 @@ The main modifier is **Super** (Windows key). The full list is in
 
 | Shortcut | Action |
 | --- | --- |
-| `Super + Return` | Terminal (Kitty) |
+| `Super + Return` | Terminal (choice) |
 | `Super + D` | Application launcher (Rofi) |
-| `Super + E` | File manager |
-| `Super + B` | Browser |
-| `Super + C` | Code editor |
+| `Super + E` | File manager (choice) |
+| `Super + B` | Browser (choice) |
+| `Super + C` | Code editor (choice) |
+| `Super + Shift + P` | Postman |
+| `Super + Shift + D` | Discord (Flatpak) |
+| `Super + Shift + M` | Spotify (Flatpak) |
 | `Super + Q` | Close window |
 | `Super + M` | Toggle fullscreen |
 | `Super + Space` | Toggle floating |
+| `Super + Alt + P` | Toggle pseudo-tiling |
+| `Super + P` | Display mode helper |
 | `Super + V` | Clipboard history |
 | `Super + W` | Wallpaper switcher |
 | `Super + Ctrl + W` | Waybar theme switcher |
@@ -539,7 +586,8 @@ Change only the component you care about:
 | Window rules | `.config/hypr/modules/windowrules.lua` |
 | Animations | `.config/hypr/modules/animations.lua` |
 | Autostart | `.config/hypr/modules/autostart.lua` |
-| Program commands | `.config/hypr/modules/programs.lua` |
+| Program defaults | `.config/hypr/modules/programs.lua` |
+| Selected apps | `~/.config/hypr/modules/programs.local.lua` (installer-generated) |
 | Waybar | `.config/waybar/style.css` or `.config/waybar/themes/` |
 | Rofi | `.config/rofi/styles/`, `.config/rofi/colors/` |
 | SwayNC | `.config/swaync/style.css`, `.config/swaync/themes/` |
@@ -559,6 +607,13 @@ After changing Waybar, SwayNC or Rofi styles, restart the affected component
 > Local edits in `~/.config` are overwritten by `install.sh` and `update.sh`
 > if the same file exists in the repository. Keep personal overrides in a
 > separate file or commit them to your own fork.
+
+To change a browser/terminal/editor after installation, rerun the installer or
+edit `~/.config/hypr/modules/programs.local.lua`, then reload:
+
+```bash
+hyprctl reload
+```
 
 ---
 

@@ -24,6 +24,10 @@ NONE='\033[0m'
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 
+# Shared interactive application selection.
+# shellcheck source=apps.sh
+source "$SCRIPT_DIR/apps.sh"
+
 # ----------------------------------------------------------
 # Error handler
 # ----------------------------------------------------------
@@ -47,15 +51,8 @@ packages=(
     "qt5-qtwayland"
     "qt6-qtwayland"
 
-    # Login / terminal / applications
+    # Login / terminal
     "sddm"
-    "kitty"
-    "firefox"
-    "kate"
-    "nautilus"
-    "loupe"
-    "vlc"
-    "qalculate-gtk"
 
     # Desktop / launcher / bar
     "rofi-wayland"
@@ -69,6 +66,10 @@ packages=(
     "pavucontrol"
     "NetworkManager"
     "cliphist"
+    "playerctl"
+    "wl-clipboard"
+    "wl-clip-persist"
+    "flatpak"
     "tree"
     "cmatrix"
     "htop"
@@ -247,7 +248,7 @@ _enableCoprRepositories() {
     local copr_repos=(
         "elxreno/jetbrains-mono-fonts"
         "phracek/PyCharm"
-        lionheartp/Hyprland
+        "mineiro/hyprland"
     )
 
     local repo
@@ -321,7 +322,6 @@ _verifyPackages() {
         "waybar"
         "rofi-wayland"
         "nwg-look"
-        "kitty"
         "sddm"
         "jetbrains-mono-fonts"
         "google-rubik-fonts"
@@ -677,6 +677,14 @@ _checkFedora
 _checkDiskSpace
 
 # ----------------------------------------------------------
+# Application selection
+# ----------------------------------------------------------
+
+_apps_select fedora
+
+packages+=("${APPS_OFFICIAL[@]}")
+
+# ----------------------------------------------------------
 # System update
 # ----------------------------------------------------------
 
@@ -711,6 +719,13 @@ echo
 sudo dnf makecache
 
 # ----------------------------------------------------------
+# Optional repositories (VS Code)
+# ----------------------------------------------------------
+
+echo
+_apps_setup_repositories
+
+# ----------------------------------------------------------
 # Install packages
 # ----------------------------------------------------------
 
@@ -719,6 +734,13 @@ echo ":: Installing Fedora / Hyprland packages..."
 echo
 
 _installPackages "${packages[@]}"
+
+# ----------------------------------------------------------
+# Flatpak applications
+# ----------------------------------------------------------
+
+echo
+_apps_install_flatpaks
 
 # ----------------------------------------------------------
 # Verify packages
@@ -755,6 +777,8 @@ echo
 _deployConfigs
 
 _deployUserServices
+
+_apps_write_programs
 
 # ----------------------------------------------------------
 # Deploy local wallpapers

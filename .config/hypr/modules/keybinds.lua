@@ -36,22 +36,22 @@ hl.bind(
 
 hl.bind(
     mainMod .. " + P",
-    hl.dsp.exec_cmd("programs.displayMode")
+    hl.dsp.exec_cmd(programs.displayMode)
 )
 
 hl.bind(
     mainMod .. " + SHIFT + P",
-    hl.dsp.exec_cmd("command postman")
+    hl.dsp.exec_cmd(programs.postman)
 )
 
 hl.bind(
     mainMod .. " + SHIFT + D",
-    hl.dsp.exec_cmd("flatpak run com.discordapp.Discord")
+    hl.dsp.exec_cmd(programs.discord)
 )
 
 hl.bind(
     mainMod .. " + SHIFT + M",
-    hl.dsp.exec_cmd("flatpak run com.spotify.Client")
+    hl.dsp.exec_cmd(programs.spotify)
 )
 
 hl.bind(
@@ -140,8 +140,9 @@ hl.bind(
 )
 
 -- Toggle pseudo
+-- ALT+P: SHIFT+P is Postman.
 hl.bind(
-    mainMod .. " + SHIFT + P",
+    mainMod .. " + ALT + P",
     hl.dsp.window.pseudo()
 )
 

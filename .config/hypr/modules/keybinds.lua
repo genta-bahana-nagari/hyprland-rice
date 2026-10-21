@@ -519,3 +519,39 @@ hl.bind(
         " && hyprshot -m window -o " .. screenshotDir
     )
 )
+
+-- Screenshot menu with options
+hl.bind(
+    mainMod .. " + SHIFT + CTRL + S",
+    hl.dsp.exec_cmd(programs.screenshot)
+)
+
+-- Caffeine mode (disable auto-lock)
+hl.bind(
+    mainMod .. " + CTRL + SHIFT + C",
+    hl.dsp.exec_cmd(programs.caffeine)
+)
+
+-- Window switcher/search
+hl.bind(
+    mainMod .. " + Tab",
+    hl.dsp.exec_cmd(programs.windowSwitcher)
+)
+
+-- Emoji picker
+hl.bind(
+    mainMod .. " + SHIFT + E",
+    hl.dsp.exec_cmd(programs.emojiPicker)
+)
+
+-- Bluetooth manager
+hl.bind(
+    mainMod .. " + CTRL + B",
+    hl.dsp.exec_cmd(programs.bluetooth)
+)
+
+-- Audio device switcher
+hl.bind(
+    mainMod .. " + CTRL + A",
+    hl.dsp.exec_cmd(programs.audioSwitcher)
+)

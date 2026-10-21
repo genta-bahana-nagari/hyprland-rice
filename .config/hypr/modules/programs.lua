@@ -22,6 +22,12 @@ local programs = {
     waybarSwitcher = "~/.config/waybar/scripts/theme-switcher.sh",
 
     keybinds = "~/.config/hypr/scripts/keybinds.sh",
+    screenshot = "~/.config/hypr/scripts/screenshot-menu.sh",
+    bluetooth = "~/.config/hypr/scripts/bluetooth-menu.sh",
+    audioSwitcher = "~/.config/hypr/scripts/audio-device-switcher.sh",
+    emojiPicker = "~/.config/hypr/scripts/emoji-picker.sh",
+    windowSwitcher = "~/.config/hypr/scripts/window-switcher.sh",
+    caffeine = "~/.config/hypr/scripts/caffeine-mode.sh",
 }
 
 -- Installer-selected applications. Kept in a separate file so

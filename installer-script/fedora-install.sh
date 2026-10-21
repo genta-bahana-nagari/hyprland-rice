@@ -86,6 +86,10 @@ packages=(
     "wf-recorder"
     "awww"
 
+    # Bluetooth
+    "bluez"
+    "bluez-tools"
+
     # Power / GTK
     "power-profiles-daemon"
     "adw-gtk3-theme"

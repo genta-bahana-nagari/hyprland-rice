@@ -45,7 +45,7 @@ extend — not a giant all-in-one distribution.
 | **Hyprland** | Tiling Wayland compositor, configured with Lua modules |
 | **Waybar** | Status bar with 46 themes and a Rofi theme switcher |
 | **SwayNC** | Notification daemon and control center (Nova Dark theme) |
-| **Rofi** | Application launcher, power menu, clipboard, Wi-Fi, wallpaper and theme pickers |
+| **Rofi** | Application launcher, power menu, clipboard, Wi-Fi, wallpaper, theme, emoji, and window switchers |
 | **CAVA** | Audio visualizer with custom GLSL shaders and two themes |
 | **Kitty** | Default terminal with a custom Oh My Posh prompt (swappable) |
 | **Apps** | Optional browser, file manager, editor, viewer, player and calculator |
@@ -55,7 +55,7 @@ extend — not a giant all-in-one distribution.
 | **Hypridle** | Idle and power management |
 | **SwayOSD** | On-screen display for volume and brightness |
 | **Wallpapers** | Wallpaper switcher, automatic rotation and optional wallpaper collections |
-| **Scripts** | Wi-Fi management, screen recording, display modes, keybind helper, power menu |
+| **Scripts** | Wi-Fi management, screen recording, display modes, keybind helper, power menu, screenshot, Bluetooth, audio switcher, emoji picker, window switcher, caffeine mode |
 
 Also configured: clipboard history (Cliphist), dark GTK theme (Adw GTK),
 JetBrains Mono and Rubik fonts, and automatic start of the desktop components.
@@ -466,6 +466,12 @@ Hyprland starts Waybar, SwayNC, Hypridle, SwayOSD, the clipboard watchers,
 | `wallpaper-switch.sh` | Wallpaper picker |
 | `wifi-disconnect.sh` | Disconnects from Wi-Fi |
 | `wifi-mananger.sh` | Wi-Fi manager |
+| `screenshot-menu.sh` | Screenshot menu with edit options |
+| `bluetooth-menu.sh` | Bluetooth device manager |
+| `audio-device-switcher.sh` | Audio device (sink/source) switcher |
+| `emoji-picker.sh` | Emojis picker with favorites |
+| `window-switcher.sh` | Search and switch to open windows |
+| `caffeine-mode.sh` | Toggle caffeine mode (disable auto-lock) |
 
 > `wifi-mananger.sh` keeps its original filename for compatibility with the
 > keybinds. Renaming it would require updating the references as well.
@@ -560,7 +566,7 @@ The main modifier is **Super** (Windows key). The full list is in
 | `Super + P` | Display mode helper |
 | `Super + V` | Clipboard history |
 | `Super + W` | Wallpaper switcher |
-| `Super + Ctrl + W` | Waybar theme switcher |
+| `Super + Ctrl + W` | Waybar theme switcher (Caffeine mode also has Waybar widget) |
 | `Super + N` | Notifications (SwayNC) |
 | `Super + Shift + N` | Wi-Fi manager |
 | `Super + Ctrl + N` | Disconnect Wi-Fi |
@@ -571,6 +577,12 @@ The main modifier is **Super** (Windows key). The full list is in
 | `Super + Shift + Delete` | Power menu |
 | `Super + R` | Reload Hyprland |
 | `Super + K` | Keybind dictionary |
+| `Super + Tab` | Window switcher/search |
+| `Super + Shift + E` | Emoji picker |
+| `Super + Ctrl + B` | Bluetooth manager |
+| `Super + Ctrl + A` | Audio device switcher |
+| `Super + Ctrl + Shift + C` | Caffeine mode (toggle auto-lock) |
+| `Super + Ctrl + Shift + S` | Screenshot menu (with edit options) |
 
 ---
 

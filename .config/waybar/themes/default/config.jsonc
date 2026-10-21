@@ -12,7 +12,7 @@
     "battery",
   ],
 
-  "modules-right": ["custom/notifications", "custom/power"],
+  "modules-right": ["custom/caffeine", "custom/notifications", "custom/power"],
 
   "custom/launcher": {
     "format": "",
@@ -117,5 +117,13 @@
     "tooltip": true,
     "tooltip-format": "Power Menu",
     "on-click": "~/.config/hypr/scripts/power-menu.sh",
+  },
+
+  "custom/caffeine": {
+    "format": "{text}",
+    "tooltip": "{tooltip}",
+    "exec": "~/.config/waybar/scripts/caffeine-status.sh",
+    "interval": 5,
+    "on-click": "~/.config/hypr/scripts/caffeine-mode.sh",
   },
 }

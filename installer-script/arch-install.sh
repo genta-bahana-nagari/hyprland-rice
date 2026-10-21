@@ -535,6 +535,13 @@ _deployConfigs() {
             -name "*.sh" \
             -exec chmod +x {} \; \
             2>/dev/null || true
+
+        # Repo symlinks point at the author's home directory,
+        # so use relative links to the default theme instead.
+        ln -sfn "themes/default/config.jsonc" \
+            "$HOME/.config/waybar/config.jsonc"
+        ln -sfn "themes/default/style.css" \
+            "$HOME/.config/waybar/style.css"
     fi
 
     echo ":: Configuration files deployed."

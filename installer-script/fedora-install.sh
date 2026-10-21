@@ -223,22 +223,54 @@ _enableRpmFusion() {
 #     echo ":: COPR repositories configured."
 # }
 
+# _enableCoprRepositories() {
+#     echo ":: Enabling COPR repositories..."
+
+#     # Main Hyprland COPR.
+#       if ! dnf repolist 2>/dev/null | grep -q \
+# 	 "copr:copr.fedorainfracloud.org:lionheartp:Hyprland"; then
+
+#         echo ":: Enabling lionheartp/Hyprland..."
+
+#         sudo dnf copr enable -y lionheartp/Hyprland
+#     else
+#         echo ":: lionheart/Hyprland is already enabled."
+#     fi
+
+#     echo ":: COPR repositories configured."
+# }
+
 _enableCoprRepositories() {
     echo ":: Enabling COPR repositories..."
 
-    # Main Hyprland COPR.
-      if ! dnf repolist 2>/dev/null | grep -q \
-	 "copr:copr.fedorainfracloud.org:lionheartp:Hyprland"; then
+    # List of COPR repositories to enable.
+    local copr_repos=(
+        "elxreno/jetbrains-mono-fonts"
+        "phracek/PyCharm"
+        lionheartp/Hyprland
+    )
 
-        echo ":: Enabling lionheartp/Hyprland..."
+    local repo
+    for repo in "${copr_repos[@]}"; do
+        # Convert owner/project into the DNF repository ID.
+        local repo_id="copr:copr.fedorainfracloud.org:${repo//\//:}"
 
-        sudo dnf copr enable -y lionheartp/Hyprland
-    else
-        echo ":: lionheart/Hyprland is already enabled."
-    fi
+        if dnf repolist --enabled 2>/dev/null | grep -Fq "$repo_id"; then
+            echo ":: $repo is already enabled."
+        else
+            echo ":: Enabling $repo..."
+
+            if sudo dnf copr enable -y "$repo"; then
+                echo ":: Successfully enabled $repo."
+            else
+                echo "!! Failed to enable $repo. Continuing..."
+            fi
+        fi
+    done
 
     echo ":: COPR repositories configured."
 }
+
 
 # ----------------------------------------------------------
 # Install packages

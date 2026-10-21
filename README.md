@@ -1,49 +1,103 @@
-# My Custom Dotfiles
+# Hyprland Rice 🌌
 
-Minimal and customizable **Hyprland dotfiles** focused on a clean Wayland desktop experience, modular configuration, convenient scripts, and multiple themes.
+A personal **Hyprland** setup for Arch Linux and Fedora: modular Hyprland
+configuration, Waybar, SwayNC, Rofi, CAVA, Kitty, Fastfetch, Hyprlock,
+Hypridle, wallpapers and a set of small desktop scripts.
 
-> 🚧 **Status:** Work in progress.
-> New features, improvements, themes, and configuration changes may be added over time.
+The goal is a clean, fast Wayland desktop that is easy to read, re-theme and
+extend — not a giant all-in-one distribution.
+
+> [!WARNING]
+> **This project is under active development.**
+> Configuration structure, scripts, packages, themes and keybindings may
+> change at any time. Expect rough edges, and always keep a backup of your
+> existing `~/.config`. If something breaks after an update, the previous
+> configs are in `~/.config-backup-<timestamp>`.
 
 ---
 
-## Features
+## Table of Contents
 
-* 🪟 **Hyprland** — Tiling Wayland compositor configuration
-* 🧩 **Modular Hyprland configuration** using Lua modules
-* 🎨 **Multiple themes** for Waybar, Rofi, CAVA, and SwayNC
-* 🚀 **Automated installation** for Arch Linux and Fedora
-* 🖥️ **Waybar** — Status bar and system information
-* 🔔 **SwayNC** — Notification daemon and control center
-* 🔎 **Rofi** — Application launcher and custom menus
-* 🐱 **Kitty** — Terminal configuration
-* 🎵 **CAVA** — Audio visualizer with custom shaders
-* ⚡ **Fastfetch** — System information display
-* 🔒 **Hyprlock** — Lock screen configuration
-* 💤 **Hypridle** — Idle and power-management configuration
-* 🖼️ **Wallpaper management**
-* 📶 **Wi-Fi management scripts**
-* 🎥 **Screen-recording script**
-* 🔋 **Power menu**
-* 🎨 **Theme switching**
-* ⌨️ **Keybind helper**
+- [What you get](#what-you-get)
+- [Supported systems](#supported-systems)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [What the installer actually does](#what-the-installer-actually-does)
+- [The installer scripts](#the-installer-scripts)
+- [Updating](#updating)
+- [Repository structure](#repository-structure)
+- [Configuration](#configuration)
+- [Themes](#themes)
+- [Keybindings](#keybindings)
+- [Customization](#customization)
+- [Troubleshooting](#troubleshooting)
+- [Backup and restore](#backup-and-restore)
+- [Contributing](#contributing)
+- [Disclaimer](#disclaimer)
+- [License](#license)
+
+---
+
+## What you get
+
+| Component | Description |
+| --- | --- |
+| **Hyprland** | Tiling Wayland compositor, configured with Lua modules |
+| **Waybar** | Status bar with 46 themes and a Rofi theme switcher |
+| **SwayNC** | Notification daemon and control center (Nova Dark theme) |
+| **Rofi** | Application launcher, power menu, clipboard, Wi-Fi, wallpaper and theme pickers |
+| **CAVA** | Audio visualizer with custom GLSL shaders and two themes |
+| **Kitty** | Terminal with a custom Oh My Posh prompt |
+| **Fastfetch** | System information with a custom ASCII logo |
+| **Hyprlock** | Lock screen |
+| **Hypridle** | Idle and power management |
+| **SwayOSD** | On-screen display for volume and brightness |
+| **Wallpapers** | Wallpaper switcher, automatic rotation and optional wallpaper collections |
+| **Scripts** | Wi-Fi management, screen recording, display modes, keybind helper, power menu |
+
+Also configured: clipboard history (Cliphist), dark GTK theme (Adw GTK),
+JetBrains Mono and Rubik fonts, and automatic start of the desktop components.
+
+---
+
+## Supported systems
+
+| Distribution | Status | Installer |
+| --- | --- | --- |
+| **Arch Linux** | Supported | `installer-script/arch-install.sh` |
+| **Fedora Linux (tested on 43)** | Supported (script warns on other versions) | `installer-script/fedora-install.sh` |
+
+The configuration itself is generic Wayland/Hyprland config and may work on
+other distributions, but the installers only handle Arch and Fedora.
+
+Other distributions are not officially supported. You can still copy the
+files from `.config/` manually, but you must install the dependencies
+yourself.
 
 ---
 
 ## Requirements
 
-This configuration is designed for a **Linux system running Wayland**.
+- A Linux machine with **Wayland** support.
+- A **normal user account with sudo** (do not run the installer as root).
+- An **internet connection** for packages, fonts, AUR packages and wallpapers.
+- At least **5 GB of free space** on your home partition.
+- An existing graphical login is recommended: the installer enables **SDDM**.
+- **Back up your current `~/.config`** — the installer overwrites files there.
 
-### Supported distributions
+The installer installs packages but does **not** partition disks, install a
+bootloader, configure GPU drivers, or create user accounts. Start from a
+working Arch or Fedora installation.
 
-The repository currently provides installation scripts for:
+### Optional extras
 
-* Arch Linux
-* Fedora Linux
+A few features rely on packages that are not in every installer package list:
 
-The installer scripts are responsible for installing the required packages and setting up the configuration.
-
-> The exact package requirements may change as the project develops.
+- `wl-clipboard` and `wl-clip-persist` for clipboard history
+- `playerctl` for media keys
+- `cava` on Arch (installed on Fedora)
+- `postman`, Discord and Spotify keybinds are optional; edit or remove them
+  if you do not use those applications.
 
 ---
 
@@ -56,707 +110,500 @@ git clone https://github.com/genta-bahana-nagari/hyprland-rice.git
 cd hyprland-rice
 ```
 
-### 2. Run the installer
+### 2. Review the installer (recommended)
 
-The main entry point is:
+The scripts install packages, copy configs and enable services. Read them
+before running, especially on an existing system:
+
+```bash
+less install.sh
+less installer-script/arch-install.sh
+less installer-script/fedora-install.sh
+```
+
+### 3. Run the installer
 
 ```bash
 ./install.sh
 ```
 
-The installer can be used to set up the appropriate configuration for your system.
-
-If the script is not executable, run:
+If the file is not executable:
 
 ```bash
 chmod +x install.sh
-```
-
-Then:
-
-```bash
 ./install.sh
 ```
 
-### Distribution-specific installers
-
-The repository also contains dedicated installation scripts:
+You will see a menu:
 
 ```text
-installer-script/
-├── arch-install.sh
-└── fedora-install.sh
+Please select your distribution:
+
+  1) Arch Linux
+  2) Fedora Linux
+  3) Cancel
 ```
 
-#### Arch Linux
+Choose your distribution and confirm the prompt. The selected installer takes
+over from there.
+
+You can also run a distribution installer directly:
 
 ```bash
+# Arch Linux
 ./installer-script/arch-install.sh
-```
 
-#### Fedora
-
-```bash
+# Fedora Linux
 ./installer-script/fedora-install.sh
 ```
 
-> **Note:** Review installation scripts before executing them, especially when installing on an existing system. Package names, dependencies, and commands may change as the project evolves.
+### 4. Reboot
 
----
+At the end the installer asks whether to reboot. After rebooting, choose the
+**Hyprland** session in SDDM.
 
-# Repository Structure
+### 5. First login
 
-```text
-.
-├── .config/
-│   ├── cava/
-│   ├── fastfetch/
-│   ├── hypr/
-│   ├── kitty/
-│   ├── rofi/
-│   ├── swaync/
-│   └── waybar/
-│
-├── Wallpaper/
-│   ├── wallpaper-0.jpg
-│   └── wallpaper-1.jpg
-│
-├── installer-script/
-│   ├── arch-install.sh
-│   └── fedora-install.sh
-│
-├── install.sh
-└── README.md
-```
+A few things are machine-specific and will probably need a small edit:
 
-The `.config` directory mirrors the user's `~/.config` directory.
+- **Monitors** — `.config/hypr/modules/monitors.lua`
+- **Input devices** — `.config/hypr/modules/input.lua`
 
----
+The default monitor config targets `eDP-1` at `1920x1080@60`. If your display
+has a different name or resolution, Hyprland may fall back to auto-detection,
+or you can edit the file and reload:
 
-# Configuration
-
-## Hyprland
-
-The main Hyprland configuration is located at:
-
-```text
-.config/hypr/
-├── modules/
-├── scripts/
-├── hypridle.conf
-├── hyprland.lua
-└── hyprlock.conf
-```
-
-The configuration is divided into modules to make it easier to maintain and customize.
-
-### Hyprland modules
-
-```text
-modules/
-├── animations.lua
-├── autostart.lua
-├── decoration.lua
-├── environment.lua
-├── input.lua
-├── keybinds.lua
-├── layout.lua
-├── misc.lua
-├── monitors.lua
-├── permissions.lua
-├── programs.lua
-└── windowrules.lua
-```
-
-| Module            | Purpose                                         |
-| ----------------- | ----------------------------------------------- |
-| `animations.lua`  | Animation configuration                         |
-| `autostart.lua`   | Applications and services started with Hyprland |
-| `decoration.lua`  | Window decorations and visual effects           |
-| `environment.lua` | Environment variables                           |
-| `input.lua`       | Keyboard, mouse, and input settings             |
-| `keybinds.lua`    | Keyboard shortcuts                              |
-| `layout.lua`      | Window layout behavior                          |
-| `misc.lua`        | Miscellaneous Hyprland settings                 |
-| `monitors.lua`    | Monitor configuration                           |
-| `permissions.lua` | Permission-related settings                     |
-| `programs.lua`    | Program/application definitions                 |
-| `windowrules.lua` | Window-specific rules                           |
-
-The main configuration is:
-
-```text
-hyprland.lua
-```
-
-### Hypridle
-
-```text
-hypridle.conf
-```
-
-Contains idle-related configuration such as inactivity behavior and power-management actions.
-
-### Hyprlock
-
-```text
-hyprlock.conf
-```
-
-Contains the lock-screen appearance and behavior.
-
----
-
-# Hyprland Scripts
-
-Scripts used by the Hyprland configuration are stored in:
-
-```text
-.config/hypr/scripts/
-```
-
-| Script                  | Purpose                                 |
-| ----------------------- | --------------------------------------- |
-| `keybinds.sh`           | Displays or manages keybind information |
-| `power-menu.sh`         | Provides power-management actions       |
-| `screen-record.sh`      | Starts screen recording                 |
-| `show-current-theme.sh` | Displays the currently selected theme   |
-| `wallpaper-switch.sh`   | Changes the wallpaper                   |
-| `wifi-disconnect.sh`    | Disconnects from Wi-Fi                  |
-| `wifi-mananger.sh`      | Provides Wi-Fi management functionality |
-
-These scripts are intended to be used through Hyprland keybindings and/or other desktop components.
-
-> `wifi-mananger.sh` is kept with its current filename for compatibility with the repository. Consider renaming it to `wifi-manager.sh` in a future cleanup if the filename is not referenced elsewhere.
-
----
-
-# Waybar
-
-Waybar configuration is located at:
-
-```text
-.config/waybar/
-```
-
-```text
-waybar/
-├── scripts/
-├── themes/
-├── config.jsonc
-└── style.css
-```
-
-### Scripts
-
-```text
-scripts/
-├── launch.sh
-├── system-update.sh
-└── theme-switcher.sh
-```
-
-These scripts provide functionality for launching Waybar, handling system updates, and switching themes.
-
-### Themes
-
-The repository currently includes:
-
-```text
-themes/
-├── default/
-│   ├── config.jsonc
-│   └── style.css
-│
-├── nord/
-│   ├── config.jsonc
-│   └── style.css
-│
-└── retro/
-    ├── config.jsonc
-    └── style.css
-```
-
-Each theme contains its own Waybar configuration and stylesheet.
-
-The default configuration is:
-
-```text
-config.jsonc
-```
-
-and the default styling is:
-
-```text
-style.css
+```bash
+hyprctl reload
 ```
 
 ---
 
-# Rofi
+## What the installer actually does
 
-Rofi is used for application launching and several custom desktop menus.
+Both installers follow the same basic flow:
 
-```text
-.config/rofi/
-├── colors/
-├── shared/
-├── styles/
-└── launcher.sh
-```
+1. Check that the system is the expected distribution and that there is enough
+   disk space.
+2. Update the system and install the required packages.
+3. Install fonts and rebuild the font cache.
+4. Copy `.config/*` into `~/.config/` (**overwriting existing files**).
+5. Copy Hyprland systemd user services into `~/.config/systemd/user/`.
+6. Copy the bundled wallpapers into `~/Pictures/Wallpaper/`.
+7. Optionally clone extra wallpaper collections and copy them into the same
+   folder (existing files are not overwritten).
+8. Install **Oh My Posh** and append its init line to `~/.bashrc`.
+9. Enable `sddm`, `NetworkManager` and `power-profiles-daemon`.
+10. Offer to reboot.
 
-### Colors
-
-```text
-colors/
-└── onedark.rasi
-```
-
-Contains the One Dark color configuration.
-
-### Shared styles
-
-```text
-shared/
-├── colors.rasi
-└── fonts.rasi
-```
-
-Common colors and font definitions shared between Rofi interfaces.
-
-### Rofi interfaces
-
-```text
-styles/
-├── keybind-dictionary.rasi
-├── launcher.rasi
-├── powermenu-style.rasi
-├── simple.rasi
-├── theme-switcher.rasi
-├── wallpaper-switch.rasi
-├── wifimanager-style.rasi
-└── wifipassword-style.rasi
-```
-
-These styles correspond to different interfaces such as:
-
-* Application launcher
-* Power menu
-* Keybind dictionary
-* Theme switcher
-* Wallpaper selector
-* Wi-Fi manager
-* Wi-Fi password prompt
-
-The launcher entry point is:
-
-```text
-launcher.sh
-```
+> [!NOTE]
+> The installer does not create a backup of your existing configuration.
+> Back it up yourself before the first install:
+>
+> ```bash
+> cp -a ~/.config "$HOME/.config.backup-$(date +%Y%m%d-%H%M%S)"
+> ```
 
 ---
 
-# SwayNC
+## The installer scripts
 
-SwayNC provides notifications and the desktop control center.
+### `install.sh`
 
-```text
-.config/swaync/
-├── colors/
-├── icons/
-├── themes/
-├── config.json
-└── style.css
-```
-
-### Icons
-
-The `icons/` directory contains custom icons for desktop controls such as:
-
-* Brightness
-* Volume
-* Microphone
-* Music
-* Gaming mode
-* Timer
-* Battery/power-related controls
-* Theme and wallpaper controls
-
-### Theme
-
-The current SwayNC theme is:
-
-```text
-themes/
-└── nova-dark/
-    ├── central_control.css
-    └── notifications.css
-```
-
-General SwayNC configuration is stored in:
-
-```text
-config.json
-```
-
-while the main stylesheet is:
-
-```text
-style.css
-```
-
----
-
-# CAVA
-
-CAVA is configured in:
-
-```text
-.config/cava/
-```
-
-```text
-cava/
-├── shaders/
-├── themes/
-├── config
-└── config.bak
-```
-
-### Shaders
-
-The repository includes several custom GLSL shaders:
-
-```text
-shaders/
-├── bar_spectrum.frag
-├── eye_of_phi.frag
-├── northern_lights.frag
-├── pass_through.vert
-├── spectrogram.frag
-└── winamp_line_style_spectrum.frag
-```
-
-These shaders provide different visual styles for the audio visualizer.
-
-### Themes
-
-```text
-themes/
-├── solarized_dark
-└── tricolor
-```
-
-CAVA's primary configuration is:
-
-```text
-config
-```
-
-with:
-
-```text
-config.bak
-```
-
-kept as a backup configuration.
-
----
-
-# Kitty
-
-Kitty configuration is located at:
-
-```text
-.config/kitty/
-├── custom-theme.omp.json
-└── kitty.conf
-```
-
-### `kitty.conf`
-
-Contains the main Kitty terminal configuration.
-
-### `custom-theme.omp.json`
-
-Contains custom Oh My Posh configuration used for the terminal prompt.
-
----
-
-# Fastfetch
-
-Fastfetch configuration:
-
-```text
-.config/fastfetch/
-├── config.jsonc
-└── logo.txt
-```
-
-`config.jsonc` controls the Fastfetch output, while `logo.txt` contains the custom ASCII logo.
-
----
-
-# Wallpapers
-
-Wallpapers are stored in:
-
-```text
-Wallpaper/
-├── wallpaper-0.jpg
-└── wallpaper-1.jpg
-```
-
-The wallpaper switching functionality is handled by:
-
-```text
-.config/hypr/scripts/wallpaper-switch.sh
-```
-
-Additional wallpapers can be added to this directory and integrated into the wallpaper-selection workflow.
-
----
-
-# Theme System
-
-The dotfiles are designed around multiple themes.
-
-Currently supported theme collections include:
-
-### Waybar
-
-* Default
-* Retro
-
-### CAVA
-
-* Solarized Dark
-* Tricolor
-
-### SwayNC
-
-* Nova Dark
-
-### Rofi
-
-* One Dark color scheme
-
-Theme-related scripts include:
-
-```text
-.config/waybar/scripts/theme-switcher.sh
-.config/hypr/scripts/show-current-theme.sh
-```
-
-The exact theme-switching behavior is controlled by the scripts and configuration files in the repository.
-
----
-
-# Customization
-
-The easiest way to customize the setup is to modify the relevant component rather than changing everything at once.
-
-### Change keybindings
-
-Edit:
-
-```text
-.config/hypr/modules/keybinds.lua
-```
-
-### Change monitors
-
-Edit:
-
-```text
-.config/hypr/modules/monitors.lua
-```
-
-### Change window rules
-
-Edit:
-
-```text
-.config/hypr/modules/windowrules.lua
-```
-
-### Change animations
-
-Edit:
-
-```text
-.config/hypr/modules/animations.lua
-```
-
-### Change Waybar appearance
-
-Edit:
-
-```text
-.config/waybar/style.css
-```
-
-or modify one of the theme directories:
-
-```text
-.config/waybar/themes/
-```
-
-### Change Rofi appearance
-
-Modify the appropriate `.rasi` file inside:
-
-```text
-.config/rofi/
-```
-
-### Change SwayNC appearance
-
-Modify:
-
-```text
-.config/swaync/style.css
-```
-
-or the relevant theme files inside:
-
-```text
-.config/swaync/themes/
-```
-
-### Change CAVA appearance
-
-Modify:
-
-```text
-.config/cava/config
-```
-
-and/or the files inside:
-
-```text
-.config/cava/themes/
-.config/cava/shaders/
-```
-
----
-
-# Applying Configuration Changes
-
-After changing configuration files, some applications need to be restarted or reloaded.
-
-For Hyprland configuration changes, use Hyprland's reload functionality or restart the relevant component.
-
-For Waybar, SwayNC, Rofi, or other applications, restart the affected application when necessary.
-
-> The exact reload command can vary depending on the component and how it is launched.
-
----
-
-# Installation Architecture
-
-The repository uses two levels of installation:
+Small entry point. Shows the ASCII banner, asks for the distribution, then
+`exec`s the matching script:
 
 ```text
 install.sh
-    │
-    ├── Arch Linux
-    │      └── installer-script/arch-install.sh
-    │
-    └── Fedora
-           └── installer-script/fedora-install.sh
+    ├── Arch Linux   → installer-script/arch-install.sh
+    └── Fedora Linux → installer-script/fedora-install.sh
 ```
 
-The distribution-specific scripts handle OS-specific package installation and setup, while the repository itself contains the desktop configuration.
+### `installer-script/arch-install.sh`
 
-This separation makes it easier to maintain support for multiple distributions.
+Arch-specific installer. Main steps:
+
+| Step | Details |
+| --- | --- |
+| Checks | Not root, sudo available, `/etc/arch-release` present, 5 GB free |
+| System update | `pacman -Syu` |
+| AUR helper | Installs `yay` from the AUR if missing |
+| Official packages | Hyprland, portals, Hypridle/Hyprlock/Hyprshot, Waybar, Rofi, SwayNC, Kitty, SDDM, NetworkManager, fonts, utilities |
+| AUR packages | `ttf-rubik`, `ttf-rubik-vf` |
+| Verification | Checks important packages and commands, then font matching |
+| Deployment | Configs, user services, wallpapers, Oh My Posh |
+| Services | Enables `sddm`, `NetworkManager`, `power-profiles-daemon` |
+
+### `installer-script/fedora-install.sh`
+
+Fedora-specific installer, written for **Fedora 43**. Main steps:
+
+| Step | Details |
+| --- | --- |
+| Checks | `/etc/fedora-release`, Fedora version (warns if not 43), 5 GB free |
+| System update | `dnf upgrade` |
+| Repositories | RPM Fusion Free/Nonfree and the `lionheartp/Hyprland` COPR |
+| Packages | Hyprland stack, Waybar, Rofi, SwayNC, Kitty, SDDM, CAVA, fonts, utilities |
+| Fonts | `jetbrains-mono-fonts`, `google-rubik-fonts`, font cache rebuild |
+| Deployment | Configs, user services, wallpapers, Oh My Posh |
+| Services | Enables `sddm`, `NetworkManager`, `power-profiles-daemon` |
+
+Both installers are idempotent for packages: already-installed packages are
+skipped. Configuration files are **not** merged — files from the repo replace
+the files in `~/.config`.
 
 ---
 
-# Important Notes
+## Updating
 
-## Existing configurations
-
-If you already have files under:
-
-```text
-~/.config/
-```
-
-be careful when installing these dotfiles.
-
-Existing configurations may be overwritten, replaced, or modified depending on how the installer is implemented.
-
-**Back up your existing configuration before installation.**
-
-For example:
+Use the updater when you have installed from this repository and want the
+latest configs without reinstalling packages.
 
 ```bash
-cp -r ~/.config ~/.config.backup
+cd hyprland-rice
+./update.sh
 ```
 
-You should also back up any important Hyprland, Waybar, Kitty, Rofi, or SwayNC configuration you already have.
+If needed:
 
-## Hardware-specific configuration
-
-Some settings are inherently machine-specific, particularly:
-
-* Monitor configuration
-* Input devices
-* Graphics-related settings
-* Audio devices
-* Network configuration
-* Environment variables
-
-The configuration may therefore require adjustment after installation.
-
-The most likely place to start is:
-
-```text
-.config/hypr/modules/monitors.lua
+```bash
+chmod +x update.sh
 ```
 
-and:
+### What `update.sh` does
+
+1. Verifies it is running inside a git clone of this repository.
+2. Warns if the clone has uncommitted local changes.
+3. Backs up the currently deployed configs to
+   `~/.config-backup-<YYYYMMDD-HHMMSS>/`.
+4. Runs `git pull --ff-only`.
+5. Copies the latest `.config/*` into `~/.config/`.
+6. Restores your selected Waybar theme (or uses `default`).
+7. Makes shell scripts executable, updates user systemd services and reloads
+   the user systemd manager.
+8. Adds new bundled wallpapers **without overwriting** wallpapers you already
+   have.
+9. Reloads Hyprland, Waybar and SwayNC if they are running.
+
+It does **not** update packages, install new dependencies, re-enable services,
+or modify `~/.bashrc`. If an update introduces a new dependency, re-run the
+installer or install the package with your package manager.
+
+### Manual update
+
+If you prefer to do it yourself:
+
+```bash
+cd hyprland-rice
+git pull
+cp -rf .config/* ~/.config/
+hyprctl reload
+```
+
+> [!WARNING]
+> `update.sh` overwrites the config files it manages. Your backup is the
+> `~/.config-backup-*` directory printed at the end of the run. Local edits to
+> files that exist in the repository **will be replaced**.
+
+### If `git pull` fails
+
+- Local changes in the clone: `git status`, then commit, stash or discard them.
+- No network: retry later.
+- Not a git clone (for example, a downloaded ZIP): delete it and clone the
+  repository again, then run `./update.sh`.
+
+---
+
+## Repository structure
 
 ```text
-.config/hypr/modules/input.lua
+.
+├── .config/                     # Mirrors ~/.config after installation
+│   ├── awww/
+│   │   └── scripts/wallpaper-rotate.sh
+│   ├── cava/
+│   │   ├── shaders/             # Custom GLSL shaders
+│   │   ├── themes/              # solarized_dark, tricolor
+│   │   ├── config
+│   │   └── config.bak
+│   ├── fastfetch/
+│   │   ├── config.jsonc
+│   │   └── logo.txt
+│   ├── hypr/
+│   │   ├── modules/             # Lua configuration modules
+│   │   ├── scripts/             # Desktop helper scripts
+│   │   ├── service/             # systemd user services
+│   │   ├── hyprland.lua         # Entry point
+│   │   ├── hypridle.conf
+│   │   └── hyprlock.conf
+│   ├── kitty/
+│   │   ├── kitty.conf
+│   │   └── custom-theme.omp.json
+│   ├── rofi/
+│   │   ├── colors/              # onedark
+│   │   ├── shared/              # colors and fonts
+│   │   ├── styles/              # .rasi interfaces
+│   │   └── launcher.sh
+│   ├── swaync/
+│   │   ├── colors/
+│   │   ├── icons/
+│   │   ├── themes/nova-dark/
+│   │   ├── config.json
+│   │   └── style.css
+│   ├── swayosd/
+│   │   └── style.css
+│   └── waybar/
+│       ├── scripts/
+│       ├── themes/              # 46 Waybar themes
+│       ├── config.jsonc         # symlink to the active theme
+│       └── style.css            # symlink to the active theme
+├── Wallpaper/
+├── installer-script/
+│   ├── arch-install.sh
+│   └── fedora-install.sh
+├── install.sh
+├── update.sh
+└── README.md
 ```
 
 ---
 
-# Troubleshooting
+## Configuration
+
+### Hyprland
+
+Entry point:
+
+```text
+.config/hypr/hyprland.lua
+```
+
+It only loads the modules:
+
+| Module | Purpose |
+| --- | --- |
+| `animations.lua` | Animation configuration |
+| `autostart.lua` | Applications and services started with Hyprland |
+| `decoration.lua` | Decorations, blur, rounding, visual effects |
+| `environment.lua` | Environment variables |
+| `input.lua` | Keyboard, mouse and touchpad settings |
+| `keybinds.lua` | Keyboard and mouse shortcuts |
+| `layout.lua` | Window layout behavior |
+| `misc.lua` | Miscellaneous Hyprland settings |
+| `monitors.lua` | Monitor configuration |
+| `permissions.lua` | Permission-related settings |
+| `programs.lua` | Program/command definitions used by keybinds |
+| `windowrules.lua` | Window-specific rules |
+
+Hyprland starts Waybar, SwayNC, Hypridle, SwayOSD, the clipboard watchers,
+`awww-daemon`, wallpaper rotation and display hotplug detection.
+
+### Hyprland scripts
+
+```text
+.config/hypr/scripts/
+├── display-hotplug.sh
+├── display-mode.sh
+├── keybinds.sh
+├── power-menu.sh
+├── screen-record.sh
+├── show-current-theme.sh
+├── wallpaper-switch.sh
+├── wifi-disconnect.sh
+└── wifi-mananger.sh
+```
+
+| Script | Purpose |
+| --- | --- |
+| `display-hotplug.sh` | Reacts to monitor hotplug events |
+| `display-mode.sh` | Display mode helpers |
+| `keybinds.sh` | Rofi keybind dictionary |
+| `power-menu.sh` | Power menu actions |
+| `screen-record.sh` | Screen recording with `wf-recorder` |
+| `show-current-theme.sh` | Shows the active wallpaper theme |
+| `wallpaper-switch.sh` | Wallpaper picker |
+| `wifi-disconnect.sh` | Disconnects from Wi-Fi |
+| `wifi-mananger.sh` | Wi-Fi manager |
+
+> `wifi-mananger.sh` keeps its original filename for compatibility with the
+> keybinds. Renaming it would require updating the references as well.
+
+### Waybar
+
+- `scripts/launch.sh` — restarts Waybar and SwayNC.
+- `scripts/system-update.sh` — update action for the bar.
+- `scripts/theme-switcher.sh` — Rofi picker; switches `config.jsonc` and
+  `style.css` to the selected theme, then restarts Waybar.
+- `themes/` — 46 themes, each with its own `config.jsonc` and `style.css`.
+
+The top-level `config.jsonc` and `style.css` are symlinks to the active theme.
+
+### Rofi
+
+- `launcher.sh` — application launcher entry point.
+- `colors/onedark.rasi` — One Dark palette.
+- `shared/colors.rasi`, `shared/fonts.rasi` — shared colors and fonts.
+- `styles/` — launcher, power menu, keybind dictionary, theme switcher,
+  wallpaper picker, Wi-Fi manager, Wi-Fi password prompt.
+
+### SwayNC
+
+- `config.json` — notification and control-center behavior.
+- `style.css` — main stylesheet.
+- `colors/colors.css` — color variables.
+- `themes/nova-dark/` — central control and notification styles.
+- `icons/` — custom icons for volume, brightness, microphone, music, gaming
+  mode, timer, theme and wallpaper controls.
+
+### CAVA
+
+- `config` — main configuration (a backup is kept as `config.bak`).
+- `themes/solarized_dark`, `themes/tricolor` — color themes.
+- `shaders/` — GLSL shaders: bar spectrum, eye of phi, northern lights,
+  spectrogram, Winamp-style line spectrum and a vertex pass-through shader.
+
+### Kitty and Fastfetch
+
+- `.config/kitty/kitty.conf` — terminal configuration.
+- `.config/kitty/custom-theme.omp.json` — Oh My Posh prompt theme.
+- `.config/fastfetch/config.jsonc` — Fastfetch layout.
+- `.config/fastfetch/logo.txt` — custom ASCII logo.
+
+### Wallpapers
+
+Bundled wallpapers live in `Wallpaper/` and are deployed to
+`~/Pictures/Wallpaper/`. The installer can optionally download extra
+wallpaper collections from
+[`wp-collection`](https://github.com/genta-bahana-nagari/wp-collection).
+Wallpaper rotation runs in the background and changes the wallpaper
+periodically.
+
+---
+
+## Themes
+
+| Component | Themes |
+| --- | --- |
+| **Waybar** | 46 themes in `waybar/themes/`, including `default`, `nord`, `retro`, `dracula`, `ocean`, `aurora`, `coffee`, `cyber`, `forest`, `sakura`, `terminal`, `frost` and `minimalist`, with `simple`/`maximum` and `v1`/`v2` variants |
+| **CAVA** | `solarized_dark`, `tricolor` |
+| **SwayNC** | `nova-dark` |
+| **Rofi** | One Dark color scheme |
+
+Switch the Waybar theme with **Super + Ctrl + W** (or run
+`.config/waybar/scripts/theme-switcher.sh`). The script updates the symlinks
+and restarts Waybar.
+
+---
+
+## Keybindings
+
+The main modifier is **Super** (Windows key). The full list is in
+`.config/hypr/modules/keybinds.lua` and in the in-desktop keybind dictionary
+(**Super + K**).
+
+| Shortcut | Action |
+| --- | --- |
+| `Super + Return` | Terminal (Kitty) |
+| `Super + D` | Application launcher (Rofi) |
+| `Super + E` | File manager |
+| `Super + B` | Browser |
+| `Super + C` | Code editor |
+| `Super + Q` | Close window |
+| `Super + M` | Toggle fullscreen |
+| `Super + Space` | Toggle floating |
+| `Super + V` | Clipboard history |
+| `Super + W` | Wallpaper switcher |
+| `Super + Ctrl + W` | Waybar theme switcher |
+| `Super + N` | Notifications (SwayNC) |
+| `Super + Shift + N` | Wi-Fi manager |
+| `Super + Ctrl + N` | Disconnect Wi-Fi |
+| `Super + S` | Screenshot (output) |
+| `Super + Shift + S` | Screenshot (region) |
+| `Super + Ctrl + S` | Screenshot (window) |
+| `Super + Shift + R` | Screen recording |
+| `Super + Shift + Delete` | Power menu |
+| `Super + R` | Reload Hyprland |
+| `Super + K` | Keybind dictionary |
+
+---
+
+## Customization
+
+Change only the component you care about:
+
+| What | Where |
+| --- | --- |
+| Keybindings | `.config/hypr/modules/keybinds.lua` |
+| Monitors | `.config/hypr/modules/monitors.lua` |
+| Input devices | `.config/hypr/modules/input.lua` |
+| Window rules | `.config/hypr/modules/windowrules.lua` |
+| Animations | `.config/hypr/modules/animations.lua` |
+| Autostart | `.config/hypr/modules/autostart.lua` |
+| Program commands | `.config/hypr/modules/programs.lua` |
+| Waybar | `.config/waybar/style.css` or `.config/waybar/themes/` |
+| Rofi | `.config/rofi/styles/`, `.config/rofi/colors/` |
+| SwayNC | `.config/swaync/style.css`, `.config/swaync/themes/` |
+| CAVA | `.config/cava/config`, `.config/cava/themes/`, `.config/cava/shaders/` |
+| Kitty | `.config/kitty/kitty.conf` |
+| Fastfetch | `.config/fastfetch/config.jsonc` |
+
+After changing Hyprland configuration:
+
+```bash
+hyprctl reload
+```
+
+After changing Waybar, SwayNC or Rofi styles, restart the affected component
+(or switch the Waybar theme, which restarts it for you).
+
+> Local edits in `~/.config` are overwritten by `install.sh` and `update.sh`
+> if the same file exists in the repository. Keep personal overrides in a
+> separate file or commit them to your own fork.
+
+---
+
+## Troubleshooting
 
 ### Hyprland does not start
 
-Check:
+Check the entry point and modules:
 
 ```text
 .config/hypr/hyprland.lua
 .config/hypr/modules/
 ```
 
-Look for configuration errors, especially after modifying Lua files.
+Look for Lua syntax errors. Start Hyprland from a TTY to read the error
+output:
+
+```bash
+Hyprland
+```
 
 ### Waybar does not appear
 
-Check:
+```bash
+waybar
+```
+
+Check the error output, then inspect:
 
 ```text
 .config/waybar/config.jsonc
 .config/waybar/style.css
 ```
 
-and make sure Waybar is being launched by the Hyprland configuration or the appropriate startup script.
+If those symlinks point to a missing theme, switch to a valid theme:
 
-### Rofi menu looks incorrect
-
-Check the relevant `.rasi` files under:
-
-```text
-.config/rofi/
+```bash
+ln -sfn themes/default/config.jsonc ~/.config/waybar/config.jsonc
+ln -sfn themes/default/style.css ~/.config/waybar/style.css
 ```
 
-Make sure referenced colors, fonts, and styles exist.
+### Rofi menus look wrong
+
+Check the `.rasi` files under `.config/rofi/`. Make sure referenced colors and
+fonts exist; Rofi fails silently or falls back when an `@import` is missing.
 
 ### SwayNC styling is broken
 
@@ -765,28 +612,20 @@ Check:
 ```text
 .config/swaync/style.css
 .config/swaync/config.json
+.config/swaync/themes/
 ```
 
-and the selected theme under:
+Then reload:
 
-```text
-.config/swaync/themes/
+```bash
+swaync-client -rs
 ```
 
 ### Wallpaper does not change
 
-Check:
-
-```text
-Wallpaper/
-.config/hypr/scripts/wallpaper-switch.sh
-```
-
-Make sure the wallpaper files exist and that the script has executable permissions.
-
-### A script cannot be executed
-
-Make sure scripts have executable permissions:
+Check `Wallpaper/`, `~/Pictures/Wallpaper/`, `awww-daemon` and
+`.config/hypr/scripts/wallpaper-switch.sh`. Make sure the files exist and the
+scripts are executable:
 
 ```bash
 chmod +x .config/hypr/scripts/*.sh
@@ -794,51 +633,94 @@ chmod +x .config/waybar/scripts/*.sh
 chmod +x .config/rofi/launcher.sh
 ```
 
-The installation process may already handle these permissions.
+### Monitors are wrong or one screen is black
+
+Edit `.config/hypr/modules/monitors.lua`. Get the output names with:
+
+```bash
+hyprctl monitors
+```
+
+### Fonts look different
+
+```bash
+fc-cache -f
+fc-match "JetBrains Mono"
+fc-match "Rubik"
+```
+
+Install `ttf-jetbrains-mono-nerd` (Arch) or `jetbrains-mono-fonts` +
+`google-rubik-fonts` (Fedora) if they are missing.
+
+### An update broke something
+
+Restore the backup created by `update.sh`:
+
+```bash
+cp -a ~/.config-backup-<timestamp>/. ~/.config/
+hyprctl reload
+```
+
+### I want to start over
+
+Back up `~/.config`, delete the directories managed by this repo, and run
+`./install.sh` again.
 
 ---
 
-# Project Philosophy
+## Backup and restore
 
-These dotfiles are intended to be:
+Before the first install:
 
-* **Minimal** — Avoid unnecessary configuration and visual clutter.
-* **Modular** — Keep related settings separated into manageable files.
-* **Customizable** — Make themes, keybindings, and behavior easy to modify.
-* **Practical** — Provide useful scripts for everyday desktop tasks.
-* **Maintainable** — Keep distribution-specific installation logic separate from desktop configuration.
+```bash
+cp -a ~/.config "$HOME/.config.backup-$(date +%Y%m%d-%H%M%S)"
+```
 
----
+`update.sh` creates `~/.config-backup-<timestamp>/` automatically and backs up
+only the top-level `~/.config` directories that this repository manages.
 
-# Contributing
+Restore a single component:
 
-Contributions, improvements, bug fixes, themes, and suggestions are welcome.
+```bash
+cp -a ~/.config-backup-<timestamp>/waybar ~/.config/
+```
 
-Before submitting changes:
+Restore everything from that backup:
 
-1. Test the relevant configuration.
-2. Make sure scripts still work.
-3. Avoid breaking existing themes.
-4. Keep the configuration modular.
-5. Document significant changes.
-
----
-
-# Disclaimer
-
-These dotfiles are provided for personal use and experimentation.
-
-They may not work perfectly on every machine or hardware configuration. Review the installation scripts and configuration before applying them to an existing system.
-
-Always keep a backup of your current configuration.
+```bash
+cp -a ~/.config-backup-<timestamp>/. ~/.config/
+```
 
 ---
 
-# License
+## Contributing
 
-No license has currently been specified for this project.
+Contributions, fixes and new themes are welcome.
 
-If you intend to allow others to reuse, modify, or redistribute the dotfiles, consider adding an appropriate open-source license.
+1. Test the relevant configuration or script.
+2. Keep Hyprland configuration modular.
+3. Do not break existing themes or keybinds.
+4. Update documentation when behavior changes.
+5. Keep installer changes working on both Arch and Fedora where applicable.
+
+---
+
+## Disclaimer
+
+These dotfiles are provided for personal use and experimentation. They are not
+a supported distribution and may not work on every machine. Review the
+scripts before running them, back up your configuration, and expect changes
+while the project is under development.
+
+Use at your own risk.
+
+---
+
+## License
+
+No license has been specified yet. Until one is added, treat this as personal
+configuration rather than a package you can freely redistribute. If you want
+others to reuse it, add an open-source license such as MIT or GPL-3.0.
 
 ---
 
@@ -846,4 +728,6 @@ If you intend to allow others to reuse, modify, or redistribute the dotfiles, co
 
 **Work in progress 🚧**
 
-This project is actively being developed. Configuration structure, scripts, themes, and supported distributions may change over time.
+Configuration structure, scripts, themes, package lists and supported
+distributions may change without notice. Check the repository, read the
+scripts, and keep backups. Bug reports and suggestions are welcome.

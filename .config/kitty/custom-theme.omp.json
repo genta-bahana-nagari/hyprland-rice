@@ -1,50 +1,94 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "transient_prompt": {
+    "newline": true
+  },
   "blocks": [
     {
       "alignment": "left",
       "segments": [
         {
-          "style": "powerline",
-          "template": "{{ .Icon }}",
-          "type": "os"
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "\n╭─",
+          "type": "text",
+          "style": "powerline"
         },
         {
+          "style": "powerline",
+          "template": " {{.Icon}}  ",
+          "type": "os",
+	  "background": "#363434",
+	  "foreground": "#EBECEC"
+        },
+        {
+          "background": "#EBEBEB",
+          "foreground": "#0F0F0F",
+          "powerline_symbol": "\ue0b0",
           "options": {
+            "folder_separator_icon": "/",
             "style": "full"
           },
-          "style": "plain",
-          "template": "  {{ .Path }} ",
+          "style": "powerline",
+          "template": " \ue5ff {{ .Path }} ",
           "type": "path"
         },
         {
           "style": "plain",
-          "template": ":: </>{{ .HEAD }}",
+          "template": " </>{{ .HEAD }}",
           "type": "git"
         },
         {
           "style": "plain",
-          "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "template": "  {{ .Full }} ",
           "type": "node"
+        },
+        {
+          "properties": {
+            "display_mode": "files",
+            "extensions": ["pnpm-lock.yaml"]
+          },
+          "template": " 󰋁 {{ .Full }} ",
+          "type": "pnpm",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "display_mode": "files"
+          },
+          "template": "  {{ .Full }} ",
+          "type": "python",
+          "style": "plain"
+        },
+        {
+          "template": "  {{ .Full }} ",
+          "type": "java",
+          "style": "plain"
+        },
+        {
+          "template": "  {{ .Full }} ",
+          "type": "php",
+          "style": "plain"
         }
       ],
       "type": "prompt"
     },
     {
+      "type": "prompt",
       "alignment": "left",
-      "newline": true,
       "segments": [
         {
-          "foreground_templates": ["{{ if gt .Code 0 }} {{ end }}"],
-          "options": {
-            "always_enabled": true
+          "properties": {
+            "always_enabled": true,
+            "cache_duration": "none"
           },
-          "style": "powerline",
-          "template": "\u279c ",
-          "type": "status"
+          "template": "╰─ ❯❯ ",
+          "type": "text",
+          "style": "diamond"
         }
       ],
-      "type": "prompt"
+      "newline": true
     }
   ],
   "version": 4

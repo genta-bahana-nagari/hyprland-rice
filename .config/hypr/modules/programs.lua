@@ -10,6 +10,7 @@ local programs = {
     fileManager = "nautilus",
     wifiManager = "~/.config/hypr/scripts/wifi-mananger.sh",
     wifiDisconnect = "~/.config/hypr/scripts/wifi-disconnect.sh",
+    displayMode = "~/.config/hypr/scripts/display-mode.sh",
 
     rofiLogout = "~/.config/hypr/scripts/power-menu.sh",
     wallpaperSwitcher = "~/.config/hypr/scripts/wallpaper-switch.sh",

@@ -1,116 +1,81 @@
 /*
- * cyber_simple_v2
- * Simple v2
+ * cyber_simple_v2 - Pill/Capsule UI
+ * Three fully-rounded capsule groups floating with gaps.
+ * Distinct from others: three separate capsules (workspaces/clock/system) with elevated shadows.
  */
+
+@define-color bg          #070910;
+@define-color bg-alt      #151a30;
+@define-color fg          #e5efff;
+@define-color fg-muted    #6b7a9a;
+@define-color accent      #00f0ff;
+@define-color accent-dim  #0088cc;
+@define-color warn        #c084fc;
+@define-color crit        #ff3366;
+@define-color capsule-bg  #0d1020;
+@define-color capsule-border alpha(#00f0ff, 0.15);
 
 * {
     border: none;
+    border-radius: 0;
     min-height: 0;
-
     font-family: "JetBrainsMono Nerd Font";
-    font-size: 13px;
-    font-weight: 600;
-
-    color: #e5efff;
+    font-size: 12px;
+    font-weight: 500;
+    color: @fg;
 }
 
 window#waybar {
     background: transparent;
 }
 
-#custom-menu,
-#workspaces,
-#window,
-#clock,
-#network,
-#pulseaudio,
-#battery {
-    background: #070910;
-    margin: 5px 2px;
-    padding: 7px 12px;
-    border-radius: 10px;
+/* Three distinct capsule containers */
+#group-workspaces-capsule,
+#group-clock-capsule,
+#group-system-capsule {
+    background: @capsule-bg;
+    border: 1px solid @capsule-border;
+    border-radius: 100px;
+    padding: 8px 16px;
+    margin: 6px 10px;
+    box-shadow: 0 4px 20px alpha(#000000, 0.5), inset 0 1px 0 alpha(@fg, 0.05);
 }
 
-#custom-menu {
-    color: #00f0ff;
-    background: #151a30;
+/* Workspaces capsule */
+#group-workspaces-capsule > #workspaces { background: transparent; padding: 0; margin: 0; }
+#group-workspaces-capsule #workspaces button {
+    color: @fg-muted; background: transparent; padding: 6px 12px; margin: 0 2px;
+    border-radius: 100px; min-width: 32px; transition: all 120ms ease;
+}
+#group-workspaces-capsule #workspaces button:hover { background: alpha(@accent, 0.2); color: @accent; }
+#group-workspaces-capsule #workspaces button.active { background: @accent; color: @bg; font-weight: 600; }
+#group-workspaces-capsule #workspaces button.urgent { background: @crit; color: @bg; }
+
+/* Clock capsule */
+#group-clock-capsule > #clock {
+    background: transparent; color: @accent; font-weight: 600; padding: 4px 8px; margin: 0;
 }
 
-#workspaces {
-    padding: 3px;
+/* System capsule - tighter internal spacing */
+#group-system-capsule { padding: 8px 12px; }
+#group-system-capsule > #network,
+#group-system-capsule > #pulseaudio,
+#group-system-capsule > #battery {
+    background: transparent; color: @fg; padding: 6px 12px; margin: 0 4px;
+    border-radius: 100px; transition: all 120ms ease;
 }
+#group-system-capsule > #network:hover,
+#group-system-capsule > #pulseaudio:hover,
+#group-system-capsule > #battery:hover { background: alpha(@accent, 0.15); color: @accent; }
+#group-system-capsule > #network { color: @accent; }
+#group-system-capsule > #network.disconnected { color: @crit; }
+#group-system-capsule > #pulseaudio { color: @warn; }
+#group-system-capsule > #pulseaudio.muted { color: @fg-muted; }
+#group-system-capsule > #battery { color: @accent; }
+#group-system-capsule > #battery.warning { color: @warn; }
+#group-system-capsule > #battery.critical { color: @crit; }
+#group-system-capsule > #battery.charging,
+#group-system-capsule > #battery.plugged { color: @accent; }
 
-#workspaces button {
-    color: #e5efff;
-    background: transparent;
-
-    padding: 5px 8px;
-    margin: 0 1px;
-
-    border-radius: 7px;
-}
-
-#workspaces button:hover {
-    color: #00f0ff;
-    background: #151a30;
-}
-
-#workspaces button.active {
-    color: #070910;
-    background: #00f0ff;
-}
-
-#window {
-    background: transparent;
-}
-
-#clock {
-    color: #00f0ff;
-    background: #151a30;
-
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-#network {
-    color: #c084fc;
-}
-
-#network.disconnected {
-    color: #ff3366;
-}
-
-#pulseaudio {
-    color: #00f0ff;
-}
-
-#pulseaudio.muted {
-    color: #ff3366;
-}
-
-#battery {
-    color: #c084fc;
-}
-
-#battery.warning {
-    color: #ff3366;
-}
-
-#battery.critical {
-    color: #ff3366;
-}
-
-#battery.charging {
-    color: #00f0ff;
-}
-
-tooltip {
-    background: #070910;
-    border: 1px solid #00f0ff;
-    border-radius: 8px;
-}
-
-tooltip label {
-    color: #e5efff;
-    padding: 6px;
-}
+tooltip { background: @bg; border: 1px solid @accent-dim; border-radius: 8px; }
+tooltip label { color: @fg; padding: 6px 10px; }

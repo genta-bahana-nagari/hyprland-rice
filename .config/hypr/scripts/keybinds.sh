@@ -26,7 +26,7 @@ descriptions = {
     "SUPER + C": "Open Code Editor",
     "SUPER + D": "Open Application Launcher",
     "SUPER + SHIFT + D": "Open Discord",
-    "SUPER + P": "Open Postman",
+    "SUPER + SHIFT + P": "Open Postman",
     "SUPER + SHIFT + M": "Open Spotify",
     "SUPER + N": "Open Notification Center",
     "SUPER + SHIFT + N": "Open Wi-Fi Manager",
@@ -37,6 +37,7 @@ descriptions = {
 
     "SUPER + Q": "Close Active Window",
     "SUPER + SHIFT + Delete": "Open Power Menu",
+    "SUPER + P": "Open Display Mode",
     "SUPER + W": "Change Wallpaper",
     "SUPER + SHIFT + W": "Toggle Waybar",
     "SUPER + CTRL + W": "Open Waybar Switcher",

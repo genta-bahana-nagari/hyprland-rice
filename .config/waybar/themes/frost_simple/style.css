@@ -1,121 +1,97 @@
-@define-color background     #111318;
-@define-color background-alt #1a1d24;
-@define-color foreground     #d8dee9;
+/*
+ * frost_simple - Vertical Sidebar
+ * Full-height vertical bar on left edge. Stacked modules with separators.
+ * Distinct from ALL others: VERTICAL orientation, left-edge only, stacked layout.
+ */
 
-@define-color selected       #88c0d0;
-@define-color active         #81a1c1;
-@define-color urgent         #bf616a;
-@define-color muted          #616875;
+@define-color bg          #111318;
+@define-color bg-alt      #1a1d24;
+@define-color fg          #d8dee9;
+@define-color fg-muted    #616875;
+@define-color accent      #88c0d0;
+@define-color accent-dim  #5a7a9a;
+@define-color warn        #81a1c1;
+@define-color crit        #bf616a;
+@define-color sidebar-bg  #0d0f14;
+@define-color border-c    #2a2f3d;
+@define-color separator-c #3a3f4f;
 
 * {
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 13px;
-    font-weight: 500;
-
-    border: none;
-    min-height: 0;
+    border: none; border-radius: 0; min-height: 0;
+    font-family: "JetBrainsMono Nerd Font"; font-size: 11px; font-weight: 500; color: @fg;
 }
-
 
 window#waybar {
-    background: transparent;
-    color: @foreground;
+    background: @sidebar-bg;
+    border-right: 2px solid @border-c;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 4px 0 24px alpha(#000000, 0.5);
 }
 
-
+#custom-menu,
 #workspaces,
 #clock,
 #network,
 #pulseaudio,
-#battery {
-    background: @background;
-
-    color: @foreground;
-
-    padding: 0 10px;
-
-    border: 2px solid @selected;
-    border-radius: 12px;
-}
-
-
-#workspaces {
-    padding: 0 4px;
-}
-
-#workspaces button {
+#battery,
+#custom-power,
+#custom-separator-v1,
+#custom-separator-v2,
+#custom-separator-v3 {
     background: transparent;
-    color: @muted;
-
-    padding: 0 8px;
-    margin: 3px 2px;
-
+    color: @fg;
+    padding: 10px 8px;
+    margin: 4px 6px;
     border-radius: 8px;
+    transition: all 150ms ease;
 }
 
-#workspaces button:hover {
-    background: @background-alt;
-    color: @foreground;
+#custom-menu,
+#clock,
+#network,
+#pulseaudio,
+#battery,
+#custom-power {
 }
 
-#workspaces button.active {
-    background: @selected;
-    color: @background;
+#custom-menu:hover,
+#clock:hover,
+#network:hover,
+#pulseaudio:hover,
+#battery:hover,
+#custom-power:hover {
+    background: @bg-alt;
+    color: @accent;
 }
 
-#workspaces button.urgent {
-    background: @urgent;
-    color: @background;
+#custom-menu { font-size: 18px; color: @accent; padding: 14px 8px; margin-top: 8px; }
+#custom-power { font-size: 18px; color: @crit; padding: 14px 8px; margin-bottom: 8px; }
+#custom-power:hover { background: @crit; color: @bg; }
+
+#custom-separator-v1,
+#custom-separator-v2,
+#custom-separator-v3 {
+    color: @separator-c; font-size: 10px; font-weight: 300;
+    padding: 4px 8px; margin: 8px 6px; letter-spacing: 2px;
 }
 
-
-#clock {
-    background: @background-alt;
-    color: @selected;
-
-    padding-left: 14px;
-    padding-right: 14px;
+#workspaces { padding: 4px; margin: 4px 6px; }
+#workspaces button {
+    color: @fg-muted; background: transparent; padding: 8px 6px; margin: 2px 0;
+    border-radius: 6px; min-width: 32px; min-height: 32px; transition: all 120ms ease;
 }
+#workspaces button:hover { background: @bg-alt; color: @accent; }
+#workspaces button.active { background: @accent; color: @bg; font-weight: 600; }
+#workspaces button.urgent { background: @crit; color: @bg; }
 
-#network.wifi {
-    color: @selected;
-}
+#clock { color: @accent; font-weight: 600; font-size: 10px; padding: 8px; margin: 8px 6px; border-top: 1px solid @border-c; border-bottom: 1px solid @border-c; }
+#network { color: @accent; font-size: 16px; }
+#network.disconnected { color: @crit; }
+#pulseaudio { color: @warn; font-size: 16px; }
+#pulseaudio.muted { color: @fg-muted; }
+#battery { color: @accent; font-size: 16px; }
+#battery.warning { color: @warn; }
+#battery.critical { color: @crit; }
+#battery.charging, #battery.plugged { color: @accent; }
 
-#network.ethernet {
-    color: @active;
-}
-
-#network.disconnected {
-    color: @urgent;
-}
-
-#pulseaudio.muted {
-    color: @muted;
-}
-
-#battery.charging {
-    color: @selected;
-}
-
-#battery.warning {
-    color: @active;
-}
-
-#battery.critical:not(.charging) {
-    color: @urgent;
-}
-
-tooltip {
-    background: @background;
-
-    color: @foreground;
-
-    border: 2px solid @selected;
-    border-radius: 12px;
-
-    padding: 10px;
-}
-
-tooltip label {
-    color: @foreground;
-}
+tooltip { background: @bg; border: 1px solid @accent-dim; border-radius: 8px; }

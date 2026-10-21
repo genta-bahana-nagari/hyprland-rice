@@ -71,28 +71,28 @@ hl.window_rule({
     float = true,
 })
 
--- Qalculate
+-- Calculator
 hl.window_rule({
-    name = "qalculate-float",
-    match = {
-        class = "qalculate-gtk",
-    },
+   name = "qalculate-float",
+   match = {
+       class = "qalculate-gtk",
+   },
 
-    float = true,
-    center = true,
+   float = true,
+   center = true,
 })
 
 -- Spotify
-hl.window_rule({
-    name = "spotify-float",
-    match = {
-        class = "spotify",
-    },
+-- hl.window_rule({
+--     name = "spotify-float",
+--    match = {
+--        class = "spotify",
+--    },
 
-    float = true,
-    size   = "1366 768",
-    center = true,
-})
+--    float = true,
+--    size   = "1366 768",
+--    center = true,
+--})
 
 -- Kitty floating window
 -- Disabled in the original configuration.

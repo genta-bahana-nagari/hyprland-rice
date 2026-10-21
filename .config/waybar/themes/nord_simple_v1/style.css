@@ -1,263 +1,102 @@
 /*
- * nord_simple_v1
- * Generated Waybar theme
+ * nord_simple_v1 - Minimal Floating Bar
+ * Thin horizontal bar with visible background, generous margins, compact modules.
+ * Distinct from others: floating bar with semi-transparent background, minimal module styling.
  */
+
+@define-color bg          #2e3440;
+@define-color bg-alt      #3b4252;
+@define-color fg          #d8dee9;
+@define-color fg-muted    #616875;
+@define-color accent      #88c0d0;
+@define-color accent-dim  #5a7a9a;
+@define-color warn        #81a1c1;
+@define-color crit        #bf616a;
+@define-color separator   #3b4252;
+@define-color bar-bg      alpha(#2e3440, 0.95);
 
 * {
     border: none;
     border-radius: 0;
     min-height: 0;
-
     font-family: "JetBrainsMono Nerd Font";
-    font-size: 13px;
-    font-weight: 600;
-
-    color: #d8dee9;
+    font-size: 12px;
+    font-weight: 500;
+    color: @fg;
 }
-
-
-/* =========================================================
- * WAYBAR
- * ========================================================= */
 
 window#waybar {
-    background: transparent;
+    background: @bar_bg;
+    border-radius: 100px;
+    border: 1px solid alpha(@accent, 0.3);
+    box-shadow: 0 4px 24px alpha(#000000, 0.4);
+    margin: 4px 16px;
 }
 
-
-/* =========================================================
- * COMMON MODULES
- * ========================================================= */
-
-#custom-menu,
 #workspaces,
-#window,
 #clock,
-#cpu,
-#memory,
-#temperature,
-#disk,
 #network,
 #pulseaudio,
-#backlight,
-#battery,
-#tray,
-#custom-power {
-    background: #2e3440;
-    color: #d8dee9;
-
-    margin: 4px 2px;
-    padding: 6px 10px;
-
-    border-radius: 8px;
+#battery {
+    background: transparent;
+    color: @fg;
+    padding: 4px 10px;
+    margin: 2px 4px;
+    border-radius: 6px;
+    transition: background 150ms ease, color 150ms ease;
 }
-
-
-/* =========================================================
- * MENU
- * ========================================================= */
-
-#custom-menu {
-    color: #88c0d0;
-    background: #3b4252;
-
-    padding-left: 14px;
-    padding-right: 14px;
-}
-
-
-/* =========================================================
- * WORKSPACES
- * ========================================================= */
 
 #workspaces {
-    padding: 3px 5px;
-    background: #2e3440;
+    padding: 2px 4px;
+    margin-right: 8px;
 }
 
 #workspaces button {
-    color: #d8dee9;
+    color: @fg-muted;
     background: transparent;
-
-    padding: 5px 9px;
-    margin: 0 2px;
-
-    border-radius: 8px;
-
-    transition: all 150ms ease;
+    padding: 4px 8px;
+    margin: 0 1px;
+    border-radius: 4px;
+    min-width: 24px;
+    transition: all 120ms ease;
 }
 
 #workspaces button:hover {
-    background: #3b4252;
-    color: #88c0d0;
+    background: alpha(@accent, 0.2);
+    color: @accent;
 }
 
 #workspaces button.active {
-    background: #88c0d0;
-    color: #2e3440;
-
-    padding-left: 12px;
-    padding-right: 12px;
+    background: @accent;
+    color: @bg;
+    font-weight: 600;
 }
 
 #workspaces button.urgent {
-    background: #bf616a;
-    color: #2e3440;
+    background: @crit;
+    color: @bg;
 }
-
-
-/* =========================================================
- * WINDOW
- * ========================================================= */
-
-#window {
-    color: #d8dee9;
-    background: #2e3440;
-
-    padding-left: 14px;
-    padding-right: 14px;
-}
-
-window#waybar.empty #window {
-    background: transparent;
-}
-
-
-/* =========================================================
- * CLOCK
- * ========================================================= */
 
 #clock {
-    color: #88c0d0;
-
-    padding-left: 16px;
-    padding-right: 16px;
+    color: @accent;
+    font-weight: 600;
+    padding: 4px 14px;
 }
 
+#network { color: @accent; }
+#network.disconnected { color: @crit; }
 
-/* =========================================================
- * SYSTEM
- * ========================================================= */
+#pulseaudio { color: @warn; }
+#pulseaudio.muted { color: @fg-muted; }
 
-#cpu {
-    color: #81a1c1;
-}
-
-#memory {
-    color: #88c0d0;
-}
-
-#temperature {
-    color: #d8dee9;
-}
-
-#temperature.critical {
-    color: #bf616a;
-}
-
-#disk {
-    color: #d8dee9;
-}
-
-
-/* =========================================================
- * NETWORK
- * ========================================================= */
-
-#network {
-    color: #88c0d0;
-}
-
-#network.disconnected {
-    color: #bf616a;
-}
-
-
-/* =========================================================
- * AUDIO
- * ========================================================= */
-
-#pulseaudio {
-    color: #81a1c1;
-}
-
-#pulseaudio.muted {
-    color: #bf616a;
-}
-
-
-/* =========================================================
- * BRIGHTNESS
- * ========================================================= */
-
-#backlight {
-    color: #88c0d0;
-}
-
-
-/* =========================================================
- * BATTERY
- * ========================================================= */
-
-#battery {
-    color: #88c0d0;
-}
-
-#battery.warning {
-    color: #81a1c1;
-}
-
-#battery.critical {
-    color: #bf616a;
-}
-
-#battery.charging,
-#battery.plugged {
-    color: #88c0d0;
-}
-
-
-/* =========================================================
- * TRAY
- * ========================================================= */
-
-#tray {
-    background: #3b4252;
-
-    padding-left: 9px;
-    padding-right: 9px;
-}
-
-
-/* =========================================================
- * POWER
- * ========================================================= */
-
-#custom-power {
-    color: #bf616a;
-    background: #3b4252;
-
-    padding-left: 13px;
-    padding-right: 13px;
-}
-
-#custom-power:hover {
-    background: #bf616a;
-    color: #2e3440;
-}
-
-
-/* =========================================================
- * TOOLTIPS
- * ========================================================= */
+#battery { color: @accent; }
+#battery.warning { color: @warn; }
+#battery.critical { color: @crit; }
+#battery.charging, #battery.plugged { color: @accent; }
 
 tooltip {
-    background: #2e3440;
-    border: 1px solid #88c0d0;
+    background: @bg;
+    border: 1px solid @accent-dim;
     border-radius: 8px;
 }
-
-tooltip label {
-    color: #d8dee9;
-    padding: 6px;
-}
+tooltip label { color: @fg; padding: 6px 10px; }

@@ -1,116 +1,81 @@
 /*
- * nord_simple_v2
- * Simple v2
+ * nord_simple_v2 - Pill/Capsule UI
+ * Three fully-rounded capsule groups floating with gaps.
+ * Distinct from others: three separate capsules (workspaces/clock/system) with elevated shadows.
  */
+
+@define-color bg          #2e3440;
+@define-color bg-alt      #434c5e;
+@define-color fg          #eceff4;
+@define-color fg-muted    #616875;
+@define-color accent      #8fbcbb;
+@define-color accent-dim  #5a8a9a;
+@define-color warn        #88c0d0;
+@define-color crit        #bf616a;
+@define-color capsule-bg  #364050;
+@define-color capsule-border alpha(#8fbcbb, 0.15);
 
 * {
     border: none;
+    border-radius: 0;
     min-height: 0;
-
     font-family: "JetBrainsMono Nerd Font";
-    font-size: 13px;
-    font-weight: 600;
-
-    color: #eceff4;
+    font-size: 12px;
+    font-weight: 500;
+    color: @fg;
 }
 
 window#waybar {
     background: transparent;
 }
 
-#custom-menu,
-#workspaces,
-#window,
-#clock,
-#network,
-#pulseaudio,
-#battery {
-    background: #2e3440;
-    margin: 5px 2px;
-    padding: 7px 12px;
-    border-radius: 10px;
+/* Three distinct capsule containers */
+#group-workspaces-capsule,
+#group-clock-capsule,
+#group-system-capsule {
+    background: @capsule-bg;
+    border: 1px solid @capsule-border;
+    border-radius: 100px;
+    padding: 8px 16px;
+    margin: 6px 10px;
+    box-shadow: 0 4px 20px alpha(#000000, 0.5), inset 0 1px 0 alpha(@fg, 0.05);
 }
 
-#custom-menu {
-    color: #8fbcbb;
-    background: #434c5e;
+/* Workspaces capsule */
+#group-workspaces-capsule > #workspaces { background: transparent; padding: 0; margin: 0; }
+#group-workspaces-capsule #workspaces button {
+    color: @fg-muted; background: transparent; padding: 6px 12px; margin: 0 2px;
+    border-radius: 100px; min-width: 32px; transition: all 120ms ease;
+}
+#group-workspaces-capsule #workspaces button:hover { background: alpha(@accent, 0.2); color: @accent; }
+#group-workspaces-capsule #workspaces button.active { background: @accent; color: @bg; font-weight: 600; }
+#group-workspaces-capsule #workspaces button.urgent { background: @crit; color: @bg; }
+
+/* Clock capsule */
+#group-clock-capsule > #clock {
+    background: transparent; color: @accent; font-weight: 600; padding: 4px 8px; margin: 0;
 }
 
-#workspaces {
-    padding: 3px;
+/* System capsule - tighter internal spacing */
+#group-system-capsule { padding: 8px 12px; }
+#group-system-capsule > #network,
+#group-system-capsule > #pulseaudio,
+#group-system-capsule > #battery {
+    background: transparent; color: @fg; padding: 6px 12px; margin: 0 4px;
+    border-radius: 100px; transition: all 120ms ease;
 }
+#group-system-capsule > #network:hover,
+#group-system-capsule > #pulseaudio:hover,
+#group-system-capsule > #battery:hover { background: alpha(@accent, 0.15); color: @accent; }
+#group-system-capsule > #network { color: @accent; }
+#group-system-capsule > #network.disconnected { color: @crit; }
+#group-system-capsule > #pulseaudio { color: @warn; }
+#group-system-capsule > #pulseaudio.muted { color: @fg-muted; }
+#group-system-capsule > #battery { color: @accent; }
+#group-system-capsule > #battery.warning { color: @warn; }
+#group-system-capsule > #battery.critical { color: @crit; }
+#group-system-capsule > #battery.charging,
+#group-system-capsule > #battery.plugged { color: @accent; }
 
-#workspaces button {
-    color: #eceff4;
-    background: transparent;
-
-    padding: 5px 8px;
-    margin: 0 1px;
-
-    border-radius: 7px;
-}
-
-#workspaces button:hover {
-    color: #8fbcbb;
-    background: #434c5e;
-}
-
-#workspaces button.active {
-    color: #2e3440;
-    background: #8fbcbb;
-}
-
-#window {
-    background: transparent;
-}
-
-#clock {
-    color: #8fbcbb;
-    background: #434c5e;
-
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-#network {
-    color: #88c0d0;
-}
-
-#network.disconnected {
-    color: #bf616a;
-}
-
-#pulseaudio {
-    color: #8fbcbb;
-}
-
-#pulseaudio.muted {
-    color: #bf616a;
-}
-
-#battery {
-    color: #88c0d0;
-}
-
-#battery.warning {
-    color: #bf616a;
-}
-
-#battery.critical {
-    color: #bf616a;
-}
-
-#battery.charging {
-    color: #8fbcbb;
-}
-
-tooltip {
-    background: #2e3440;
-    border: 1px solid #8fbcbb;
-    border-radius: 8px;
-}
-
-tooltip label {
-    color: #eceff4;
-    padding: 6px;
-}
+tooltip { background: @bg; border: 1px solid @accent-dim; border-radius: 8px; }
+tooltip label { color: @fg; padding: 6px 10px; }

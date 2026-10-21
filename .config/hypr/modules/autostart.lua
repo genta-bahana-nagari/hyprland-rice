@@ -5,6 +5,8 @@
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("awww-daemon")
+    hl.exec_cmd("~/.config/awww/scripts/wallpaper-rotate.sh")
+    hl.exec_cmd("~/.config/hypr/scripts/display-hotplug.sh")
 
     hl.exec_cmd("waybar")
     hl.exec_cmd("swaync")

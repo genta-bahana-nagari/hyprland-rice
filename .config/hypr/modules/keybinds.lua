@@ -36,6 +36,11 @@ hl.bind(
 
 hl.bind(
     mainMod .. " + P",
+    hl.dsp.exec_cmd("programs.displayMode")
+)
+
+hl.bind(
+    mainMod .. " + SHIFT + P",
     hl.dsp.exec_cmd("command postman")
 )
 
@@ -407,7 +412,7 @@ hl.bind(
 hl.bind(
     "XF86MonBrightnessUp",
     hl.dsp.exec_cmd(
-        "swayosd-client --brightness +5"
+        "swayosd-client --brightness +2"
     ),
     {
         locked = true,
@@ -418,7 +423,7 @@ hl.bind(
 hl.bind(
     "XF86MonBrightnessDown",
     hl.dsp.exec_cmd(
-        "swayosd-client --brightness -5"
+        "swayosd-client --brightness -2"
     ),
     {
         locked = true,

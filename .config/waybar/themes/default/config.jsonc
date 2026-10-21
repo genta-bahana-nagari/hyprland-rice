@@ -120,6 +120,7 @@
   },
 
   "custom/caffeine": {
+    "return-type": "json",
     "format": "{text}",
     "tooltip": "{tooltip}",
     "exec": "~/.config/waybar/scripts/caffeine-status.sh",

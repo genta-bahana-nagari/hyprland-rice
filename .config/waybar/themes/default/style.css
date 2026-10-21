@@ -274,8 +274,32 @@ tooltip {
 
 /* =========================================================
    RIGHT CONTROLS
-   Notifications + Power
+   Caffeine + Notifications + Power
    ========================================================= */
+
+#custom-caffeine {
+  background: @bg0;
+  color: @fg-dim;
+
+  margin-left: 8px;
+  padding: 4px 12px;
+
+  border: 1px solid @border;
+  border-radius: 999px;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+#custom-caffeine.active {
+  background: @bg2;
+  color: @yellow;
+}
+
+#custom-caffeine:hover {
+  color: @fg-bright;
+}
 
 #custom-notifications,
 #custom-power {

@@ -1,13 +1,17 @@
 
 #!/usr/bin/env bash
 
-# Wallpaper directory
 WALLPAPER_DIR="$HOME/Pictures/Wallpaper"
-
-# Interval in seconds (10 minutes)
+LOCK_WALL="$HOME/.cache/current-wallpaper"
 INTERVAL=600
 
-# Supported image formats
+mkdir -p "$HOME/.cache"
+
+if [ ! -d "$WALLPAPER_DIR" ]; then
+    echo "Error: Wallpaper directory $WALLPAPER_DIR does not exist."
+    exit 1
+fi
+
 shopt -s nullglob nocaseglob
 wallpapers=(
     "$WALLPAPER_DIR"/*.jpg
@@ -16,24 +20,20 @@ wallpapers=(
     "$WALLPAPER_DIR"/*.webp
 )
 
-# Check if wallpapers exist
 if [ ${#wallpapers[@]} -eq 0 ]; then
-    # notify-send "No wallpapers found in $WALLPAPER_DIR"
     exit 1
 fi
 
-# Rotate wallpapers forever
 while true; do
-    # Select a random wallpaper
     wallpaper="${wallpapers[RANDOM % ${#wallpapers[@]}]}"
 
-    # Apply wallpaper with a transition
+    # Change desktop wallpaper
     awww img "$wallpaper" \
         --transition-type fade \
         --transition-duration 1
 
-    # notify-send "Wallpaper changed to: $wallpaper"
+    # Sync Hyprlock wallpaper
+    ln -sfn "$wallpaper" "$LOCK_WALL"
 
-    # Wait for the next rotation
     sleep "$INTERVAL"
 done

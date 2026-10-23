@@ -59,6 +59,8 @@ if [[ "${1:-}" != "" ]]; then
 fi
 
 # Popup menu; Escape or Cancel leaves the layout unchanged.
+THEME="$HOME/.config/rofi/styles/wifimanager-style.rasi"
+
 choice="$(
     printf '%s\n' \
       'Duplicate — mirror laptop screen' \
@@ -66,7 +68,7 @@ choice="$(
       'Second screen only — turn off laptop panel' \
       'PC screen only — return to laptop' \
       'Cancel / Close' |
-    rofi -dmenu -i -p 'Project / Display' -l 5
+    rofi -dmenu -i -p 'Project / Display' -l 5 -theme "$THEME"
 )" || exit 0
 
 case "$choice" in

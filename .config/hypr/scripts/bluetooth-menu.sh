@@ -1,9 +1,10 @@
 #!/bin/bash
 # Bluetooth manager with Rofi interface
+THEME="$HOME/.config/rofi/styles/wifimanager-style.rasi"
 
 # Check if bluetooth is enabled
 if ! bluetoothctl show | grep -q "Powered: yes"; then
-    ENABLE=$(echo -e "Yes\nNo" | rofi -dmenu -p "Bluetooth is off. Enable?" -theme ~/.config/rofi/styles/simple.rasi)
+    ENABLE=$(echo -e "Yes\nNo" | rofi -dmenu -p "Bluetooth is off. Enable?" -theme "$THEME")
     if [ "$ENABLE" = "Yes" ]; then
         bluetoothctl power on
         sleep 1
@@ -14,7 +15,7 @@ fi
 
 # Main menu
 MENU="  Paired Devices\n  Scan & Pair New\n  Disconnect All\n  Power Off"
-CHOICE=$(echo -e "$MENU" | rofi -dmenu -p "Bluetooth" -theme ~/.config/rofi/styles/simple.rasi)
+CHOICE=$(echo -e "$MENU" | rofi -dmenu -p "Bluetooth" -theme "$THEME")
 
 case "$CHOICE" in
     *"Paired Devices")
@@ -26,13 +27,13 @@ case "$CHOICE" in
                 echo "  $name|$mac|disconnected"
             fi
         done)
-        
+
         if [ -z "$DEVICES" ]; then
             notify-send "Bluetooth" "No paired devices"
             exit 0
         fi
-        
-        SELECTED=$(echo "$DEVICES" | rofi -dmenu -p "Select Device" -theme ~/.config/rofi/styles/simple.rasi | cut -d'|' -f2)
+
+        SELECTED=$(echo "$DEVICES" | rofi -dmenu -p "Select Device" -theme "$THEME" | cut -d'|' -f2)
         
         if [ -n "$SELECTED" ]; then
             if bluetoothctl info "$SELECTED" | grep -q "Connected: yes"; then
@@ -43,12 +44,35 @@ case "$CHOICE" in
             fi
         fi
         ;;
-        
+
     *"Scan")
         notify-send "Bluetooth" "Scanning for devices..."
         bluetoothctl scan on &
         SCAN_PID=$!
         sleep 5
+        kill $SCAN_PID
+        bluetoothctl scan off
+        
+        DEVICES=$(bluetoothctl devices | while read -r _ mac name; do
+            echo "  $name|$mac"
+        done)
+        
+        SELECTED=$(echo "$DEVICES" | rofi -dmenu -p "Select Device to Pair" -theme "$THEME" | cut -d'|' -f2)
+        if [ -n "$SELECTED" ]; then
+            bluetoothctl pair "$SELECTED" && bluetoothctl connect "$SELECTED" && notify-send "Bluetooth" "Connected" || notify-send "Bluetooth" "Connection failed"
+        fi
+        ;;
+    *"Disconnect All")
+        for mac in $(bluetoothctl devices Connected | awk '{print $2}'); do
+            bluetoothctl disconnect "$mac"
+        done
+        notify-send "Bluetooth" "All devices disconnected"
+        ;;
+    *"Power Off")
+        bluetoothctl power off
+        notify-send "Bluetooth" "Powered off"
+        ;;
+esac
         
         DEVICES=$(bluetoothctl devices | awk '{print substr($0, index($0,$3)) "|" $2}')
         kill $SCAN_PID 2>/dev/null

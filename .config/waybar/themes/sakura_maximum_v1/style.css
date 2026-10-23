@@ -1,131 +1,78 @@
-/*
- * sakura_maximum_v1 - Split Three-Section Bar
- * Full-width bar divided into three visually distinct sections.
- * Distinct from others: left (launcher+workspaces+window), center (prominent clock), right (full system suite).
- * Each section has unique background and border treatment.
- */
-
-@define-color bg          #241b22;
-@define-color bg-alt      #34232d;
-@define-color fg          #f2dfe8;
-@define-color fg-muted    #a89aa8;
-@define-color accent      #e8a9c0;
-@define-color accent-dim  #a67a8a;
-@define-color warn        #d8a0b5;
-@define-color crit        #e06c75;
-@define-color left-bg     #2a2028;
-@define-color center-bg   #241b22;
-@define-color right-bg    #2a2028;
-@define-color left-border #e8a9c0;
-@define-color center-border #e8a9c0;
-@define-color right-border #e8a9c0;
+/* Theme Identity: Custom Styled via PRD */
 
 * {
-    border: none;
-    border-radius: 0;
-    min-height: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 12px;
-    font-weight: 500;
-    color: @fg;
+  font-family: "FiraCode Nerd Font";
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 0px;
 }
 
 window#waybar {
-    background: @bg;
-    border-bottom: 2px solid @accent;
+  background-color: rgba(37, 28, 36, 0.85);
+  color: #fff0f5;
+  border-bottom: 2px solid #ffb7c5;
+  transition-property: background-color;
+  transition-duration: 0.3s;
 }
 
-/* Three section containers */
-#group-left-section,
-#group-center-section,
-#group-right-section {
-    padding: 6px 16px;
-    margin: 4px 8px;
-    border-radius: 8px;
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#power-profiles-daemon,
+#tray,
+#custom-power {
+  background-color: #251c24;
+  color: #fff0f5;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  border: 1px solid #db7093;
 }
 
-#group-left-section {
-    background: @left-bg;
-    border-left: 4px solid @left-border;
+#workspaces button {
+  padding: 0 4px;
+  color: #fff0f5;
+  border-radius: 4px;
 }
 
-#group-center-section {
-    background: @center-bg;
-    border: 2px solid @center-border;
-    border-radius: 100px;
+#workspaces button.active {
+  background-color: #ffb7c5;
+  color: #251c24;
 }
 
-#group-right-section {
-    background: @right-bg;
-    border-right: 4px solid @right-border;
+#workspaces button:hover {
+  background-color: #ff69b4;
+  color: #251c24;
 }
 
-/* Left section modules */
-#group-left-section > #custom-menu {
-    background: @left-border; color: @bg; font-size: 16px;
-    padding: 0 12px; border-radius: 6px; margin: 0;
-}
-#group-left-section > #workspaces { background: transparent; padding: 0; margin: 0 8px; }
-#group-left-section #workspaces button {
-    color: @fg-muted; background: transparent; padding: 4px 10px; margin: 0 2px;
-    border-radius: 6px; min-width: 28px; transition: all 120ms ease;
-}
-#group-left-section #workspaces button:hover { background: alpha(@accent, 0.2); color: @accent; }
-#group-left-section #workspaces button.active { background: @accent; color: @bg; font-weight: 600; }
-#group-left-section #workspaces button.urgent { background: @crit; color: @bg; }
-#group-left-section > #window {
-    background: transparent; color: @fg-muted; padding: 0 14px; margin-left: 8px;
-    border-left: 1px solid alpha(@fg, 0.2); font-style: italic;
+#clock {
+  color: #ffb7c5;
+  font-weight: bold;
 }
 
-/* Center section - prominent clock */
-#group-center-section > #clock {
-    background: transparent; color: @accent; font-weight: 700; font-size: 13px;
-    padding: 0 12px; letter-spacing: 0.5px;
+#battery.warning {
+  color: #f6c177;
 }
 
-/* Right section modules */
-#group-right-section > #cpu,
-#group-right-section > #memory,
-#group-right-section > #temperature,
-#group-right-section > #disk,
-#group-right-section > #network,
-#group-right-section > #pulseaudio,
-#group-right-section > #backlight,
-#group-right-section > #battery,
-#group-right-section > #tray,
-#group-right-section > #custom-power {
-    background: transparent; color: @fg; padding: 4px 10px; margin: 0 3px;
-    border-radius: 6px; transition: all 120ms ease;
+#battery.critical {
+  color: #eb6f92;
 }
-#group-right-section > #cpu:hover,
-#group-right-section > #memory:hover,
-#group-right-section > #temperature:hover,
-#group-right-section > #disk:hover,
-#group-right-section > #network:hover,
-#group-right-section > #pulseaudio:hover,
-#group-right-section > #backlight:hover,
-#group-right-section > #battery:hover,
-#group-right-section > #tray:hover,
-#group-right-section > #custom-power:hover { background: alpha(@accent, 0.15); color: @accent; }
 
-#group-right-section > #cpu { color: @warn; }
-#group-right-section > #memory { color: @accent; }
-#group-right-section > #temperature { color: @fg; }
-#group-right-section > #temperature.critical { color: @crit; }
-#group-right-section > #disk { color: @fg-muted; }
-#group-right-section > #network { color: @accent; }
-#group-right-section > #network.disconnected { color: @crit; }
-#group-right-section > #pulseaudio { color: @warn; }
-#group-right-section > #pulseaudio.muted { color: @fg-muted; }
-#group-right-section > #backlight { color: @accent; }
-#group-right-section > #battery { color: @accent; }
-#group-right-section > #battery.warning { color: @warn; }
-#group-right-section > #battery.critical { color: @crit; }
-#group-right-section > #battery.charging, #group-right-section > #battery.plugged { color: @accent; }
+tooltip {
+  background: #251c24;
+  border: 1px solid #ffb7c5;
+  border-radius: 8px;
+}
 
-#group-right-section > #tray { background: alpha(@bg, 0.5); padding: 0 8px; }
-#group-right-section > #custom-power { color: @crit; font-size: 14px; padding: 0 10px; }
-
-tooltip { background: @bg; border: 1px solid @accent-dim; border-radius: 8px; }
-tooltip label { color: @fg; padding: 6px 10px; }
+tooltip label {
+  color: #fff0f5;
+}

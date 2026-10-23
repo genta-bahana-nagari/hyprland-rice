@@ -1,85 +1,78 @@
-/*
- * frost_maximal - Semi-Brutalist
- * Full-width bar with bold borders, high contrast, rectangular blocks.
- * Distinct from others: NO rounded corners, thick borders, monospace labels, raw aesthetic.
- */
-
-@define-color bg          #111318;
-@define-color bg-alt      #1a1d24;
-@define-color fg          #d8dee9;
-@define-color fg-muted    #616875;
-@define-color accent      #88c0d0;
-@define-color accent-dim  #5a7a9a;
-@define-color warn        #81a1c1;
-@define-color crit        #bf616a;
+/* Theme Identity: Custom Styled via PRD */
 
 * {
-    border: none;
-    border-radius: 0;
-    min-height: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 12px;
-    font-weight: 700;
-    color: @fg;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 0px;
 }
 
 window#waybar {
-    background: @bg;
-    border-bottom-width: 4px;
-    border-bottom-style: solid;
-    border-bottom-color: @accent;
+  background-color: rgba(38, 50, 56, 0.85);
+  color: #e0f7fa;
+  border-bottom: 2px solid #00acc1;
+  transition-property: background-color;
+  transition-duration: 0.3s;
 }
 
-/* All modules as brutalist blocks */
-#custom-menu, #workspaces, #window, #clock,
-#cpu, #memory, #temperature, #disk, #network, #pulseaudio, #backlight, #battery, #tray, #custom-power {
-    background: @bg;
-    color: @fg;
-    border-width: 3px;
-    border-style: solid;
-    border-color: @fg;
-    padding: 10px 16px;
-    margin: 0;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#power-profiles-daemon,
+#tray,
+#custom-power {
+  background-color: #263238;
+  color: #e0f7fa;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  border: 1px solid #00838f;
 }
 
-#custom-menu { background: @accent; color: @bg; border-color: @accent; font-size: 13px; }
-#custom-menu:hover { background: @fg; color: @bg; border-color: @fg; }
-
-#workspaces { border-right-width: 1px; padding: 6px 10px; }
 #workspaces button {
-    color: @fg-muted; background: transparent;
-    border-width: 3px; border-style: solid; border-color: transparent;
-    padding: 8px 12px; margin: 0 2px; min-width: 44px;
+  padding: 0 4px;
+  color: #e0f7fa;
+  border-radius: 4px;
 }
-#workspaces button:hover { border-color: @accent; color: @accent; }
-#workspaces button.active { background: @accent; color: @bg; border-color: @accent; }
-#workspaces button.urgent { background: @crit; color: @bg; border-color: @crit; }
 
-#window { border-left-width: 1px; border-right-width: 1px; color: @fg-muted; font-style: italic; font-weight: 500; }
+#workspaces button.active {
+  background-color: #00acc1;
+  color: #263238;
+}
 
-#clock { background: @accent; color: @bg; border-color: @accent; font-size: 15px; font-weight: 800; padding: 10px 24px; }
+#workspaces button:hover {
+  background-color: #26c6da;
+  color: #263238;
+}
 
-#cpu { border-color: @warn; color: @warn; }
-#memory { border-color: @accent; color: @accent; }
-#temperature { border-color: @fg; color: @fg; }
-#temperature.critical { border-color: @crit; color: @crit; }
-#disk { border-color: @fg-muted; color: @fg-muted; }
-#network { border-color: @accent; color: @accent; }
-#network.disconnected { border-color: @crit; color: @crit; }
-#pulseaudio { border-color: @warn; color: @warn; }
-#pulseaudio.muted { border-color: @fg-muted; color: @fg-muted; }
-#backlight { border-color: @accent; color: @accent; }
-#battery { border-color: @accent; color: @accent; }
-#battery.warning { border-color: @warn; color: @warn; }
-#battery.critical { border-color: @crit; color: @crit; }
-#battery.charging, #battery.plugged { border-color: @accent; color: @accent; }
+#clock {
+  color: #00acc1;
+  font-weight: bold;
+}
 
-#tray { border-color: @fg-muted; padding: 0 12px; }
+#battery.warning {
+  color: #f6c177;
+}
 
-#custom-power { background: @crit; color: @bg; border-color: @crit; font-size: 13px; }
-#custom-power:hover { background: @fg; color: @bg; border-color: @fg; }
+#battery.critical {
+  color: #eb6f92;
+}
 
-tooltip { background: @bg; border-width: 3px; border-style: solid; border-color: @accent; border-radius: 0; }
-tooltip label { color: @fg; padding: 10px 14px; font-weight: 500; }
+tooltip {
+  background: #263238;
+  border: 1px solid #00acc1;
+  border-radius: 8px;
+}
+
+tooltip label {
+  color: #e0f7fa;
+}

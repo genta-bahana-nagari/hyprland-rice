@@ -1,115 +1,78 @@
-/*
- * sakura_maximum_v2 - Dock-Inspired Layout
- * Floating dock with elevated cards, distinct from the split bar.
- * Distinct from others: five separate elevated cards (left/center/right/sys/power) with shadows.
- */
-
-@define-color bg          #1b141a;
-@define-color bg-alt      #30202a;
-@define-color fg          #faedf3;
-@define-color fg-muted    #a89aa8;
-@define-color accent      #f0a8c0;
-@define-color accent-dim  #a67a8a;
-@define-color warn        #e2a0b5;
-@define-color crit        #e06c75;
-@define-color dock-bg     #221a20;
-@define-color dock-shadow alpha(#000000, 0.5);
+/* Theme Identity: Custom Styled via PRD */
 
 * {
-    border: none;
-    border-radius: 0;
-    min-height: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 12px;
-    font-weight: 500;
-    color: @fg;
+  font-family: "FiraCode Nerd Font";
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 0px;
 }
 
 window#waybar {
-    background: transparent;
+  background-color: rgba(37, 28, 36, 0.85);
+  color: #fff0f5;
+  border-bottom: 2px solid #ffb7c5;
+  transition-property: background-color;
+  transition-duration: 0.3s;
 }
 
-/* Five elevated dock cards */
-#group-dock-left,
-#group-dock-center,
-#group-dock-right,
-#group-dock-sys,
-#group-dock-power {
-    background: @dock-bg;
-    border-radius: 14px;
-    padding: 8px 14px;
-    margin: 6px 6px;
-    border: 1px solid alpha(@accent, 0.2);
-    box-shadow: 0 6px 24px @dock-shadow, inset 0 1px 0 alpha(@fg, 0.05);
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#power-profiles-daemon,
+#tray,
+#custom-power {
+  background-color: #251c24;
+  color: #fff0f5;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  border: 1px solid #db7093;
 }
 
-/* Left dock card - launcher + workspaces */
-#group-dock-left > #custom-menu {
-    background: @accent; color: @bg; font-size: 18px;
-    padding: 6px 16px; border-radius: 10px; margin: 0;
-    box-shadow: 0 2px 8px alpha(@accent, 0.3);
-}
-#group-dock-left > #workspaces { background: transparent; padding: 0; margin: 0; }
-#group-dock-left #workspaces button {
-    color: @fg-muted; background: transparent; padding: 8px 12px; margin: 0 2px;
-    border-radius: 100px; min-width: 36px; transition: all 120ms ease;
-}
-#group-dock-left #workspaces button:hover { background: alpha(@accent, 0.2); color: @accent; }
-#group-dock-left #workspaces button.active { background: @accent; color: @bg; font-weight: 600; }
-#group-dock-left #workspaces button.urgent { background: @crit; color: @bg; }
-
-/* Center dock card - window + clock */
-#group-dock-center > #window {
-    background: transparent; color: @fg-muted; padding: 6px 16px; margin: 0;
-}
-#group-dock-center > #clock {
-    background: @accent; color: @bg; font-weight: 600; font-size: 13px;
-    padding: 6px 20px; border-radius: 100px; margin-left: 8px;
-    box-shadow: 0 2px 8px alpha(@accent, 0.3);
+#workspaces button {
+  padding: 0 4px;
+  color: #fff0f5;
+  border-radius: 4px;
 }
 
-/* Right dock cards */
-#group-dock-sys,
-#group-dock-power { padding: 8px 10px; }
-
-#group-dock-sys > #cpu,
-#group-dock-sys > #memory,
-#group-dock-sys > #temperature,
-#group-dock-sys > #network,
-#group-dock-sys > #pulseaudio,
-#group-dock-power > #backlight,
-#group-dock-power > #battery,
-#group-dock-power > #tray,
-#group-dock-power > #custom-power {
-    background: transparent; color: @fg; padding: 6px 12px; margin: 0 2px;
-    border-radius: 8px; transition: all 120ms ease;
+#workspaces button.active {
+  background-color: #ffb7c5;
+  color: #251c24;
 }
-#group-dock-sys > #cpu:hover,
-#group-dock-sys > #memory:hover,
-#group-dock-sys > #temperature:hover,
-#group-dock-sys > #network:hover,
-#group-dock-sys > #pulseaudio:hover,
-#group-dock-power > #backlight:hover,
-#group-dock-power > #battery:hover,
-#group-dock-power > #tray:hover,
-#group-dock-power > #custom-power:hover { background: alpha(@accent, 0.15); color: @accent; }
 
-#group-dock-sys > #cpu { color: @warn; }
-#group-dock-sys > #memory { color: @accent; }
-#group-dock-sys > #temperature { color: @fg; }
-#group-dock-sys > #temperature.critical { color: @crit; }
-#group-dock-sys > #network { color: @accent; }
-#group-dock-sys > #network.disconnected { color: @crit; }
-#group-dock-sys > #pulseaudio { color: @warn; }
-#group-dock-sys > #pulseaudio.muted { color: @fg-muted; }
+#workspaces button:hover {
+  background-color: #ff69b4;
+  color: #251c24;
+}
 
-#group-dock-power > #backlight { color: @accent; }
-#group-dock-power > #battery { color: @accent; }
-#group-dock-power > #battery.warning { color: @warn; }
-#group-dock-power > #battery.critical { color: @crit; }
-#group-dock-power > #battery.charging, #group-dock-power > #battery.plugged { color: @accent; }
-#group-dock-power > #tray { background: alpha(@bg, 0.4); padding: 0 10px; border-radius: 8px; }
-#group-dock-power > #custom-power { color: @crit; font-size: 16px; padding: 6px 12px; }
+#clock {
+  color: #ffb7c5;
+  font-weight: bold;
+}
 
-tooltip { background: @bg; border: 1px solid @accent-dim; border-radius: 8px; }
-tooltip label { color: @fg; padding: 6px 10px; }
+#battery.warning {
+  color: #f6c177;
+}
+
+#battery.critical {
+  color: #eb6f92;
+}
+
+tooltip {
+  background: #251c24;
+  border: 1px solid #ffb7c5;
+  border-radius: 8px;
+}
+
+tooltip label {
+  color: #fff0f5;
+}

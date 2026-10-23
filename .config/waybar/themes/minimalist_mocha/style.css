@@ -1,75 +1,78 @@
-/*
- * minimalist_mocha - Asymmetric Editorial UI
- * Magazine-like layout with three asymmetric clusters, typographic separators.
- * Distinct from others: Catppuccin Mocha palette, typographic bars (│), editorial spacing, hero clock.
- */
+/* Theme Identity: Custom Styled via PRD */
 
-@define-color rosewater #f5e0dc; @define-color flamingo #f2cdcd; @define-color pink #f5c2e7;
-@define-color mauve #cba6f7; @define-color red #f38ba8; @define-color maroon #eba0ac;
-@define-color peach #fab387; @define-color yellow #f9e2af; @define-color green #a6e3a1;
-@define-color teal #94e2d5; @define-color sky #89dceb; @define-color sapphire #74c7ec;
-@define-color blue #89b4fa; @define-color lavender #b4befe; @define-color text #cdd6f4;
-@define-color subtext1 #bac2de; @define-color subtext0 #a6adc8; @define-color overlay2 #9399b2;
-@define-color overlay1 #7f849c; @define-color overlay0 #6c7086; @define-color surface2 #585b70;
-@define-color surface1 #45475a; @define-color surface0 #313244; @define-color base #1e1e2e;
-@define-color mantle #181825; @define-color crust #11111b;
-
-* { border: none; border-radius: 0; min-height: 0;
-    font-family: "JetBrainsMono Nerd Font"; font-size: 12px; font-weight: 500; color: @text; }
-
-window#waybar { background: transparent; }
-
-/* Three asymmetric clusters with distinct shapes */
-#group-left-cluster,
-#group-center-cluster,
-#group-right-cluster {
-    background: alpha(@crust, 0.85);
-    padding: 8px 20px; margin: 8px 16px; border-radius: 100px;
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 0px;
 }
 
-#group-left-cluster { border-left: 4px solid @blue; border-radius: 0 100px 100px 0; }
-#group-center-cluster { background: alpha(@mantle, 0.95); border: 2px solid @surface2; box-shadow: 0 4px 24px alpha(@crust, 0.5); }
-#group-right-cluster { border-right: 4px solid @pink; border-radius: 100px 0 0 100px; }
-
-/* Typographic separators */
-#custom-sep1, #custom-sep2, #custom-sep3, #custom-sep4, #custom-sep5, #custom-sep6 {
-    color: @surface2; font-size: 16px; font-weight: 200; padding: 0 10px; margin: 0 4px;
+window#waybar {
+  background-color: rgba(30, 30, 46, 0.85);
+  color: #cdd6f4;
+  border-bottom: 2px solid #b4befe;
+  transition-property: background-color;
+  transition-duration: 0.3s;
 }
 
-/* Left cluster - workspaces + system */
-#group-left-cluster > #workspaces { background: transparent; padding: 0; margin: 0; }
-#group-left-cluster #workspaces button {
-    color: @overlay0; background: transparent; padding: 4px 10px; margin: 0 2px;
-    border-radius: 6px; font-size: 11px; font-weight: 600; transition: all 120ms ease;
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#power-profiles-daemon,
+#tray,
+#custom-power {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  border: 1px solid #45475a;
 }
-#group-left-cluster #workspaces button:hover { color: @blue; background: alpha(@blue, 0.1); }
-#group-left-cluster #workspaces button.active { color: @base; background: @blue; font-weight: 700; }
-#group-left-cluster #workspaces button.urgent { color: @base; background: @red; }
 
-#group-left-cluster > #cpu { color: @blue; font-weight: 600; padding: 4px 8px; }
-#group-left-cluster > #memory { color: @lavender; font-weight: 600; padding: 4px 8px; }
-
-/* Center cluster - HERO CLOCK */
-#group-center-cluster > #clock {
-    background: transparent; color: @text; font-weight: 700; font-size: 15px;
+#workspaces button {
+  padding: 0 4px;
+  color: #cdd6f4;
+  border-radius: 4px;
 }
 
-/* Right cluster - media + system */
-#group-right-cluster > #custom-wallpaper { color: @blue; font-size: 16px; padding: 4px 10px; }
-#group-right-cluster > #temperature.gpu { color: @peach; font-weight: 600; padding: 4px 8px; }
-#group-right-cluster > #backlight { color: @lavender; font-weight: 600; padding: 4px 8px; }
-#group-right-cluster > #wireplumber { color: @mauve; font-weight: 600; padding: 4px 8px; }
-#group-right-cluster > #wireplumber.muted { color: @overlay0; }
-#group-right-cluster > #network { color: @sky; font-weight: 600; padding: 4px 8px; }
-#group-right-cluster > #network.disconnected { color: @red; }
-#group-right-cluster > #battery { color: @green; font-weight: 700; padding: 4px 12px; margin-right: 4px; }
-#group-right-cluster > #battery.charging { color: @mantle; background: @green; border-radius: 100px; }
-#group-right-cluster > #battery.good:not(.charging) { color: @mantle; background: @sapphire; border-radius: 100px; }
-#group-right-cluster > #battery.warning:not(.charging) { color: @mantle; background: @yellow; border-radius: 100px; }
-#group-right-cluster > #battery.critical:not(.charging) { color: @mantle; background: @red; border-radius: 100px; animation: blink 1s ease-in-out infinite alternate; }
-@keyframes blink { to { opacity: 0.6; } }
+#workspaces button.active {
+  background-color: #b4befe;
+  color: #1e1e2e;
+}
 
-#group-right-cluster > #tray { background: alpha(@surface0, 0.5); padding: 0 10px; border-radius: 100px; }
+#workspaces button:hover {
+  background-color: #fab387;
+  color: #1e1e2e;
+}
 
-tooltip { background: @mantle; border: 1px solid @surface2; border-radius: 8px; box-shadow: 0 8px 32px alpha(@crust, 0.5); }
-tooltip label { color: @text; padding: 8px 12px; }
+#clock {
+  color: #b4befe;
+  font-weight: bold;
+}
+
+#battery.warning {
+  color: #f6c177;
+}
+
+#battery.critical {
+  color: #eb6f92;
+}
+
+tooltip {
+  background: #1e1e2e;
+  border: 1px solid #b4befe;
+  border-radius: 8px;
+}
+
+tooltip label {
+  color: #cdd6f4;
+}

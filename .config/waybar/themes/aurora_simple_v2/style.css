@@ -1,81 +1,78 @@
-/*
- * aurora_simple_v2 - Pill/Capsule UI
- * Three fully-rounded capsule groups floating with gaps.
- * Distinct from others: three separate capsules (workspaces/clock/system) with elevated shadows.
- */
-
-@define-color bg          #121620;
-@define-color bg-alt      #222a3c;
-@define-color fg          #e8edf5;
-@define-color fg-muted    #6a7a9a;
-@define-color accent      #88c0d0;
-@define-color accent-dim  #5a7a9a;
-@define-color warn        #b48ead;
-@define-color crit        #bf616a;
-@define-color capsule-bg  #1a2234;
-@define-color capsule-border alpha(#88c0d0, 0.15);
+/* Theme Identity: Custom Styled via PRD */
 
 * {
-    border: none;
-    border-radius: 0;
-    min-height: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 12px;
-    font-weight: 500;
-    color: @fg;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 0px;
 }
 
 window#waybar {
-    background: transparent;
+  background-color: rgba(46, 52, 64, 0.85);
+  color: #eceff4;
+  border-bottom: 2px solid #88c0d0;
+  transition-property: background-color;
+  transition-duration: 0.3s;
 }
 
-/* Three distinct capsule containers */
-#group-workspaces-capsule,
-#group-clock-capsule,
-#group-system-capsule {
-    background: @capsule-bg;
-    border: 1px solid @capsule-border;
-    border-radius: 100px;
-    padding: 8px 16px;
-    margin: 6px 10px;
-    box-shadow: 0 4px 20px alpha(#000000, 0.5), inset 0 1px 0 alpha(@fg, 0.05);
+#custom-menu,
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#power-profiles-daemon,
+#tray,
+#custom-power {
+  background-color: #2e3440;
+  color: #eceff4;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  border: 1px solid #81a1c1;
 }
 
-/* Workspaces capsule */
-#group-workspaces-capsule > #workspaces { background: transparent; padding: 0; margin: 0; }
-#group-workspaces-capsule #workspaces button {
-    color: @fg-muted; background: transparent; padding: 6px 12px; margin: 0 2px;
-    border-radius: 100px; min-width: 32px; transition: all 120ms ease;
-}
-#group-workspaces-capsule #workspaces button:hover { background: alpha(@accent, 0.2); color: @accent; }
-#group-workspaces-capsule #workspaces button.active { background: @accent; color: @bg; font-weight: 600; }
-#group-workspaces-capsule #workspaces button.urgent { background: @crit; color: @bg; }
-
-/* Clock capsule */
-#group-clock-capsule > #clock {
-    background: transparent; color: @accent; font-weight: 600; padding: 4px 8px; margin: 0;
+#workspaces button {
+  padding: 0 4px;
+  color: #eceff4;
+  border-radius: 4px;
 }
 
-/* System capsule - tighter internal spacing */
-#group-system-capsule { padding: 8px 12px; }
-#group-system-capsule > #network,
-#group-system-capsule > #pulseaudio,
-#group-system-capsule > #battery {
-    background: transparent; color: @fg; padding: 6px 12px; margin: 0 4px;
-    border-radius: 100px; transition: all 120ms ease;
+#workspaces button.active {
+  background-color: #88c0d0;
+  color: #2e3440;
 }
-#group-system-capsule > #network:hover,
-#group-system-capsule > #pulseaudio:hover,
-#group-system-capsule > #battery:hover { background: alpha(@accent, 0.15); color: @accent; }
-#group-system-capsule > #network { color: @accent; }
-#group-system-capsule > #network.disconnected { color: @crit; }
-#group-system-capsule > #pulseaudio { color: @warn; }
-#group-system-capsule > #pulseaudio.muted { color: @fg-muted; }
-#group-system-capsule > #battery { color: @accent; }
-#group-system-capsule > #battery.warning { color: @warn; }
-#group-system-capsule > #battery.critical { color: @crit; }
-#group-system-capsule > #battery.charging,
-#group-system-capsule > #battery.plugged { color: @accent; }
 
-tooltip { background: @bg; border: 1px solid @accent-dim; border-radius: 8px; }
-tooltip label { color: @fg; padding: 6px 10px; }
+#workspaces button:hover {
+  background-color: #5e81ac;
+  color: #2e3440;
+}
+
+#clock {
+  color: #88c0d0;
+  font-weight: bold;
+}
+
+#battery.warning {
+  color: #f6c177;
+}
+
+#battery.critical {
+  color: #eb6f92;
+}
+
+tooltip {
+  background: #2e3440;
+  border: 1px solid #88c0d0;
+  border-radius: 8px;
+}
+
+tooltip label {
+  color: #eceff4;
+}

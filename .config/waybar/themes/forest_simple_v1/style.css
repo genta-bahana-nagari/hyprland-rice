@@ -1,102 +1,78 @@
-/*
- * forest_simple_v1 - Minimal Floating Bar
- * Thin horizontal bar with visible background, generous margins, compact modules.
- * Distinct from others: floating bar with semi-transparent background, minimal module styling.
- */
-
-@define-color bg          #17211b;
-@define-color bg-alt      #203127;
-@define-color fg          #d9e7dc;
-@define-color fg-muted    #7a8a7a;
-@define-color accent      #8fbc8f;
-@define-color accent-dim  #6a966a;
-@define-color warn        #a3be8c;
-@define-color crit        #d08770;
-@define-color separator   #2a3a2e;
-@define-color bar-bg      alpha(#17211b, 0.95);
+/* Theme Identity: Custom Styled via PRD */
 
 * {
-    border: none;
-    border-radius: 0;
-    min-height: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 12px;
-    font-weight: 500;
-    color: @fg;
+  font-family: "FiraCode Nerd Font";
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 0px;
 }
 
 window#waybar {
-    background: @bar_bg;
-    border-radius: 100px;
-    border: 1px solid alpha(@accent, 0.3);
-    box-shadow: 0 4px 24px alpha(#000000, 0.4);
-    margin: 4px 16px;
+  background-color: rgba(45, 55, 50, 0.85);
+  color: #f4f1de;
+  border-bottom: 2px solid #81b29a;
+  transition-property: background-color;
+  transition-duration: 0.3s;
 }
 
+#custom-menu,
 #workspaces,
+#window,
 #clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
 #network,
 #pulseaudio,
-#battery {
-    background: transparent;
-    color: @fg;
-    padding: 4px 10px;
-    margin: 2px 4px;
-    border-radius: 6px;
-    transition: background 150ms ease, color 150ms ease;
-}
-
-#workspaces {
-    padding: 2px 4px;
-    margin-right: 8px;
+#backlight,
+#battery,
+#power-profiles-daemon,
+#tray,
+#custom-power {
+  background-color: #2d3732;
+  color: #f4f1de;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  border: 1px solid #3d405b;
 }
 
 #workspaces button {
-    color: @fg-muted;
-    background: transparent;
-    padding: 4px 8px;
-    margin: 0 1px;
-    border-radius: 4px;
-    min-width: 24px;
-    transition: all 120ms ease;
-}
-
-#workspaces button:hover {
-    background: alpha(@accent, 0.2);
-    color: @accent;
+  padding: 0 4px;
+  color: #f4f1de;
+  border-radius: 4px;
 }
 
 #workspaces button.active {
-    background: @accent;
-    color: @bg;
-    font-weight: 600;
+  background-color: #81b29a;
+  color: #2d3732;
 }
 
-#workspaces button.urgent {
-    background: @crit;
-    color: @bg;
+#workspaces button:hover {
+  background-color: #e07a5f;
+  color: #2d3732;
 }
 
 #clock {
-    color: @accent;
-    font-weight: 600;
-    padding: 4px 14px;
+  color: #81b29a;
+  font-weight: bold;
 }
 
-#network { color: @accent; }
-#network.disconnected { color: @crit; }
+#battery.warning {
+  color: #f6c177;
+}
 
-#pulseaudio { color: @warn; }
-#pulseaudio.muted { color: @fg-muted; }
-
-#battery { color: @accent; }
-#battery.warning { color: @warn; }
-#battery.critical { color: @crit; }
-#battery.charging, #battery.plugged { color: @accent; }
+#battery.critical {
+  color: #eb6f92;
+}
 
 tooltip {
-    background: @bg;
-    border: 1px solid @accent-dim;
-    border-radius: 8px;
+  background: #2d3732;
+  border: 1px solid #81b29a;
+  border-radius: 8px;
 }
-tooltip label { color: @fg; padding: 6px 10px; }
+
+tooltip label {
+  color: #f4f1de;
+}

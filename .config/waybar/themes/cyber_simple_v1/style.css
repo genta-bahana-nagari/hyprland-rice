@@ -1,102 +1,78 @@
-/*
- * cyber_simple_v1 - Minimal Floating Bar
- * Thin horizontal bar with visible background, generous margins, compact modules.
- * Distinct from others: floating bar with semi-transparent background, minimal module styling.
- */
-
-@define-color bg          #090b14;
-@define-color bg-alt      #13182a;
-@define-color fg          #d9e7ff;
-@define-color fg-muted    #6b7a9a;
-@define-color accent      #00e5ff;
-@define-color accent-dim  #0088cc;
-@define-color warn        #a855f7;
-@define-color crit        #ff3366;
-@define-color separator   #1a1f33;
-@define-color bar-bg      alpha(#090b14, 0.95);
+/* Theme Identity: Custom Styled via PRD */
 
 * {
-    border: none;
-    border-radius: 0;
-    min-height: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 12px;
-    font-weight: 500;
-    color: @fg;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 0px;
 }
 
 window#waybar {
-    background: @bar_bg;
-    border-radius: 100px;
-    border: 1px solid alpha(@accent, 0.3);
-    box-shadow: 0 4px 24px alpha(#000000, 0.4);
-    margin: 4px 16px;
+  background-color: rgba(30, 30, 46, 0.85);
+  color: #f8f8f2;
+  border-bottom: 2px solid #ff79c6;
+  transition-property: background-color;
+  transition-duration: 0.3s;
 }
 
+#custom-menu,
 #workspaces,
+#window,
 #clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
 #network,
 #pulseaudio,
-#battery {
-    background: transparent;
-    color: @fg;
-    padding: 4px 10px;
-    margin: 2px 4px;
-    border-radius: 6px;
-    transition: background 150ms ease, color 150ms ease;
-}
-
-#workspaces {
-    padding: 2px 4px;
-    margin-right: 8px;
+#backlight,
+#battery,
+#power-profiles-daemon,
+#tray,
+#custom-power {
+  background-color: #1e1e2e;
+  color: #f8f8f2;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  border: 1px solid #8be9fd;
 }
 
 #workspaces button {
-    color: @fg-muted;
-    background: transparent;
-    padding: 4px 8px;
-    margin: 0 1px;
-    border-radius: 4px;
-    min-width: 24px;
-    transition: all 120ms ease;
-}
-
-#workspaces button:hover {
-    background: alpha(@accent, 0.2);
-    color: @accent;
+  padding: 0 4px;
+  color: #f8f8f2;
+  border-radius: 4px;
 }
 
 #workspaces button.active {
-    background: @accent;
-    color: @bg;
-    font-weight: 600;
+  background-color: #ff79c6;
+  color: #1e1e2e;
 }
 
-#workspaces button.urgent {
-    background: @crit;
-    color: @bg;
+#workspaces button:hover {
+  background-color: #bd93f9;
+  color: #1e1e2e;
 }
 
 #clock {
-    color: @accent;
-    font-weight: 600;
-    padding: 4px 14px;
+  color: #ff79c6;
+  font-weight: bold;
 }
 
-#network { color: @accent; }
-#network.disconnected { color: @crit; }
+#battery.warning {
+  color: #f6c177;
+}
 
-#pulseaudio { color: @warn; }
-#pulseaudio.muted { color: @fg-muted; }
-
-#battery { color: @accent; }
-#battery.warning { color: @warn; }
-#battery.critical { color: @crit; }
-#battery.charging, #battery.plugged { color: @accent; }
+#battery.critical {
+  color: #eb6f92;
+}
 
 tooltip {
-    background: @bg;
-    border: 1px solid @accent-dim;
-    border-radius: 8px;
+  background: #1e1e2e;
+  border: 1px solid #ff79c6;
+  border-radius: 8px;
 }
-tooltip label { color: @fg; padding: 6px 10px; }
+
+tooltip label {
+  color: #f8f8f2;
+}

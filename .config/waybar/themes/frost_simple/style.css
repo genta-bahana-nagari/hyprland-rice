@@ -1,97 +1,78 @@
-/*
- * frost_simple - Vertical Sidebar
- * Full-height vertical bar on left edge. Stacked modules with separators.
- * Distinct from ALL others: VERTICAL orientation, left-edge only, stacked layout.
- */
-
-@define-color bg          #111318;
-@define-color bg-alt      #1a1d24;
-@define-color fg          #d8dee9;
-@define-color fg-muted    #616875;
-@define-color accent      #88c0d0;
-@define-color accent-dim  #5a7a9a;
-@define-color warn        #81a1c1;
-@define-color crit        #bf616a;
-@define-color sidebar-bg  #0d0f14;
-@define-color border-c    #2a2f3d;
-@define-color separator-c #3a3f4f;
+/* Theme Identity: Custom Styled via PRD */
 
 * {
-    border: none; border-radius: 0; min-height: 0;
-    font-family: "JetBrainsMono Nerd Font"; font-size: 11px; font-weight: 500; color: @fg;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 0px;
 }
 
 window#waybar {
-    background: @sidebar-bg;
-    border-right: 2px solid @border-c;
-    border-radius: 0 12px 12px 0;
-    box-shadow: 4px 0 24px alpha(#000000, 0.5);
+  background-color: rgba(38, 50, 56, 0.85);
+  color: #e0f7fa;
+  border-bottom: 2px solid #00acc1;
+  transition-property: background-color;
+  transition-duration: 0.3s;
 }
 
 #custom-menu,
 #workspaces,
+#window,
 #clock,
+#cpu,
+#memory,
+#temperature,
+#disk,
 #network,
 #pulseaudio,
+#backlight,
 #battery,
-#custom-power,
-#custom-separator-v1,
-#custom-separator-v2,
-#custom-separator-v3 {
-    background: transparent;
-    color: @fg;
-    padding: 10px 8px;
-    margin: 4px 6px;
-    border-radius: 8px;
-    transition: all 150ms ease;
-}
-
-#custom-menu,
-#clock,
-#network,
-#pulseaudio,
-#battery,
+#power-profiles-daemon,
+#tray,
 #custom-power {
+  background-color: #263238;
+  color: #e0f7fa;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  border: 1px solid #00838f;
 }
 
-#custom-menu:hover,
-#clock:hover,
-#network:hover,
-#pulseaudio:hover,
-#battery:hover,
-#custom-power:hover {
-    background: @bg-alt;
-    color: @accent;
-}
-
-#custom-menu { font-size: 18px; color: @accent; padding: 14px 8px; margin-top: 8px; }
-#custom-power { font-size: 18px; color: @crit; padding: 14px 8px; margin-bottom: 8px; }
-#custom-power:hover { background: @crit; color: @bg; }
-
-#custom-separator-v1,
-#custom-separator-v2,
-#custom-separator-v3 {
-    color: @separator-c; font-size: 10px; font-weight: 300;
-    padding: 4px 8px; margin: 8px 6px; letter-spacing: 2px;
-}
-
-#workspaces { padding: 4px; margin: 4px 6px; }
 #workspaces button {
-    color: @fg-muted; background: transparent; padding: 8px 6px; margin: 2px 0;
-    border-radius: 6px; min-width: 32px; min-height: 32px; transition: all 120ms ease;
+  padding: 0 4px;
+  color: #e0f7fa;
+  border-radius: 4px;
 }
-#workspaces button:hover { background: @bg-alt; color: @accent; }
-#workspaces button.active { background: @accent; color: @bg; font-weight: 600; }
-#workspaces button.urgent { background: @crit; color: @bg; }
 
-#clock { color: @accent; font-weight: 600; font-size: 10px; padding: 8px; margin: 8px 6px; border-top: 1px solid @border-c; border-bottom: 1px solid @border-c; }
-#network { color: @accent; font-size: 16px; }
-#network.disconnected { color: @crit; }
-#pulseaudio { color: @warn; font-size: 16px; }
-#pulseaudio.muted { color: @fg-muted; }
-#battery { color: @accent; font-size: 16px; }
-#battery.warning { color: @warn; }
-#battery.critical { color: @crit; }
-#battery.charging, #battery.plugged { color: @accent; }
+#workspaces button.active {
+  background-color: #00acc1;
+  color: #263238;
+}
 
-tooltip { background: @bg; border: 1px solid @accent-dim; border-radius: 8px; }
+#workspaces button:hover {
+  background-color: #26c6da;
+  color: #263238;
+}
+
+#clock {
+  color: #00acc1;
+  font-weight: bold;
+}
+
+#battery.warning {
+  color: #f6c177;
+}
+
+#battery.critical {
+  color: #eb6f92;
+}
+
+tooltip {
+  background: #263238;
+  border: 1px solid #00acc1;
+  border-radius: 8px;
+}
+
+tooltip label {
+  color: #e0f7fa;
+}

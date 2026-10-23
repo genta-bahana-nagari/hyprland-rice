@@ -1,5 +1,6 @@
 #!/bin/bash
 # Window search and switcher
+THEME="$HOME/.config/rofi/styles/wifimanager-style.rasi"
 
 # Get all windows with their info
 WINDOWS=$(hyprctl clients -j | jq -r '.[] | "\(.address)|\(.class)|\(.title)|\(.workspace.id)"')
@@ -15,7 +16,7 @@ FORMATTED=$(echo "$WINDOWS" | while IFS='|' read -r addr class title ws; do
 done)
 
 # Show menu
-SELECTED=$(echo "$FORMATTED" | awk -F'|' '{print $2}' | rofi -dmenu -p "Switch to Window" -theme ~/.config/rofi/styles/simple.rasi)
+SELECTED=$(echo "$FORMATTED" | awk -F'|' '{print $2}' | rofi -dmenu -p "Switch to Window" -theme "$THEME")
 
 if [ -n "$SELECTED" ]; then
     # Get address from selection

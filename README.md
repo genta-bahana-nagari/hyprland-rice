@@ -492,7 +492,13 @@ The top-level `config.jsonc` and `style.css` are symlinks to the active theme.
 - `colors/onedark.rasi` — One Dark palette.
 - `shared/colors.rasi`, `shared/fonts.rasi` — shared colors and fonts.
 - `styles/` — launcher, power menu, keybind dictionary, theme switcher,
-  wallpaper picker, Wi-Fi manager, Wi-Fi password prompt.
+  wallpaper picker, Wi-Fi manager, Wi-Fi password prompt, display mode,
+  Bluetooth, audio device and window switcher themes.
+
+All Rofi menus use the same pattern: each script references its theme with an
+absolute path, `$HOME/.config/rofi/styles/<name>.rasi`. The menu pickers
+(display mode, Bluetooth, audio device and window switcher) share the themed
+`wifimanager-style.rasi` look instead of the plain default.
 
 ### SwayNC
 
@@ -669,8 +675,11 @@ ln -sfn themes/default/style.css ~/.config/waybar/style.css
 
 ### Rofi menus look wrong
 
-Check the `.rasi` files under `.config/rofi/`. Make sure referenced colors and
-fonts exist; Rofi fails silently or falls back when an `@import` is missing.
+Check the `.rasi` files under `.config/rofi/styles/`. Make sure referenced
+colors and fonts exist; Rofi fails silently or falls back when an `@import` is
+missing. Menu scripts must point to `$HOME/.config/rofi/styles/<name>.rasi` —
+if a script still uses `-theme .../simple.rasi` or no theme at all, update it
+to follow the shared pattern.
 
 ### SwayNC styling is broken
 

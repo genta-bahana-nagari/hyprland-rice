@@ -1,0 +1,71 @@
+{
+  "spacing": 8,
+  "margin-top": 5,
+  "margin-left": 18,
+  "margin-right": 18,
+
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["network", "battery"],
+
+  "clock": {
+    "interval": 60,
+    "format": "{:%H:%M}",
+    "format-alt": "{:%H:%M}",
+    "tooltip-format": "<tt><span size='12pt' font='JetBrainsMono Nerd Font'>{calendar}</span></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#e6e1d1'><b>{}</b></span>",
+        "days": "<span color='#9a9482'>{}</span>",
+        "today": "<span color='#1c1a15' background='#e6e1d1'><b>{}</b></span>",
+      },
+    },
+  },
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "□",
+      "2": "□",
+      "3": "□",
+      "4": "□",
+      "5": "□",
+      "6": "□",
+      "7": "□",
+      "8": "□",
+      "9": "□",
+      "10": "□",
+      "default": "□",
+      "active": "■",
+      "urgent": "▲",
+    },
+  },
+
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": "{essid}",
+    "format-ethernet": "LAN",
+    "format-disconnected": "OFFLINE",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "Ethernet Connected",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 25,
+    "on-click": "~/.config/hypr/scripts/wifi-mananger.sh",
+  },
+
+  "battery": {
+    "states": {
+      "middle": 40,
+      "warning": 20,
+      "critical": 10,
+    },
+    "format": "{capacity}%",
+    "format-charging": "{capacity}%",
+    "format-plugged": "{capacity}%",
+  },
+}

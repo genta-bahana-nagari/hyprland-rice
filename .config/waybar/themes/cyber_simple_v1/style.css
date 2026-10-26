@@ -1,78 +1,186 @@
-/* Theme Identity: Custom Styled via PRD */
+/* =========================================================
+   Cybr Simple Dark Neon Waybar
+   Long Pills / Floating / Glowing
+   ========================================================= */
 
+/* ---------------------------------------------------------
+   Palette
+   --------------------------------------------------------- */
+@define-color bg-main #09090e;      /* Deep Cyberpunk Dark */
+@define-color bg-module #12121c;    /* Slightly lighter for pills */
+@define-color bg-hover #1c1c2e;
+
+@define-color fg-main #e0e0ff;      /* Bright blueish white */
+@define-color fg-dim #8a8aab;       /* Dimmed text */
+
+/* Neon Accents */
+@define-color neon-cyan #00f0ff;
+@define-color neon-magenta #ff003c;
+@define-color neon-yellow #fcee0a;
+@define-color neon-green #00ff66;
+
+/* =========================================================
+   Global
+   ========================================================= */
 * {
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 12px;
-  font-weight: bold;
-  min-height: 0px;
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 14px;
+  font-weight: 700;
+  color: @fg-main;
 }
 
 window#waybar {
-  background-color: rgba(30, 30, 46, 0.85);
-  color: #f8f8f2;
-  border-bottom: 2px solid #ff79c6;
-  transition-property: background-color;
-  transition-duration: 0.3s;
+  background: transparent;
 }
 
-#custom-menu,
-#workspaces,
-#window,
-#clock,
-#cpu,
-#memory,
-#temperature,
-#disk,
-#network,
-#pulseaudio,
-#backlight,
-#battery,
-#power-profiles-daemon,
-#tray,
-#custom-power {
-  background-color: #1e1e2e;
-  color: #f8f8f2;
-  padding: 0 8px;
-  margin: 4px 2px;
-  border-radius: 6px;
-  border: 1px solid #8be9fd;
+/* =========================================================
+   Pill Containers
+   ========================================================= */
+.modules-left,
+.modules-center,
+.modules-right {
+  background: @bg-module;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  border-radius: 999px; /* Long pill shape */
+  padding: 4px 16px;
+  margin: 0px 5px;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.15); /* Subtle Neon Glow */
 }
 
-#workspaces button {
-  padding: 0 4px;
-  color: #f8f8f2;
-  border-radius: 4px;
+.modules-center {
+  border-color: rgba(252, 238, 10, 0.4);
+  box-shadow: 0 0 10px rgba(252, 238, 10, 0.15);
 }
 
-#workspaces button.active {
-  background-color: #ff79c6;
-  color: #1e1e2e;
+.modules-right {
+  border-color: rgba(255, 0, 60, 0.4);
+  box-shadow: 0 0 10px rgba(255, 0, 60, 0.15);
 }
 
-#workspaces button:hover {
-  background-color: #bd93f9;
-  color: #1e1e2e;
-}
-
-#clock {
-  color: #ff79c6;
-  font-weight: bold;
-}
-
-#battery.warning {
-  color: #f6c177;
-}
-
-#battery.critical {
-  color: #eb6f92;
-}
-
+/* =========================================================
+   Tooltips
+   ========================================================= */
 tooltip {
-  background: #1e1e2e;
-  border: 1px solid #ff79c6;
-  border-radius: 8px;
+  background: @bg-main;
+  border: 1px solid @neon-cyan;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
 }
 
 tooltip label {
-  color: #f8f8f2;
+  color: @fg-main;
+  padding: 8px;
+}
+
+/* =========================================================
+   Left Modules: Launcher & Workspaces
+   ========================================================= */
+#custom-launcher {
+  color: @neon-cyan;
+  margin-right: 12px;
+  padding-right: 12px;
+  border-right: 1px solid @fg-dim;
+  font-size: 16px;
+  transition: text-shadow 0.2s ease;
+}
+
+#custom-launcher:hover {
+  text-shadow: 0 0 8px @neon-cyan;
+}
+
+#workspaces {
+  margin: 0;
+}
+
+#workspaces button {
+  color: @fg-dim;
+  padding: 2px 8px;
+  margin: 0 2px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+  background: @bg-hover;
+  color: @neon-cyan;
+  text-shadow: 0 0 5px @neon-cyan;
+}
+
+#workspaces button.active {
+  background: @neon-cyan;
+  color: @bg-main;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+#workspaces button.urgent {
+  background: @neon-magenta;
+  color: @bg-main;
+  box-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
+}
+
+/* =========================================================
+   Center Module: Clock
+   ========================================================= */
+#clock {
+  color: @neon-yellow;
+  text-shadow: 0 0 5px rgba(252, 238, 10, 0.4);
+  padding: 0 8px;
+}
+
+/* =========================================================
+   Right Modules: Notifs, Network, Battery, Power
+   ========================================================= */
+#custom-notifications,
+#network,
+#battery,
+#custom-power {
+  padding: 0 10px;
+  color: @fg-main;
+}
+
+/* Network */
+#network {
+  color: @neon-cyan;
+}
+#network.disconnected {
+  color: @fg-dim;
+}
+
+/* Battery */
+#battery {
+  color: @neon-green;
+}
+#battery.charging,
+#battery.plugged {
+  color: @neon-yellow;
+}
+#battery.warning {
+  color: @neon-magenta;
+}
+#battery.critical {
+  background: @neon-magenta;
+  color: @bg-main;
+  border-radius: 999px;
+  padding: 0 10px;
+  box-shadow: 0 0 8px rgba(255, 0, 60, 0.6);
+}
+
+/* Notifications */
+#custom-notifications {
+  color: @neon-magenta;
+}
+#custom-notifications:hover {
+  text-shadow: 0 0 8px @neon-magenta;
+}
+
+/* Power Menu */
+#custom-power {
+  color: @neon-magenta;
+  margin-left: 4px;
+  padding-left: 14px;
+  border-left: 1px solid @fg-dim;
+}
+#custom-power:hover {
+  text-shadow: 0 0 10px @neon-magenta;
 }

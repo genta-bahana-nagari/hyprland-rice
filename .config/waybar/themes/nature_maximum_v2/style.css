@@ -1,0 +1,192 @@
+/* =========================================================
+   NATURE MAXIMUM v2 — "TIMBER"
+   Brutal naturalism: sawn planks, vertical grain, hard seams.
+   Condensed industrial type. Opaque umber and ochre.
+   ========================================================= */
+
+/* --- Sawn timber pigments --- */
+@define-color umber #241f18; /* plank ground */
+@define-color plank #302a20; /* plank face */
+@define-color seam #191510; /* seam between planks */
+@define-color grain #3d3527; /* grain line */
+@define-color bone #e6e1d1; /* primary text */
+@define-color bone-dim #9a9482; /* secondary text */
+@define-color lichen #7d8f4e; /* primary accent */
+@define-color moss #4f6b3a; /* deep green */
+@define-color rust #a8552c; /* oxide orange */
+@define-color ochre #c08a2e; /* mustard */
+@define-color clay #8c4a3a; /* raw red clay */
+@define-color slate #5b6b6e; /* wet slate */
+
+* {
+  all: unset;
+  font-family: "Nimbus Sans Narrow", "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: @bone;
+  min-height: 0px;
+}
+
+/* --- Ground: vertical grain --- */
+window#waybar {
+  background-color: @umber;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #211d16 0px,
+    #211d16 3px,
+    #241f18 3px,
+    #241f18 10px
+  );
+  border-bottom: 3px solid @ochre;
+}
+
+/* --- Tooltip: a stamped plank tag --- */
+tooltip {
+  background-color: @plank;
+  border: 2px solid @ochre;
+  border-radius: 0px;
+}
+
+tooltip label {
+  color: @bone;
+  padding: 8px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
+}
+
+/* --- Planks: each group is one board --- */
+#custom-launcher,
+#workspaces,
+#window,
+#clock,
+#group-hardware,
+#group-media,
+#group-connectivity,
+#tray,
+#custom-power {
+  background-color: @plank;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #2c261d 0px,
+    #2c261d 2px,
+    #302a20 2px,
+    #302a20 7px
+  );
+  padding: 3px 12px;
+  border: 2px solid @seam;
+  border-radius: 0px;
+}
+
+/* --- Launcher: brand mark burnt into the board --- */
+#custom-launcher {
+  color: @ochre;
+  font-weight: 700;
+  padding: 3px 14px;
+  border-color: @ochre;
+}
+
+/* --- Workspaces: notched plank tabs --- */
+#workspaces button {
+  color: @bone-dim;
+  padding: 0 5px;
+  border-radius: 0px;
+}
+#workspaces button.active {
+  color: @lichen;
+}
+#workspaces button.urgent {
+  color: @clay;
+}
+
+/* --- Window title: planed surface --- */
+#window {
+  color: @bone-dim;
+  border-color: @seam;
+}
+
+/* --- Clock: the knot in the wood --- */
+#clock {
+  color: @bone;
+  font-size: 13px;
+  border-color: @ochre;
+}
+
+/* --- Board seams between grouped modules --- */
+#cpu,
+#memory,
+#temperature,
+#disk {
+  padding: 0 9px;
+  background: transparent;
+  color: @bone-dim;
+  border-right: 2px solid @seam;
+}
+#disk {
+  border-right: none;
+}
+#cpu {
+  color: @ochre;
+}
+#memory {
+  color: @slate;
+}
+#temperature {
+  color: @rust;
+}
+#disk {
+  color: @moss;
+}
+
+#backlight,
+#pulseaudio {
+  background: transparent;
+  padding: 0 9px;
+  color: @bone-dim;
+  border-right: 2px solid @seam;
+}
+#pulseaudio {
+  border-right: none;
+}
+
+#network,
+#bluetooth,
+#battery {
+  padding: 0 9px;
+  background: transparent;
+  color: @bone-dim;
+  border-right: 2px solid @seam;
+}
+#battery {
+  border-right: none;
+}
+#network {
+  color: @lichen;
+}
+#battery {
+  color: @moss;
+}
+#battery.charging {
+  color: @lichen;
+}
+#battery.warning {
+  color: @ochre;
+}
+#battery.critical {
+  color: @clay;
+}
+
+/* --- Power: severed board --- */
+#custom-power {
+  color: @rust;
+  border-color: @rust;
+  padding: 3px 14px;
+}
+#custom-power:hover {
+  background-color: @rust;
+  color: @bone;
+}

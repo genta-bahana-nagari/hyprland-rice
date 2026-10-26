@@ -1,0 +1,125 @@
+/* =========================================================
+   NATURE SIMPLE v1 — "FIELD NOTE"
+   Brutal naturalism: a typed field journal on kraft paper.
+   Typewriter face, dashed rules, cream ink, no ornament.
+   ========================================================= */
+
+/* --- Kraft paper and ink --- */
+@define-color kraft #241f18; /* paper stock */
+@define-color kraft-lift #2e281e; /* folded corner */
+@define-color ink #d9c9a3; /* pencil / typewriter ink */
+@define-color ink-dim #8d8268; /* faded ink */
+@define-color rule #4a4132; /* ruled line */
+@define-color lichen #7d8f4e; /* pressed leaf */
+@define-color rust #a8552c; /* foxing / stain */
+@define-color clay #8c4a3a; /* red pencil */
+
+* {
+  all: unset;
+  font-family: "TeX Gyre Cursor", "Nimbus Mono PS", "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: @ink;
+  min-height: 0px;
+}
+
+/* --- Paper: flat, ruled only at the edges --- */
+window#waybar {
+  background-color: @kraft;
+  border-bottom: 2px solid @rule;
+  border-top: 1px solid @rule;
+}
+
+/* --- Tooltip: a pasted-in slip --- */
+tooltip {
+  background-color: @kraft-lift;
+  border: 1px dashed @ink-dim;
+  border-radius: 0px;
+}
+
+tooltip label {
+  color: @ink;
+  padding: 8px;
+}
+
+/* --- Columns: ruled off with dashed separators --- */
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
+  padding: 0 14px;
+  border-right: 1px dashed @rule;
+}
+.modules-right {
+  border-right: none;
+}
+
+/* --- Launcher: the journal's spine --- */
+#custom-launcher {
+  color: @lichen;
+  padding-right: 14px;
+  border-right: 1px solid @rule;
+}
+
+/* --- Workspaces: numbered entries --- */
+#workspaces button {
+  color: @ink-dim;
+  padding: 0 7px;
+  border-radius: 0px;
+}
+#workspaces button:hover {
+  color: @ink;
+}
+#workspaces button.active {
+  color: @kraft;
+  background-color: @lichen;
+}
+#workspaces button.urgent {
+  color: @clay;
+}
+
+/* --- Clock: the dated header --- */
+#clock {
+  color: @ink;
+  padding: 0 10px;
+}
+
+/* --- Right column --- */
+#custom-notifications,
+#network,
+#battery,
+#custom-power {
+  padding: 0 10px;
+  color: @ink-dim;
+}
+
+#custom-notifications {
+  color: @rust;
+}
+#network {
+  color: @lichen;
+}
+#network.disconnected {
+  color: @ink-dim;
+}
+#battery {
+  color: @ink;
+}
+#battery.charging,
+#battery.plugged {
+  color: @lichen;
+}
+#battery.warning {
+  color: @rust;
+}
+#battery.critical {
+  color: @kraft;
+  background-color: @clay;
+  padding: 0 10px;
+}
+#custom-power {
+  color: @rust;
+  padding-left: 14px;
+  border-left: 1px solid @rule;
+}

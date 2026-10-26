@@ -1,0 +1,93 @@
+/* =========================================================
+   NATURE SIMPLE v2 — "RAW STONE"
+   Brutal naturalism: quarried and left alone.
+   One pigment, one accent, hard edges, nothing else.
+   ========================================================= */
+
+@define-color stone #1c1a15; /* the block */
+@define-color edge #3a372c; /* cut edge */
+@define-color bone #e6e1d1; /* chalk */
+@define-color bone-dim #8d8878; /* worn chalk */
+@define-color lichen #7d8f4e; /* the only living thing */
+
+* {
+  all: unset;
+  font-family: "Liberation Mono", "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: @bone;
+  min-height: 0px;
+}
+
+/* --- The block --- */
+window#waybar {
+  background-color: @stone;
+  border-bottom: 3px solid @edge;
+}
+
+/* --- Tooltip: a chipped-off fragment --- */
+tooltip {
+  background-color: @stone;
+  border: 2px solid @bone-dim;
+  border-radius: 0px;
+}
+
+tooltip label {
+  color: @bone;
+  padding: 8px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
+  padding: 0 16px;
+}
+
+/* --- Workspaces: cut marks --- */
+#workspaces button {
+  color: @bone-dim;
+  padding: 0 6px;
+  border-radius: 0px;
+}
+#workspaces button.active {
+  color: @lichen;
+}
+#workspaces button.urgent {
+  color: @bone;
+}
+
+/* --- Clock: the only bright thing --- */
+#clock {
+  color: @bone;
+  padding: 0 8px;
+}
+
+/* --- Right column --- */
+#network,
+#battery {
+  padding: 0 8px;
+  color: @bone-dim;
+}
+#network {
+  color: @bone-dim;
+}
+#network.disconnected {
+  color: @edge;
+}
+#battery {
+  color: @bone-dim;
+}
+#battery.charging,
+#battery.plugged {
+  color: @lichen;
+}
+#battery.warning {
+  color: @bone;
+}
+#battery.critical {
+  color: @stone;
+  background-color: @bone;
+  padding: 0 10px;
+}

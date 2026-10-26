@@ -1,19 +1,42 @@
 {
-  "layer": "top",
-  "position": "top",
-  "height": 32,
-  "spacing": 2,
-  "margin-top": 4,
-  "margin-left": 6,
-  "margin-right": 6,
-  "modules-left": ["custom/menu", "hyprland/workspaces"],
-  "modules-center": ["hyprland/window"],
-  "modules-right": ["network", "pulseaudio", "battery", "clock", "tray"],
-  "custom/menu": {
-    "format": "\udb82\udcc7",
-    "tooltip": "App Launcher",
-    "on-click": "~/.config/rofi/scripts/launcher.sh",
+  "spacing": 10,
+  "margin-top": 8,
+  "margin-left": 10,
+  "margin-right": 10,
+
+  "modules-left": ["custom/launcher", "hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "custom/notifications",
+    "network",
+    "battery",
+    "custom/power"
+  ],
+
+  "custom/launcher": {
+    "format": "",
+    "tooltip": true,
+    "tooltip-format": "App Launcher",
+    "on-click": "~/.config/rofi/launcher.sh"
   },
+
+  "clock": {
+    "interval": 60,
+    "format": "󰃭 {:%A, %B %d - %I:%M %p}",
+    "format-alt": "{:%I:%M %p}",
+    "tooltip-format": "<tt><span size='12pt' font='JetBrainsMono Nerd Font'>{calendar}</span></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#00f0ff'><b>{}</b></span>",
+        "days": "<span color='#e0e0ff'>{}</span>",
+        "today": "<span color='#0b0b12' background='#00f0ff'><b>{}</b></span>"
+      }
+    }
+  },
+
   "hyprland/workspaces": {
     "disable-scroll": true,
     "all-outputs": true,
@@ -24,18 +47,17 @@
       "3": "3",
       "4": "4",
       "5": "5",
-    },
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10"
+    }
   },
-  "hyprland/window": {
-    "format": "{}",
-    "max-length": 40,
-  },
-  "clock": {
-    "format": "{:%H:%M}",
-  },
+
   "network": {
     "format": "{ifname}",
-    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-wifi": "{essid} ",
     "format-ethernet": "{ipaddr}/{cidr} 󰊗",
     "format-disconnected": "No WiFi 󰤭",
     "tooltip-format": "{ifname} via {gwaddr}",
@@ -43,17 +65,32 @@
     "tooltip-format-ethernet": "{ifname} ",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 40,
-    "on-click": "~/.config/hypr/scripts/wifi-mananger.sh",
+    "on-click": "~/.config/hypr/scripts/wifi-manager.sh"
   },
-  "pulseaudio": {
-    "format": "\udb81\udd7e {volume}%",
-    "format-muted": "\udb81\udf5f",
-  },
+
   "battery": {
-    "format": "{capacity}% \udb80\udc79",
+    "states": {
+      "middle": 40,
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󱐋",
+    "format-plugged": "{capacity}% ",
+    "format-icons": ["", "", "", "", ""]
   },
-  "tray": {
-    "icon-size": 14,
-    "spacing": 4,
+
+  "custom/notifications": {
+    "format": "",
+    "tooltip": true,
+    "tooltip-format": "Notifications",
+    "on-click": "swaync-client -t"
   },
+
+  "custom/power": {
+    "format": "󰐥",
+    "tooltip": true,
+    "tooltip-format": "Power Menu",
+    "on-click": "~/.config/hypr/scripts/power-menu.sh"
+  }
 }

@@ -38,9 +38,9 @@
       "mode-mon-col": 3,
       "on-scroll": 1,
       "format": {
-        "months": "<span color='#ffb786'><b>{}</b></span>",
+        "months": "<span color='#e2e2e2'><b>{}</b></span>",
         "days": "<span color='#e2e2e2'>{}</span>",
-        "today": "<span color='#131313' background='#ffb786'><b>{}</b></span>",
+        "today": "<span color='#131313' background='#e2e2e2'><b>{}</b></span>",
       },
     },
   },

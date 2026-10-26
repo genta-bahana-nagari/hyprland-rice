@@ -1,78 +1,122 @@
-/* Theme Identity: Custom Styled via PRD */
+@define-color bg-dark #09090e;
+@define-color bg-module #12121c;
+@define-color fg-main #ffffff;
+
+@define-color neon-cyan #00f0ff;
+@define-color neon-magenta #ff003c;
+@define-color neon-yellow #fcee0a;
 
 * {
+  all: unset;
   font-family: "JetBrainsMono Nerd Font";
-  font-size: 12px;
-  font-weight: bold;
-  min-height: 0px;
+  font-size: 13px;
+  font-weight: 700;
+  color: @fg-main;
 }
 
 window#waybar {
-  background-color: rgba(30, 30, 46, 0.85);
-  color: #f8f8f2;
-  border-bottom: 2px solid #ff79c6;
-  transition-property: background-color;
-  transition-duration: 0.3s;
+  background: @bg-dark;
+  border-bottom: 2px solid @neon-magenta;
 }
 
-#custom-menu,
-#workspaces,
-#window,
-#clock,
+/* --- TOOLTIP V1 --- */
+tooltip {
+  background: @bg-dark;
+  border: 2px solid @neon-magenta; /* Agresif sesuai gaya V1 */
+  border-radius: 0px; /* Sudut tajam/kotak */
+}
+
+tooltip label {
+  color: @fg-main;
+  padding: 10px;
+}
+/* ------------------ */
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: @bg-dark;
+}
+
+#custom-launcher {
+  background: @neon-cyan;
+  color: @bg-dark;
+  padding: 0 15px;
+  margin-right: 5px;
+}
+
+#workspaces button {
+  padding: 0 10px;
+  color: @fg-main;
+  border-bottom: 3px solid transparent;
+}
+
+#workspaces button.active {
+  color: @neon-cyan;
+  border-bottom: 3px solid @neon-cyan;
+  text-shadow: 0 0 5px @neon-cyan;
+}
+
 #cpu,
 #memory,
 #temperature,
 #disk,
-#network,
-#pulseaudio,
-#backlight,
-#battery,
-#power-profiles-daemon,
+#window,
 #tray,
-#custom-power {
-  background-color: #1e1e2e;
-  color: #f8f8f2;
-  padding: 0 8px;
-  margin: 4px 2px;
-  border-radius: 6px;
-  border: 1px solid #8be9fd;
-}
-
-#workspaces button {
-  padding: 0 4px;
-  color: #f8f8f2;
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery {
+  background: @bg-module;
+  padding: 0 12px;
+  margin: 4px 4px;
   border-radius: 4px;
+  border-bottom: 2px solid @neon-cyan;
 }
 
-#workspaces button.active {
-  background-color: #ff79c6;
-  color: #1e1e2e;
+#cpu {
+  border-bottom-color: @neon-yellow;
+  color: @neon-yellow;
 }
-
-#workspaces button:hover {
-  background-color: #bd93f9;
-  color: #1e1e2e;
+#memory {
+  border-bottom-color: @neon-magenta;
+  color: @neon-magenta;
+}
+#temperature {
+  border-bottom-color: #ff5555;
+}
+#disk {
+  border-bottom-color: #55ff55;
 }
 
 #clock {
-  color: #ff79c6;
-  font-weight: bold;
+  background: @bg-module;
+  color: @neon-yellow;
+  padding: 0 20px;
+  margin: 4px 0;
+  border-radius: 4px;
+  border: 1px solid @neon-yellow;
+  box-shadow: 0 0 8px rgba(252, 238, 10, 0.3);
 }
 
-#battery.warning {
-  color: #f6c177;
+#battery.charging {
+  color: #55ff55;
+  border-bottom-color: #55ff55;
+}
+#battery.critical:not(.charging) {
+  background: #ff5555;
+  color: @bg-dark;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
-#battery.critical {
-  color: #eb6f92;
-}
-
-tooltip {
-  background: #1e1e2e;
-  border: 1px solid #ff79c6;
-  border-radius: 8px;
-}
-
-tooltip label {
-  color: #f8f8f2;
+#custom-power {
+  background: @neon-magenta;
+  color: @bg-dark;
+  padding: 0 15px;
+  margin-left: 5px;
 }

@@ -1,0 +1,185 @@
+/* =========================================================
+   NATURE MAXIMUM v1 — "STRATA"
+   Brutal naturalism: geological layers, hard edges, raw pigment.
+   No radius. No shadow. No glass. Opaque mineral bands.
+   ========================================================= */
+
+/* --- Raw pigments --- */
+@define-color soil #1c1a15; /* bar ground, warm charcoal */
+@define-color char #26241d; /* block surface */
+@define-color stone #4a4638; /* raised block */
+@define-color ash #3a372c; /* rule / divider */
+@define-color bone #e6e1d1; /* primary text */
+@define-color bone-dim #9a9482; /* secondary text */
+@define-color lichen #7d8f4e; /* primary accent */
+@define-color moss #4f6b3a; /* deep green */
+@define-color rust #a8552c; /* oxide orange */
+@define-color ochre #c08a2e; /* mustard */
+@define-color clay #8c4a3a; /* raw red clay */
+@define-color slate #5b6b6e; /* wet slate */
+
+* {
+  all: unset;
+  font-family: "Chivo Black", "JetBrainsMono Nerd Font";
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: @bone;
+  min-height: 0px;
+}
+
+/* --- Ground: horizontal sediment bands --- */
+window#waybar {
+  background-color: @soil;
+  background-image: repeating-linear-gradient(
+    0deg,
+    #22201a 0px,
+    #22201a 2px,
+    #1c1a15 2px,
+    #1c1a15 9px
+  );
+  border-bottom: 3px solid @lichen;
+}
+
+/* --- Tooltip: a cut-out specimen label --- */
+tooltip {
+  background-color: @char;
+  border: 2px solid @bone-dim;
+  border-radius: 0px;
+}
+
+tooltip label {
+  color: @bone;
+  padding: 8px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
+}
+
+/* --- Launcher: cut stone marker --- */
+#custom-launcher {
+  background-color: @lichen;
+  color: @soil;
+  padding: 0 14px;
+  margin-right: 6px;
+  border-radius: 0px;
+}
+
+/* --- Workspaces: quarried blocks --- */
+#workspaces button {
+  color: @bone-dim;
+  padding: 0 9px;
+  border-radius: 0px;
+}
+
+#workspaces button.active {
+  color: @lichen;
+}
+
+#workspaces button.urgent {
+  color: @clay;
+}
+
+/* --- Module slabs: each a distinct rock layer --- */
+#cpu,
+#memory,
+#temperature,
+#disk,
+#window,
+#tray,
+#custom-caffeine,
+#custom-updates,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery {
+  background-color: @char;
+  color: @bone-dim;
+  padding: 0 11px;
+  margin: 3px 3px;
+  border-radius: 0px;
+  border-bottom: 3px solid @ash;
+}
+
+#cpu {
+  color: @ochre;
+  border-bottom-color: @ochre;
+}
+#memory {
+  color: @slate;
+  border-bottom-color: @slate;
+}
+#temperature {
+  color: @rust;
+  border-bottom-color: @rust;
+}
+#disk {
+  color: @moss;
+  border-bottom-color: @moss;
+}
+#window {
+  color: @bone-dim;
+  border-bottom-color: @ash;
+}
+#custom-caffeine {
+  color: @ochre;
+  border-bottom-color: @ochre;
+}
+#custom-updates {
+  color: @bone-dim;
+  border-bottom-color: @ash;
+}
+#backlight {
+  color: @bone-dim;
+  border-bottom-color: @ash;
+}
+#pulseaudio {
+  color: @bone-dim;
+  border-bottom-color: @ash;
+}
+#network {
+  color: @lichen;
+  border-bottom-color: @lichen;
+}
+#bluetooth {
+  color: @bone-dim;
+  border-bottom-color: @ash;
+}
+#battery {
+  color: @moss;
+  border-bottom-color: @moss;
+}
+
+/* --- Clock: the exposed core --- */
+#clock {
+  background-color: @stone;
+  color: @bone;
+  padding: 0 18px;
+  margin: 3px 0;
+  border-radius: 0px;
+  border: 2px solid @ochre;
+}
+
+/* --- Battery states --- */
+#battery.warning {
+  color: @ochre;
+  border-bottom-color: @ochre;
+}
+#battery.critical:not(.charging) {
+  background-color: @clay;
+  color: @bone;
+  border-bottom-color: @clay;
+}
+
+/* --- Power: cut-off switch --- */
+#custom-power {
+  background-color: @rust;
+  color: @bone;
+  padding: 0 14px;
+  margin-left: 6px;
+  border-radius: 0px;
+}

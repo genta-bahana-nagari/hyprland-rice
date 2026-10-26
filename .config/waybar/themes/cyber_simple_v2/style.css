@@ -1,78 +1,156 @@
-/* Theme Identity: Custom Styled via PRD */
+/* =========================================================
+   Cybr Simple V2 Dark Neon Waybar (FIXED)
+   Ultra-Minimal / Floating Pills
+   ========================================================= */
 
+/* ---------------------------------------------------------
+   Palette Variation
+   --------------------------------------------------------- */
+/* Gunakan Hex dengan alpha (a6 = sekitar 65% opacity) agar aman di GTK */
+@define-color bg-glass #05050aa6;
+
+@define-color fg-main #e0e0ff;
+@define-color fg-dim #6a6a8b;
+
+/* V2 Neon Accents */
+@define-color neon-cyan #00e5ff;
+@define-color neon-magenta #ff0055;
+@define-color neon-yellow #ffea00;
+@define-color neon-green #00e676;
+
+/* =========================================================
+   Global
+   ========================================================= */
 * {
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 12px;
-  font-weight: bold;
-  min-height: 0px;
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 14px;
+  font-weight: 700;
+  color: @fg-main;
 }
 
 window#waybar {
-  background-color: rgba(30, 30, 46, 0.85);
-  color: #f8f8f2;
-  border-bottom: 2px solid #ff79c6;
-  transition-property: background-color;
-  transition-duration: 0.3s;
+  background: transparent;
 }
 
-#custom-menu,
-#workspaces,
-#window,
-#clock,
-#cpu,
-#memory,
-#temperature,
-#disk,
-#network,
-#pulseaudio,
-#backlight,
-#battery,
-#power-profiles-daemon,
-#tray,
-#custom-power {
-  background-color: #1e1e2e;
-  color: #f8f8f2;
-  padding: 0 8px;
-  margin: 4px 2px;
-  border-radius: 6px;
-  border: 1px solid #8be9fd;
+/* =========================================================
+   Pill Containers (Ultra-Clean Borders)
+   ========================================================= */
+.modules-left,
+.modules-center,
+.modules-right {
+  background: @bg-glass;
+  border-radius: 999px;
+  padding: 4px 18px;
+  margin: 0px;
 }
 
-#workspaces button {
-  padding: 0 4px;
-  color: #f8f8f2;
-  border-radius: 4px;
+/* Specific module borders */
+.modules-left {
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.1);
 }
 
-#workspaces button.active {
-  background-color: #ff79c6;
-  color: #1e1e2e;
+.modules-center {
+  border: 1px solid rgba(255, 234, 0, 0.3);
+  box-shadow: 0 0 8px rgba(255, 234, 0, 0.1);
 }
 
-#workspaces button:hover {
-  background-color: #bd93f9;
-  color: #1e1e2e;
+.modules-right {
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  box-shadow: 0 0 8px rgba(0, 230, 118, 0.1);
 }
 
-#clock {
-  color: #ff79c6;
-  font-weight: bold;
-}
-
-#battery.warning {
-  color: #f6c177;
-}
-
-#battery.critical {
-  color: #eb6f92;
-}
-
+/* =========================================================
+   Tooltips
+   ========================================================= */
 tooltip {
-  background: #1e1e2e;
-  border: 1px solid #ff79c6;
-  border-radius: 8px;
+  background: #05050af2;
+  border: 1px solid @neon-cyan;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
 }
 
 tooltip label {
-  color: #f8f8f2;
+  color: @fg-main;
+  padding: 8px;
+}
+
+/* =========================================================
+   Left Module: Workspaces (Dots)
+   ========================================================= */
+#workspaces {
+  margin: 0;
+}
+
+#workspaces button {
+  color: @fg-dim;
+  padding: 2px 6px;
+  margin: 0 2px;
+  border-radius: 999px;
+  font-size: 12px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#workspaces button:hover {
+  color: @neon-cyan;
+  text-shadow: 0 0 8px @neon-cyan;
+}
+
+#workspaces button.active {
+  color: @neon-cyan;
+  text-shadow: 0 0 10px @neon-cyan;
+}
+
+#workspaces button.urgent {
+  color: @neon-magenta;
+  text-shadow: 0 0 10px @neon-magenta;
+}
+
+/* =========================================================
+   Center Module: Clock
+   ========================================================= */
+#clock {
+  color: @neon-yellow;
+  text-shadow: 0 0 6px rgba(255, 234, 0, 0.3);
+  padding: 0 5px;
+}
+
+/* =========================================================
+   Right Modules: Network, Battery
+   ========================================================= */
+#network,
+#battery {
+  padding: 0 8px;
+}
+
+/* Network */
+#network {
+  color: @neon-cyan;
+  margin-right: 6px;
+}
+#network.disconnected {
+  color: @fg-dim;
+}
+
+/* Battery */
+#battery {
+  color: @neon-green;
+  text-shadow: 0 0 6px rgba(0, 230, 118, 0.3);
+}
+#battery.charging,
+#battery.plugged {
+  color: @neon-yellow;
+}
+#battery.warning {
+  color: @neon-magenta;
+  text-shadow: 0 0 6px rgba(255, 0, 85, 0.4);
+}
+#battery.critical {
+  color: #ffffff;
+  background: @neon-magenta;
+  border-radius: 999px;
+  padding: 0 12px;
+  box-shadow: 0 0 12px rgba(255, 0, 85, 0.6);
+  text-shadow: none;
 }

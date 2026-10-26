@@ -1,78 +1,126 @@
-/* Theme Identity: Custom Styled via PRD */
+@define-color bg-glass #05050ae6;
+@define-color fg-main #e0e0ff;
+
+@define-color cyber-blue #00e5ff;
+@define-color cyber-purple #b100ff;
+@define-color cyber-green #00ff66;
 
 * {
+  all: unset;
   font-family: "JetBrainsMono Nerd Font";
   font-size: 12px;
-  font-weight: bold;
-  min-height: 0px;
+  font-weight: 700;
+  color: @fg-main;
 }
 
 window#waybar {
-  background-color: rgba(30, 30, 46, 0.85);
-  color: #f8f8f2;
-  border-bottom: 2px solid #ff79c6;
-  transition-property: background-color;
-  transition-duration: 0.3s;
-}
-
-#custom-menu,
-#workspaces,
-#window,
-#clock,
-#cpu,
-#memory,
-#temperature,
-#disk,
-#network,
-#pulseaudio,
-#backlight,
-#battery,
-#power-profiles-daemon,
-#tray,
-#custom-power {
-  background-color: #1e1e2e;
-  color: #f8f8f2;
-  padding: 0 8px;
-  margin: 4px 2px;
-  border-radius: 6px;
-  border: 1px solid #8be9fd;
-}
-
-#workspaces button {
-  padding: 0 4px;
-  color: #f8f8f2;
-  border-radius: 4px;
-}
-
-#workspaces button.active {
-  background-color: #ff79c6;
-  color: #1e1e2e;
-}
-
-#workspaces button:hover {
-  background-color: #bd93f9;
-  color: #1e1e2e;
-}
-
-#clock {
-  color: #ff79c6;
-  font-weight: bold;
-}
-
-#battery.warning {
-  color: #f6c177;
-}
-
-#battery.critical {
-  color: #eb6f92;
+  background: transparent;
 }
 
 tooltip {
-  background: #1e1e2e;
-  border: 1px solid #ff79c6;
-  border-radius: 8px;
+  background-color: #000000;
 }
 
-tooltip label {
-  color: #f8f8f2;
+/* Modul dasar bergaya kapsul */
+#custom-launcher,
+#workspaces,
+#window,
+#clock,
+#group-hardware,
+#group-media,
+#group-connectivity,
+#tray,
+#custom-power {
+  background: @bg-glass;
+  padding: 4px 14px;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 5px rgba(0, 229, 255, 0.1);
+}
+
+/* Launcher */
+#custom-launcher {
+  color: @cyber-blue;
+  font-size: 16px;
+  padding: 4px 16px;
+}
+
+/* Workspaces */
+#workspaces button {
+  color: #555577;
+  padding: 0 4px;
+  transition: 0.2s;
+}
+#workspaces button.active {
+  color: @cyber-blue;
+  text-shadow: 0 0 8px @cyber-blue;
+}
+
+/* Window Title */
+#window {
+  color: @cyber-purple;
+  border-color: rgba(177, 0, 255, 0.3);
+}
+
+/* Clock */
+#clock {
+  color: @cyber-green;
+  font-size: 13px;
+  border-color: rgba(0, 255, 102, 0.4);
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+}
+
+/* Groups Styling (menyatukan modul) */
+#cpu,
+#memory,
+#temperature,
+#disk {
+  padding: 0 8px;
+  background: @bg-glass;
+  color: @cyber-blue;
+  border-right: 1px solid #333344;
+}
+#disk {
+  background: @bg-glass;
+  border-right: none;
+}
+
+#backlight,
+#pulseaudio {
+  background: @bg-glass;
+  padding: 0 8px;
+  color: @cyber-purple;
+  border-right: 1px solid #333344;
+}
+#pulseaudio {
+  border-right: none;
+}
+
+#network,
+#bluetooth,
+#battery {
+  padding: 0 8px;
+  background: @bg-glass;
+  color: @cyber-green;
+  border-right: 1px solid #333344;
+}
+#battery {
+  border-right: none;
+}
+
+#battery.critical {
+  color: #ff0055;
+  text-shadow: 0 0 5px #ff0055;
+}
+
+/* Power */
+#custom-power {
+  color: #ff0055;
+  border-color: rgba(255, 0, 85, 0.3);
+  padding: 4px 16px;
+  font-size: 14px;
+}
+#custom-power:hover {
+  background: #ff0055;
+  color: #fff;
+  box-shadow: 0 0 10px #ff0055;
 }

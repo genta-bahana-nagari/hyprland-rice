@@ -1,0 +1,95 @@
+{
+  "spacing": 12,
+  "margin-top": 8,
+  "margin-left": 12,
+  "margin-right": 12,
+
+  "modules-left": ["custom/launcher", "hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "custom/notifications",
+    "network",
+    "battery",
+    "custom/power"
+  ],
+
+  "custom/launcher": {
+    "format": "FIELD NOTES",
+    "tooltip": true,
+    "tooltip-format": "Open Field Manual",
+    "on-click": "~/.config/rofi/launcher.sh"
+  },
+
+  "clock": {
+    "interval": 60,
+    "format": "{:%A, %B %d   %I:%M %p}",
+    "format-alt": "{:%I:%M %p}",
+    "tooltip-format": "<tt><span size='12pt' font='JetBrainsMono Nerd Font'>{calendar}</span></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#7d8f4e'><b>{}</b></span>",
+        "days": "<span color='#d9c9a3'>{}</span>",
+        "today": "<span color='#241f18' background='#d9c9a3'><b>{}</b></span>"
+      }
+    }
+  },
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10"
+    }
+  },
+
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": "{essid}",
+    "format-ethernet": "{ipaddr}/{cidr}",
+    "format-disconnected": "NO SIGNAL",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "{ifname}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 40,
+    "on-click": "~/.config/hypr/scripts/wifi-mananger.sh"
+  },
+
+  "battery": {
+    "states": {
+      "middle": 40,
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{capacity}%",
+    "format-charging": "{capacity}% CHG",
+    "format-plugged": "{capacity}% CHG"
+  },
+
+  "custom/notifications": {
+    "format": "NOTES",
+    "tooltip": true,
+    "tooltip-format": "Notifications",
+    "on-click": "swaync-client -t"
+  },
+
+  "custom/power": {
+    "format": "SHUT DOWN",
+    "tooltip": true,
+    "tooltip-format": "Power Menu",
+    "on-click": "~/.config/hypr/scripts/power-menu.sh"
+  }
+}

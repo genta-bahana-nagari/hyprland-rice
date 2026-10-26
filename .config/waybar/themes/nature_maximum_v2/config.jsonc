@@ -1,0 +1,105 @@
+{
+  "layer": "top",
+  "position": "top",
+  "spacing": 4,
+  "margin-top": 6,
+  "margin-left": 8,
+  "margin-right": 8,
+
+  "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "group/hardware",
+    "group/media",
+    "group/connectivity",
+    "tray",
+    "custom/power",
+  ],
+
+  "group/hardware": {
+    "orientation": "horizontal",
+    "modules": ["cpu", "memory", "temperature", "disk"],
+  },
+  "group/media": {
+    "orientation": "horizontal",
+    "modules": ["backlight", "pulseaudio"],
+  },
+  "group/connectivity": {
+    "orientation": "horizontal",
+    "modules": ["network", "bluetooth", "battery"],
+  },
+
+  "custom/launcher": {
+    "format": "FIELD",
+    "tooltip": true,
+    "tooltip-format": "Open Field Manual",
+    "on-click": "rofi -show drun",
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": { "active": "▌", "default": "▁", "urgent": "▲" },
+  },
+  "hyprland/window": {
+    "format": " {title}",
+    "max-length": 25,
+    "tooltip": false,
+  },
+
+  "clock": {
+    "format": "{:%H:%M   %a %d %b}",
+    "tooltip": true,
+    "tooltip-format": "<tt><span font='JetBrainsMono Nerd Font'>{calendar}</span></tt>",
+  },
+
+  "cpu": {
+    "format": "CPU {usage}%",
+    "tooltip-format": "CPU: {usage}%\nLoad Avg: {load}",
+  },
+  "memory": {
+    "format": "RAM {}%",
+    "tooltip-format": "RAM: {used:0.1f}GB / {total:0.1f}GB\nSwap: {swapUsed:0.1f}GB",
+  },
+  "temperature": {
+    "format": "TEMP {temperatureC}°C",
+    "tooltip-format": "Sensor Temp: {temperatureC}°C",
+  },
+  "disk": {
+    "format": "DISK {percentage_used}%",
+    "tooltip-format": "Storage: {used} / {total}\nMount: {path}",
+  },
+
+  "backlight": {
+    "format": "LUX {percent}%",
+    "tooltip-format": "Screen Brightness: {percent}%",
+  },
+  "pulseaudio": {
+    "format": "AUD {volume}%",
+    "tooltip-format": "Audio: {volume}%\nPort: {desc}",
+  },
+
+  "network": {
+    "format-wifi": "NET {essid}",
+    "format-ethernet": "NET LAN",
+    "format-disconnected": "NET OFFLINE",
+    "max-length": 15,
+    "tooltip-format-wifi": "SSID: {essid} ({signalStrength}%)\nIP: {ipaddr}\nFrequency: {frequency}MHz",
+    "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}",
+    "tooltip-format-disconnected": "Offline",
+  },
+  "bluetooth": {
+    "format": "BT {status}",
+    "tooltip-format": "Status: {status}\nConnected: {num_connections}",
+    "tooltip-format-connected": "{device_alias} ({device_battery_percentage}%)",
+  },
+  "battery": {
+    "format": "PWR {capacity}%",
+    "format-charging": "PWR {capacity}% CHG",
+    "tooltip-format": "Battery Life: {time}\nCapacity Health: {health}%\nCycle Count: {cycles}",
+  },
+
+  "tray": { "icon-size": 15, "spacing": 8 },
+  "custom/power": {
+    "format": "OFF",
+    "tooltip-format": "Power Options",
+  },
+}

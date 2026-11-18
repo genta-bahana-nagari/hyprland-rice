@@ -58,8 +58,9 @@ _apps_apply() {
     fi
 }
 
+
 # ----------------------------------------------------------
-# Pick one option from a category
+# Pick one or more options from a category
 # ----------------------------------------------------------
 
 _apps_pick() {
@@ -67,10 +68,12 @@ _apps_pick() {
     shift
     local -a entries=("$@")
     local choice i label pkg cmd src luakey
+    local -a selections
 
     while true; do
         echo
         echo "$title"
+        echo ":: Enter multiple numbers separated by spaces to install multiple apps."
 
         for i in "${!entries[@]}"; do
             IFS='|' read -r label pkg cmd src luakey <<< "${entries[$i]}"
@@ -82,16 +85,40 @@ _apps_pick() {
             fi
         done
 
-        read -rp "Choice [1]: " choice
+        read -rp "Choices [1]: " choice
         choice="${choice:-1}"
 
-        if [[ "$choice" =~ ^[0-9]+$ ]] &&
-            (( choice >= 1 && choice <= ${#entries[@]} )); then
-            _apps_apply "${entries[$((choice - 1))]}"
+        # Convert input into an array of selections.
+        read -ra selections <<< "$choice"
+
+        local valid=1
+        local -A seen=()
+
+        for selection in "${selections[@]}"; do
+            if [[ ! "$selection" =~ ^[0-9]+$ ]] ||
+                (( selection < 1 || selection > ${#entries[@]} )); then
+                valid=0
+                break
+            fi
+
+            # Prevent duplicate selections.
+            if [[ -n "${seen[$selection]:-}" ]]; then
+                valid=0
+                break
+            fi
+
+            seen[$selection]=1
+        done
+
+        if (( valid == 1 )); then
+            for selection in "${selections[@]}"; do
+                _apps_apply "${entries[$((selection - 1))]}"
+            done
+
             return 0
         fi
 
-        echo ":: Invalid choice."
+        echo ":: Invalid choice. Enter valid numbers separated by spaces."
     done
 }
 
@@ -133,25 +160,37 @@ _apps_select() {
                 "Firefox|firefox|firefox|official|browser" \
                 "Chromium|chromium|chromium|official|browser" \
                 "Brave|brave-bin|brave|aur|browser" \
-                "Google Chrome|google-chrome|google-chrome-stable|aur|browser"
+                "Google Chrome|google-chrome|google-chrome-stable|aur|browser" \
+                "Opera|opera|opera|aur|browser" \
+                "Vivaldi|vivaldi|vivaldi-stable|aur|browser" \
+                "LibreWolf|librewolf|librewolf|aur|browser"
 
             _apps_pick "File manager (Super + E)" \
                 "Nautilus|nautilus|nautilus|official|fileManager" \
                 "Dolphin|dolphin|dolphin|official|fileManager" \
                 "Thunar|thunar|thunar|official|fileManager" \
-                "Nemo|nemo|nemo|official|fileManager"
+                "Nemo|nemo|nemo|official|fileManager" \
+                "PCManFM|pcmanfm|pcmanfm|official|fileManager" \
+                "Double Commander|doublecmd-qt6|doublecmd|aur|fileManager" \
+                "Yazi|yazi|yazi|official|fileManager"
 
             _apps_pick "Terminal (Super + Return)" \
                 "Kitty|kitty|kitty|official|terminal" \
                 "Foot|foot|foot|official|terminal" \
                 "Alacritty|alacritty|alacritty|official|terminal" \
-                "WezTerm|wezterm|wezterm|official|terminal"
+                "WezTerm|wezterm|wezterm|official|terminal" \
+                "Ghostty|ghostty|ghostty|official|terminal" \
+                "WezTerm|wezterm|wezterm|official|terminal" \
+                "Rio|rio|rio|aur|terminal"
 
             _apps_pick "Code editor (Super + C)" \
                 "Visual Studio Code|code|code|official|code" \
                 "Kate|kate|kate|official|code" \
                 "GNOME Text Editor|gnome-text-editor|gnome-text-editor|official|code" \
-                "Gedit|gedit|gedit|official|code"
+                "Gedit|gedit|gedit|official|code" \
+                "Neovim|neovim|kitty -e nvim|official|code" \
+                "VSCodium|vscodium|codium|aur|code" \
+                "Sublime Text|sublime-text-4|subl|aur|code"
 
             _apps_pick "Image viewer" \
                 "Loupe|loupe|loupe|official|" \
@@ -161,7 +200,10 @@ _apps_select() {
             _apps_pick "Video player" \
                 "VLC|vlc vlc-plugin-ffmpeg|vlc|official|" \
                 "mpv|mpv|mpv|official|" \
-                "Haruna|haruna|haruna|official|"
+                "Haruna|haruna|haruna|official|" \
+                "Celluloid|celluloid|celluloid|official|" \
+                "SMPlayer|smplayer|smplayer|official|" \
+                "Clapper|clapper|clapper|official|"
 
             _apps_pick "Calculator" \
                 "Qalculate-GTK|qalculate-gtk|qalculate-gtk|official|" \

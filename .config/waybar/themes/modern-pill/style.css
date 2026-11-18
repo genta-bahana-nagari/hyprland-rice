@@ -1,0 +1,66 @@
+/* modern-pill layout — colors driven by wallust. */
+@import url("../../.cache/wallust/colors-waybar.css");
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Color Emoji";
+    font-size: 13px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: @background;
+    color: @foreground;
+    border-bottom: 2px solid @color4;
+    border-radius: 12px;
+    margin: 4px 8px;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    color: @foreground;
+    border-radius: 8px;
+}
+
+#workspaces button.active {
+    background: @color4;
+    color: @background;
+    border-radius: 8px;
+}
+
+#clock, #battery, #network, #pulseaudio, #bluetooth {
+    padding: 0 10px;
+    border-radius: 10px;
+    margin: 2px 4px;
+}
+
+#clock {
+    background: @color4;
+    color: @background;
+    border-radius: 10px;
+}
+
+#custom-launcher, #custom-updatetoggler, #custom-caffeine, #custom-notifications, #custom-power, #custom-system {
+    padding: 0 10px;
+    border-radius: 10px;
+    margin: 2px 4px;
+    color: @foreground;
+}
+
+#custom-system {
+    background: @color8;
+    color: @foreground;
+}
+
+#custom-system:hover {
+    background: @color4;
+    color: @background;
+}
+
+#tray {
+    padding: 0 8px;
+    margin: 2px 4px;
+    border-radius: 10px;
+    background: @color8;
+}

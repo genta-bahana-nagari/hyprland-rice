@@ -28,6 +28,10 @@ PROJECT_DIR="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 # shellcheck source=apps.sh
 source "$SCRIPT_DIR/apps.sh"
 
+# Shared modular font installer.
+# shellcheck source=fonts.sh
+source "$SCRIPT_DIR/fonts.sh"
+
 # ----------------------------------------------------------
 # Error handler
 # ----------------------------------------------------------
@@ -85,6 +89,7 @@ packages=(
     "tree"
     "cmatrix"
     "htop"
+    "btop"
     "fastfetch"
     "nano"
     "unzip"
@@ -98,6 +103,14 @@ packages=(
     "cava"
     "awww"
     "wf-recorder"
+    "pipewire"
+    "pipewire-alsa"
+    "pipewire-pulse"
+    "pipewire-jack"
+    "wireplumber"
+    "sof-firmware"
+    "alsa-ucm-conf"
+    "pamixer"
 
     # ------------------------------------------------------
     # Bluetooth
@@ -125,6 +138,7 @@ packages=(
 aur_packages=(
     "ttf-rubik"
     "ttf-rubik-vf"
+    "wallust"
 )
 
 # ----------------------------------------------------------
@@ -543,6 +557,17 @@ _deployConfigs() {
             "$HOME/.config/waybar/config.jsonc"
         ln -sfn "themes/default/style.css" \
             "$HOME/.config/waybar/style.css"
+    fi
+
+    # ------------------------------------------------------
+    # Seed wallust color cache (prevents rofi/waybar errors
+    # on first run before any theme has been switched).
+    # ------------------------------------------------------
+
+    if [[ -d "$PROJECT_DIR/.config/wallust/cache" ]]; then
+        mkdir -p "$HOME/.cache/wallust"
+        cp -f "$PROJECT_DIR/.config/wallust/cache/"* "$HOME/.cache/wallust/" 2>/dev/null || true
+        echo ":: Default wallust color cache seeded."
     fi
 
     echo ":: Configuration files deployed."

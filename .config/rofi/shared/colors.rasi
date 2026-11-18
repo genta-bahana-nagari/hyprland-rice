@@ -15,4 +15,8 @@
 
 /* Import color-scheme from `colors` directory */
 
-@import "~/.config/rofi/colors/onedark.rasi"
+configuration {
+    modi: "drun";
+}
+
+@import "/home/sigab/.cache/wallust/colors-rofi.rasi"

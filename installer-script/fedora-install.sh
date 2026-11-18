@@ -28,6 +28,10 @@ PROJECT_DIR="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 # shellcheck source=apps.sh
 source "$SCRIPT_DIR/apps.sh"
 
+# Shared modular font installer.
+# shellcheck source=fonts.sh
+source "$SCRIPT_DIR/fonts.sh"
+
 # ----------------------------------------------------------
 # Error handler
 # ----------------------------------------------------------
@@ -65,6 +69,7 @@ packages=(
     "brightnessctl"
     "pavucontrol"
     "NetworkManager"
+    "NetworkManager-tui"
     "cliphist"
     "playerctl"
     "wl-clipboard"
@@ -73,6 +78,7 @@ packages=(
     "tree"
     "cmatrix"
     "htop"
+    "btop"
     "fastfetch"
     "nano"
     "curl"
@@ -80,11 +86,22 @@ packages=(
     "git"
     "unzip"
     "swayosd"
+    "cargo"
+    "pipx"
+    "dbus-devel"
 
     # Audio / wallpaper / recording
     "cava"
     "wf-recorder"
     "awww"
+    "pipewire"
+    "pipewire-alsa"
+    "pipewire-pulse"
+    "pipewire-jack"
+    "wireplumber"
+    "sof-firmware"
+    "alsa-ucm-conf"
+    "pamixer"
 
     # Bluetooth
     "bluez"
@@ -211,40 +228,6 @@ _enableRpmFusion() {
 # Enable COPR repositories
 # ----------------------------------------------------------
 
-# _enableCoprRepositories() {
-#     echo ":: Enabling COPR repositories..."
-#
-#     # Main Hyprland COPR.
-#     if ! dnf repolist 2>/dev/null | grep -q \
-#         "copr:copr.fedorainfracloud.org:sdegler:hyprland"; then
-#
-#         echo ":: Enabling sdegler/hyprland..."
-#
-#         sudo dnf copr enable -y sdegler/hyprland
-#     else
-#         echo ":: sdegler/hyprland is already enabled."
-#     fi
-#
-#     echo ":: COPR repositories configured."
-# }
-
-# _enableCoprRepositories() {
-#     echo ":: Enabling COPR repositories..."
-
-#     # Main Hyprland COPR.
-#       if ! dnf repolist 2>/dev/null | grep -q \
-# 	 "copr:copr.fedorainfracloud.org:lionheartp:Hyprland"; then
-
-#         echo ":: Enabling lionheartp/Hyprland..."
-
-#         sudo dnf copr enable -y lionheartp/Hyprland
-#     else
-#         echo ":: lionheart/Hyprland is already enabled."
-#     fi
-
-#     echo ":: COPR repositories configured."
-# }
-
 _enableCoprRepositories() {
     echo ":: Enabling COPR repositories..."
 
@@ -268,14 +251,13 @@ _enableCoprRepositories() {
             if sudo dnf copr enable -y "$repo"; then
                 echo ":: Successfully enabled $repo."
             else
-                echo "!! Failed to enable $repo. Continuing..."
+                echo -e "${YELLOW}!! Failed to enable $repo. Continuing...${NONE}"
             fi
         fi
     done
 
     echo ":: COPR repositories configured."
 }
-
 
 # ----------------------------------------------------------
 # Install packages
@@ -356,17 +338,8 @@ _verifyPackages() {
 _installFonts() {
     echo ":: Installing fonts..."
 
-    # Fonts are installed from Fedora packages.
-    # This avoids downloading the entire Google Fonts repository.
-
-    sudo dnf install -y \
-        fontconfig \
-        jetbrains-mono-fonts \
-        google-rubik-fonts
-
-    echo ":: Rebuilding font cache..."
-
-    fc-cache -f
+    # Delegates to the shared modular font installer (fonts.sh).
+    install_fonts
 
     echo
     echo ":: Checking installed fonts..."
@@ -435,6 +408,17 @@ _deployConfigs() {
             "$HOME/.config/waybar/config.jsonc"
         ln -sfn "themes/default/style.css" \
             "$HOME/.config/waybar/style.css"
+    fi
+
+    # ------------------------------------------------------
+    # Seed wallust color cache (prevents rofi/waybar errors
+    # on first run before any theme has been switched).
+    # ------------------------------------------------------
+
+    if [[ -d "$PROJECT_DIR/.config/wallust/cache" ]]; then
+        mkdir -p "$HOME/.cache/wallust"
+        cp -f "$PROJECT_DIR/.config/wallust/cache/"* "$HOME/.cache/wallust/" 2>/dev/null || true
+        echo ":: Default wallust color cache seeded."
     fi
 
     echo ":: Configuration files deployed."
@@ -546,8 +530,6 @@ _downloadWallpaperCollections() {
             -exec cp -n {} "$wallpaper_dir/" \;
     done
 
-    rm -rf "$temp_dir"
-
     echo
     echo ":: Wallpaper collections downloaded."
     echo ":: Wallpapers are located in:"
@@ -593,6 +575,60 @@ _installOhMyPosh() {
 }
 
 # ----------------------------------------------------------
+# Install Wallust
+# ----------------------------------------------------------
+
+_installWallust() {
+    echo ":: Installing wallust..."
+
+    mkdir -p "$HOME/.local/bin"
+
+    if command -v wallust >/dev/null 2>&1 || [[ -x "$HOME/.cargo/bin/wallust" ]]; then
+        echo ":: wallust is already installed."
+    else
+        cargo install wallust
+    fi
+
+    ln -sf "$HOME/.cargo/bin/wallust" "$HOME/.local/bin/wallust"
+
+    touch "$HOME/.bashrc"
+
+    local cargo_path_line='export PATH="$HOME/.cargo/bin:$PATH"'
+    grep -qxF "$cargo_path_line" "$HOME/.bashrc" || \
+        echo "$cargo_path_line" >> "$HOME/.bashrc"
+
+    echo ":: wallust configured."
+}
+
+# ----------------------------------------------------------
+# Install TUI utilities (pulsemixer & bluetui)
+# ----------------------------------------------------------
+
+_installTuiTools() {
+    echo ":: Installing TUI utilities..."
+
+    mkdir -p "$HOME/.local/bin"
+
+    # pulsemixer via pipx
+    if command -v pulsemixer >/dev/null 2>&1 || [[ -x "$HOME/.local/bin/pulsemixer" ]]; then
+        echo ":: pulsemixer is already installed."
+    else
+        pipx install pulsemixer
+    fi
+
+    # bluetui via cargo
+    if command -v bluetui >/dev/null 2>&1 || [[ -x "$HOME/.cargo/bin/bluetui" ]]; then
+        echo ":: bluetui is already installed."
+    else
+        cargo install bluetui
+    fi
+
+    ln -sf "$HOME/.cargo/bin/bluetui" "$HOME/.local/bin/bluetui"
+
+    echo ":: TUI utilities configured."
+}
+
+# ----------------------------------------------------------
 # Enable services
 # ----------------------------------------------------------
 
@@ -620,6 +656,7 @@ _verifyCommands() {
         "unzip"
         "fc-cache"
         "fc-match"
+        "nmtui"
     )
 
     local failed=0
@@ -834,6 +871,20 @@ done
 
 echo
 _installOhMyPosh
+
+# ----------------------------------------------------------
+# Install Wallust
+# ----------------------------------------------------------
+
+echo
+_installWallust
+
+# ----------------------------------------------------------
+# Install TUI utilities
+# ----------------------------------------------------------
+
+echo
+_installTuiTools
 
 # ----------------------------------------------------------
 # Enable services

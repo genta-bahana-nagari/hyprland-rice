@@ -62,6 +62,11 @@ for entry in .config/*/; do
     fi
 done
 
+# Preserve user theme / rotation state.
+if [[ -d "$HOME/.local/state/hypr-rice" ]]; then
+    cp -a "$HOME/.local/state/hypr-rice" "$backup_dir/"
+fi
+
 echo ":: Backup complete."
 echo
 
@@ -152,11 +157,36 @@ fi
 
 if [[ -d "Wallpaper" ]]; then
     mkdir -p "$HOME/Pictures/Wallpaper"
-    cp -n Wallpaper/* "$HOME/Pictures/Wallpaper/" 2>/dev/null || true
+    cp -rn Wallpaper/* "$HOME/Pictures/Wallpaper/" 2>/dev/null || true
 fi
 
 echo ":: Configuration deployed."
 echo
+
+# ----------------------------------------------------------
+# Install default wallust color cache (prevents rofi errors
+# on first run before any theme has been switched).
+# ----------------------------------------------------------
+
+if [[ -d ".config/wallust/cache" ]]; then
+    mkdir -p "$HOME/.cache/wallust"
+    cp -f .config/wallust/cache/* "$HOME/.cache/wallust/" 2>/dev/null || true
+    echo ":: Default wallust color cache installed."
+fi
+
+# ----------------------------------------------------------
+# Regenerate wallust cache if a theme is active
+# ----------------------------------------------------------
+
+if [[ -f "$HOME/.local/state/hypr-rice/theme.conf" && -f "$HOME/.cache/current-wallpaper" ]]; then
+    # shellcheck disable=SC1090
+    source "$HOME/.local/state/hypr-rice/theme.conf"
+    wallust_bin=$(command -v wallust || command -v "$HOME/.local/bin/wallust" || command -v "$HOME/.cargo/bin/wallust" || true)
+    if [[ "${THEME:-Default}" != "Default" && -n "$wallust_bin" ]]; then
+        "$wallust_bin" run "$HOME/.cache/current-wallpaper" >/dev/null 2>&1 || true
+        echo ":: Wallust colors regenerated for theme: $THEME"
+    fi
+fi
 
 # ----------------------------------------------------------
 # Reload the running desktop

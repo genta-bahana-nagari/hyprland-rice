@@ -1,0 +1,57 @@
+/* dock-top layout — colors driven by wallust. */
+@import url("../../.cache/wallust/colors-waybar.css");
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Color Emoji";
+    font-size: 14px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: rgba(30, 30, 46, 0.85);
+    color: @foreground;
+    border: 1px solid @color8;
+    border-radius: 16px;
+    margin: 8px 16px;
+}
+
+#workspaces button {
+    padding: 0 12px;
+    color: @color7;
+    border-radius: 10px;
+    margin: 0 2px;
+}
+
+#workspaces button.active {
+    background: @color4;
+    color: @background;
+    border-radius: 10px;
+}
+
+#clock {
+    padding: 0 16px;
+    border-radius: 12px;
+    background: @color8;
+    color: @foreground;
+    margin: 0 4px;
+}
+
+#pulseaudio, #network, #battery, #custom/power {
+    padding: 0 14px;
+    border-radius: 12px;
+    margin: 0 4px;
+    color: @foreground;
+}
+
+#custom/power {
+    background: @color4;
+    color: @background;
+    border-radius: 12px;
+}
+
+#custom/power:hover {
+    background: @color5;
+    color: @background;
+}

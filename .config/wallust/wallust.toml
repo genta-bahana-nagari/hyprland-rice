@@ -1,0 +1,13 @@
+# Wallust configuration for Hyprland Rice (v3.5.1 schema)
+# Generates a curated color palette from the active wallpaper.
+
+backend = "fastresize"
+color_space = "salience"
+palette = "saliencedark16"
+
+[templates]
+waybar = { template = "colors-waybar.css", target = "/home/sigab/.cache/wallust/colors-waybar.css" }
+rofi = { template = "colors-rofi.rasi", target = "/home/sigab/.cache/wallust/colors-rofi.rasi" }
+swaync = { template = "colors-swaync.css", target = "/home/sigab/.cache/wallust/colors-swaync.css" }
+hyprland = { template = "colors-hyprland.lua", target = "/home/sigab/.cache/wallust/colors-hyprland.lua" }
+kitty = { template = "colors-kitty.conf", target = "/home/sigab/.cache/wallust/colors-kitty.conf" }

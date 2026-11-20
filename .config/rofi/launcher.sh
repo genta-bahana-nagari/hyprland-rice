@@ -1,19 +1,49 @@
-
-
-## Author : Aditya Shakya (adi1090x)
-## Github : @adi1090x
-#
-## Rofi   : Launcher (Modi Drun, Run, File Browser, Window)
-#
-## Available Styles
-#
-## style-1     style-2     style-3     style-4     style-5
-## style-6     style-7     style-8     style-9     style-10
+#!/usr/bin/env bash
 
 dir="$HOME/.config/rofi/styles"
 theme='launcher'
 
-## Run
+# 1. Membaca ID distro dari sistem
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    DISTRO=$ID
+else
+    DISTRO="linux"
+fi
+
+# 2. Menentukan ikon Nerd Font berdasarkan ID distro
+case "$DISTRO" in
+    arch)
+        ICON="󰣇"
+        ;;
+    ubuntu)
+        ICON=""
+        ;;
+    debian)
+        ICON=""
+        ;;
+    fedora)
+        ICON=""
+        ;;
+    manjaro)
+        ICON=""
+        ;;
+    linuxmint)
+        ICON="󰣭"
+        ;;
+    nixos)
+        ICON=""
+        ;;
+    opensuse*|suse)
+        ICON=""
+        ;;
+    *)
+        ICON="" # Ikon Tux default jika distro tidak terdaftar
+        ;;
+esac
+
+# 3. Menjalankan Rofi dengan tema sekaligus ikon dinamis
 rofi \
     -show drun \
-    -theme ${dir}/${theme}.rasi
+    -display-drun "$ICON" \
+    -theme "${dir}/${theme}.rasi"

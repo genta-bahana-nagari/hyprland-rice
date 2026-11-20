@@ -15,28 +15,29 @@
 
 /* Fallback colors — replaced by wallust on first run */
 * {
-    background: #111111;
-    foreground: #eeeeee;
-    background-alt: #111111;
-    selected: #55aaff;
-    active: #55ff55;
-    urgent: #ff5555;
-    border-colour: #444444;
-    handle-colour: #55aaff;
-    color0: #111111;
-    color1: #ff5555;
-    color2: #55ff55;
-    color3: #ffff55;
-    color4: #55aaff;
-    color5: #ff55ff;
-    color6: #55ffff;
-    color7: #eeeeee;
-    color8: #444444;
-    color9: #ff7777;
-    color10: #77ff77;
-    color11: #ffff77;
-    color12: #77aaff;
-    color13: #ff77ff;
-    color14: #77ffff;
-    color15: #ffffff;
+    background:     {{ background }};
+    foreground:     {{ foreground }};
+    background-alt: rgba({{ foreground.rgb }}, 0.08);
+    selected:       rgba({{ foreground.rgb }}, 0.16);
+    border-colour:  rgba({{ foreground.rgb }}, 0.14);
+    handle-colour:  rgba({{ foreground.rgb }}, 0.22);
+    active:         {{ color4 }};
+    urgent:         {{ color1 }};
+
+    color0:  {{ color0 }};
+    color1:  {{ color1 }};
+    color2:  {{ color2 }};
+    color3:  {{ color3 }};
+    color4:  {{ color4 }};
+    color5:  {{ color5 }};
+    color6:  {{ color6 }};
+    color7:  {{ color7 }};
+    color8:  {{ color8 }};
+    color9:  {{ color9 }};
+    color10: {{ color10 }};
+    color11: {{ color11 }};
+    color12: {{ color12 }};
+    color13: {{ color13 }};
+    color14: {{ color14 }};
+    color15: {{ color15 }};
 }

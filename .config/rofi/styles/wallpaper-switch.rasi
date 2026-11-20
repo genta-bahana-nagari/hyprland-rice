@@ -1,5 +1,5 @@
-@import "shared/colors.rasi"
-@import "shared/fonts.rasi"
+@import "../shared/colors.rasi"
+@import "../shared/fonts.rasi"
 
 /*****----- Configuration -----*****/
 configuration {
@@ -7,51 +7,11 @@ configuration {
     show-icons: true;
 }
 
-/*****----- Global -----*****/
-* {
-    border-colour: #333333;
-    handle-colour: #333333;
-
-    background-colour: #000000;
-    foreground-colour: #ffffff;
-
-    alternate-background: #111111;
-
-    normal-background: #000000;
-    normal-foreground: #ffffff;
-
-    urgent-background: #000000;
-    urgent-foreground: #ffffff;
-
-    active-background: #111111;
-    active-foreground: #ffffff;
-
-    selected-normal-background: #222222;
-    selected-normal-foreground: #ffffff;
-
-    selected-urgent-background: #222222;
-    selected-urgent-foreground: #ffffff;
-
-    selected-active-background: #222222;
-    selected-active-foreground: #ffffff;
-
-    alternate-normal-background: #000000;
-    alternate-normal-foreground: #ffffff;
-
-    alternate-urgent-background: #000000;
-    alternate-urgent-foreground: #ffffff;
-
-    alternate-active-background: #111111;
-    alternate-active-foreground: #ffffff;
-}
-
 /*****----- Window -----*****/
 window {
     transparency: "real";
-
     location: center;
     anchor: center;
-
     fullscreen: false;
 
     width: 75%;
@@ -59,9 +19,9 @@ window {
 
     border: 2px;
     border-radius: 16px;
-    border-color: #333333;
+    border-color: @selected;
 
-    background-color: #000000;
+    background-color: @background;
 
     padding: 0px;
     margin: 0px;
@@ -73,16 +33,14 @@ window {
 /*****----- Mainbox -----*****/
 mainbox {
     enabled: true;
-
     orientation: vertical;
 
-    spacing: 10px;
+    spacing: 12px;
     margin: 0px;
-    padding: 15px;
+    padding: 18px;
 
     border-radius: 16px;
-
-    background-color: #000000;
+    background-color: transparent;
 
     children: [
         "inputbar",
@@ -96,14 +54,14 @@ inputbar {
 
     spacing: 10px;
     margin: 0px;
-    padding: 10px;
+    padding: 12px 14px;
 
-    border: 0px 0px 1px 0px;
-    border-radius: 0px;
-    border-color: #333333;
+    border: 1px;
+    border-radius: 10px;
+    border-color: @selected;
 
-    background-color: #000000;
-    text-color: #ffffff;
+    background-color: @background-alt;
+    text-color: @foreground;
 
     children: [
         "prompt",
@@ -114,33 +72,20 @@ inputbar {
 /*****----- Prompt -----*****/
 prompt {
     enabled: true;
-
-    background-color: #000000;
-    text-color: #ffffff;
-}
-
-/*****----- Prompt Colon -----*****/
-textbox-prompt-colon {
-    enabled: true;
-
-    expand: false;
-    str: "::";
-
-    background-color: #000000;
-    text-color: #ffffff;
+    background-color: transparent;
+    text-color: @selected;
 }
 
 /*****----- Entry -----*****/
 entry {
     enabled: true;
-
-    background-color: #000000;
-    text-color: #ffffff;
+    background-color: transparent;
+    text-color: @foreground;
 
     cursor: text;
 
-    placeholder: "Search...";
-    placeholder-color: #777777;
+    placeholder: "Search wallpaper...";
+    placeholder-color: @foreground;
 }
 
 /*****----- Listview -----*****/
@@ -153,54 +98,45 @@ listview {
     flow: horizontal;
 
     spacing: 12px;
-    padding: 10px;
+    padding: 6px;
 
     fixed-width: true;
     fixed-height: true;
 
     cycle: true;
-
-    background-color: #000000;
+    background-color: transparent;
 }
 
 /*****----- Element -----*****/
 element {
     enabled: true;
-
     orientation: vertical;
-
     spacing: 6px;
-
     margin: 0px;
     padding: 10px;
-
+    border: 2px;
     border-radius: 12px;
-
-    background-color: #000000;
-    text-color: #ffffff;
-
+    border-color: transparent;
+    background-color: transparent;
+    text-color: @foreground;
     cursor: pointer;
 }
 
 /*****----- Selected Element -----*****/
 element selected.normal {
-    background-color: #222222;
-
-    border: 2px;
-    border-color: #444444;
-
-    text-color: #ffffff;
+    background-color: transparent;
+    border-color: @foreground;
+    text-color: @foreground;
 }
 
 /*****----- Element Icon -----*****/
 element-icon {
     enabled: true;
-
     size: 35%;
     margin: 5px;
 
     background-color: transparent;
-    text-color: #ffffff;
+    text-color: inherit;
 
     cursor: inherit;
 }
@@ -212,11 +148,11 @@ element-text {
     vertical-align: 0.5;
     horizontal-align: 0.5;
 
-    padding: 5px;
+    padding: 4px;
     margin: 0px;
 
     background-color: transparent;
-    text-color: #ffffff;
+    text-color: inherit;
 
     cursor: inherit;
 }

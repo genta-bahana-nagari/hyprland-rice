@@ -11,7 +11,7 @@ local programs = {
     postman = "postman",
     discord = "flatpak run com.discordapp.Discord",
     spotify = "flatpak run com.spotify.Client",
-    wifiManager = "~/.config/hypr/scripts/wifi-mananger.sh",
+    wifiManager = "~/.config/hypr/scripts/wifi-manager.sh",
     wifiDisconnect = "~/.config/hypr/scripts/wifi-disconnect.sh",
     displayMode = "~/.config/hypr/scripts/display-mode.sh",
 

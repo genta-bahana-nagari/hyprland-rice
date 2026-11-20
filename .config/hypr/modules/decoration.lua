@@ -6,12 +6,8 @@ hl.config({
         gaps_in  = 5,
         gaps_out = 10,
 
-        border_size = 2,
-
-        col = {
-            active_border   = wallust.wallust.color4,
-            inactive_border = wallust.wallust.color8,
-        },
+        -- Matikan border sepenuhnya
+        border_size = 0,
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = false,
@@ -26,16 +22,19 @@ hl.config({
         rounding       = 10,
         rounding_power = 5,
 
-        -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
-        inactive_opacity = 0.9,
+        inactive_opacity = 0.85,
 
         shadow = {
-            enabled      = true,
-            range        = 4,
-            render_power = 3,
-            color        = wallust.wallust.color0,
-        },
+                    enabled        = true,
+                    range          = 20,
+                    render_power   = 2,
+                    offset         = { 0, 4 },
+
+                    color          = "rgba(000000ff)",
+
+                    color_inactive = "rgba(00000055)",
+            },
 
         blur = {
             enabled   = true,

@@ -1,75 +1,92 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "palette": {
+    "accent": "blue",
+    "git_bg": "magenta",
+    "path_bg": "darkGray",
+    "text_dark": "black",
+    "text_light": "white"
+  },
   "transient_prompt": {
-    "newline": true
+    "newline": true,
+    "template": "❯ ",
+    "foreground": "p:accent"
   },
   "blocks": [
     {
       "alignment": "left",
+
       "segments": [
         {
-          "properties": {
-            "cache_duration": "none"
-          },
-          "template": "\n╭─",
           "type": "text",
-          "style": "powerline"
+          "style": "plain",
+          "foreground": "p:path_bg",
+          "template": "╭─"
         },
         {
-          "style": "powerline",
-          "template": " {{.Icon}}  ",
           "type": "os",
-	  "background": "#363434",
-	  "foreground": "#EBECEC"
+          "style": "diamond",
+          "leading_diamond": "",
+          "background": "p:accent",
+          "foreground": "p:text_dark",
+          "template": "{{ .Icon }} "
         },
         {
-          "background": "#EBEBEB",
-          "foreground": "#0F0F0F",
-          "powerline_symbol": "\ue0b0",
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "background": "p:path_bg",
+          "foreground": "p:text_light",
           "options": {
             "folder_separator_icon": "/",
             "style": "full"
           },
+          "template": "  {{ .Path }} "
+        },
+        {
+          "type": "git",
           "style": "powerline",
-          "template": " \ue5ff {{ .Path }} ",
-          "type": "path"
+          "powerline_symbol": "",
+          "background": "p:git_bg",
+          "foreground": "p:text_dark",
+          "template": "  {{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }} "
         },
         {
+          "type": "node",
           "style": "plain",
-          "template": " </>{{ .HEAD }}",
-          "type": "git"
+          "foreground": "lightGreen",
+          "template": "  {{ .Full }}"
         },
         {
+          "type": "pnpm",
           "style": "plain",
-          "template": "  {{ .Full }} ",
-          "type": "node"
-        },
-        {
+          "foreground": "lightYellow",
           "properties": {
             "display_mode": "files",
             "extensions": ["pnpm-lock.yaml"]
           },
-          "template": " 󰋁 {{ .Full }} ",
-          "type": "pnpm",
-          "style": "plain"
+          "template": " 󰋁 {{ .Full }}"
         },
         {
+          "type": "python",
+          "style": "plain",
+          "foreground": "lightCyan",
           "properties": {
             "display_mode": "files"
           },
-          "template": "  {{ .Full }} ",
-          "type": "python",
-          "style": "plain"
+          "template": "  {{ .Full }}"
         },
         {
-          "template": "  {{ .Full }} ",
           "type": "java",
-          "style": "plain"
+          "style": "plain",
+          "foreground": "lightRed",
+          "template": "  {{ .Full }}"
         },
         {
-          "template": "  {{ .Full }} ",
           "type": "php",
-          "style": "plain"
+          "style": "plain",
+          "foreground": "lightBlue",
+          "template": "  {{ .Full }}"
         }
       ],
       "type": "prompt"
@@ -77,18 +94,24 @@
     {
       "type": "prompt",
       "alignment": "left",
+      "newline": true,
       "segments": [
         {
-          "properties": {
-            "always_enabled": true,
-            "cache_duration": "none"
-          },
-          "template": "╰─ ❯❯ ",
           "type": "text",
-          "style": "diamond"
+          "style": "plain",
+          "foreground": "p:path_bg",
+          "template": "╰─"
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:accent",
+          "properties": {
+            "always_enabled": true
+          },
+          "template": " ❯❯ "
         }
-      ],
-      "newline": true
+      ]
     }
   ],
   "version": 4

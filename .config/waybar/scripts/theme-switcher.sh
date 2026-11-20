@@ -3,39 +3,40 @@
 set -u
 
 WAYBAR="$HOME/.config/waybar"
-THEMES="$WAYBAR/themes"
+LAYOUTS="$WAYBAR/themes"
 ROFI_THEME="$HOME/.config/rofi/styles/waybar-theme-switcher.rasi"
 
 
 # ---------------------------------------------------------
-# Check theme directory
+# Check layout directory
 # ---------------------------------------------------------
 
-if [[ ! -d "$THEMES" ]]; then
+if [[ ! -d "$LAYOUTS" ]]; then
     notify-send \
-        "Waybar Theme Switcher" \
-        "Themes directory not found: $THEMES"
+        "Waybar Layout Switcher" \
+        "Layouts directory not found: $LAYOUTS"
     exit 1
 fi
 
 
 # ---------------------------------------------------------
-# Get theme directories
+# Get layout directories (only directories with config.jsonc + style.css)
 # ---------------------------------------------------------
 
-mapfile -t themes < <(
-    find "$THEMES" \
+mapfile -t layouts < <(
+    find "$LAYOUTS" \
         -mindepth 1 \
         -maxdepth 1 \
         -type d \
+        -exec test -f {}/config.jsonc -a -f {}/style.css \; \
         -printf '%f\n' |
         sort -f
 )
 
-if [[ ${#themes[@]} -eq 0 ]]; then
+if [[ ${#layouts[@]} -eq 0 ]]; then
     notify-send \
-        "Waybar Theme Switcher" \
-        "No themes found."
+        "Waybar Layout Switcher" \
+        "No valid layouts found (need config.jsonc + style.css)."
     exit 1
 fi
 
@@ -46,8 +47,8 @@ fi
 
 display_names=()
 
-for theme in "${themes[@]}"; do
-    display_name="${theme//_/ }"
+for layout in "${layouts[@]}"; do
+    display_name="${layout//_/ }"
 
     display_name=$(
         printf '%s\n' "$display_name" |
@@ -76,7 +77,7 @@ selected=$(
         rofi \
             -dmenu \
             -i \
-            -p "Waybar Theme" \
+            -p "Waybar Layout" \
             -theme "$ROFI_THEME"
 )
 
@@ -84,15 +85,15 @@ selected=$(
 
 
 # ---------------------------------------------------------
-# Find selected theme
+# Find selected layout
 # ---------------------------------------------------------
 
-theme=""
+layout=""
 selected_index=-1
 
 for i in "${!display_names[@]}"; do
     if [[ "${display_names[$i]}" == "$selected" ]]; then
-        theme="${themes[$i]}"
+        layout="${layouts[$i]}"
         selected_index="$i"
         break
     fi
@@ -103,10 +104,10 @@ done
 # Validate selection
 # ---------------------------------------------------------
 
-if [[ -z "$theme" || "$selected_index" -lt 0 ]]; then
+if [[ -z "$layout" || "$selected_index" -lt 0 ]]; then
     notify-send \
-        "Error Waybar Theming" \
-        "Could not find selected theme."
+        "Error Waybar Layout" \
+        "Could not find selected layout."
     exit 1
 fi
 
@@ -119,29 +120,29 @@ display_name="${display_names[$selected_index]}"
 
 
 # ---------------------------------------------------------
-# Theme paths
+# Layout paths
 # ---------------------------------------------------------
 
-THEME_DIR="$THEMES/$theme"
-CONFIG="$THEME_DIR/config.jsonc"
-STYLE="$THEME_DIR/style.css"
+LAYOUT_DIR="$LAYOUTS/$layout"
+CONFIG="$LAYOUT_DIR/config.jsonc"
+STYLE="$LAYOUT_DIR/style.css"
 
 
 # ---------------------------------------------------------
-# Validate theme files
+# Validate layout files
 # ---------------------------------------------------------
 
 if [[ ! -f "$CONFIG" ]]; then
     notify-send \
-        "Error Waybar Theming" \
-        "Missing config.jsonc in $theme"
+        "Error Waybar Layout" \
+        "Missing config.jsonc in $layout"
     exit 1
 fi
 
 if [[ ! -f "$STYLE" ]]; then
     notify-send \
-        "Error Waybar Theming" \
-        "Missing style.css in $theme"
+        "Error Waybar Layout" \
+        "Missing style.css in $layout"
     exit 1
 fi
 
@@ -164,7 +165,7 @@ sleep 0.3
 
 if ! "$WAYBAR/scripts/launch.sh"; then
     notify-send \
-        "Error Waybar Theming" \
+        "Error Waybar Layout" \
         "Failed to start Waybar."
     exit 1
 fi
@@ -175,5 +176,5 @@ fi
 # ---------------------------------------------------------
 
 notify-send \
-    "Waybar Theme" \
+    "Waybar Layout" \
     "Switched to $display_name"

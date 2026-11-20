@@ -1,4 +1,6 @@
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
+local wallust = require("colors-wallust")
+
 hl.config({
     general = {
         gaps_in  = 5,
@@ -7,8 +9,8 @@ hl.config({
         border_size = 2,
 
         col = {
-            active_border   = "rgb(dcdfe3)",
-            inactive_border = "rgb(454545)",
+            active_border   = wallust.wallust.color4,
+            inactive_border = wallust.wallust.color8,
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -21,7 +23,7 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 5,
+        rounding       = 10,
         rounding_power = 5,
 
         -- Change transparency of focused and unfocused windows
@@ -32,7 +34,7 @@ hl.config({
             enabled      = true,
             range        = 4,
             render_power = 3,
-           
+            color        = wallust.wallust.color0,
         },
 
         blur = {

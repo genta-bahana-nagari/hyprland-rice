@@ -31,4 +31,13 @@ awww img "$WALLPAPER" \
 # Sync wallpaper for Hyprlock
 ln -sfn "$WALLPAPER" "$LOCK_WALL"
 
+# Generate Wallust palette and reload UI
+wallust run "$WALLPAPER" -s
+
+# Live-reload UI components
+pkill -SIGUSR2 -x waybar 2>/dev/null || true
+swaync-client -rs 2>/dev/null || true
+kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true
+hyprctl reload 2>/dev/null || true
+
 notify-send "Wallpaper Changed!" "$CHOICE"

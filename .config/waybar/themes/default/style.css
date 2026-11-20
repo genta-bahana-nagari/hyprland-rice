@@ -1,37 +1,9 @@
 /* =========================================================
-   Minimal Floating Waybar
-   Grayscale / Clean / Rounded
+   Minimal Floating Waybar (Default Layout)
+   Layout-only — colors from Wallust
    ========================================================= */
 
-/* ---------------------------------------------------------
-   Palette
-   --------------------------------------------------------- */
-
-@define-color bg0 #111111;
-@define-color bg1 #1a1a1a;
-@define-color bg2 #222222;
-@define-color bg3 #2a2a2a;
-@define-color bg4 #333333;
-
-@define-color fg #eeeeee;
-@define-color fg-dim #aaaaaa;
-@define-color fg-bright #ffffff;
-
-@define-color black #000000;
-@define-color white #ffffff;
-
-@define-color red #ff5555;
-@define-color green #55ff55;
-@define-color yellow #ffff55;
-@define-color orange #ffaa55;
-
-@define-color gray0 #666666;
-@define-color gray1 #444444;
-
-@define-color border #333333;
-@define-color separator #444444;
-@define-color hover #222222;
-@define-color active #2a2a2a;
+@import "colors-wallust.css";
 
 /* =========================================================
    Global
@@ -39,12 +11,10 @@
 
 * {
   all: unset;
-
   font-family: "JetBrainsMono Nerd Font", "Noto Sans";
   font-size: 14px;
   font-weight: 600;
-
-  color: @fg;
+  color: @foreground;
 }
 
 /* =========================================================
@@ -53,7 +23,7 @@
 
 window#waybar {
   background: transparent;
-  color: @fg;
+  color: @foreground;
 }
 
 /* =========================================================
@@ -61,11 +31,9 @@ window#waybar {
    ========================================================= */
 
 tooltip {
-  background: @bg1;
-  color: @fg;
-
+  background: @surface;
+  color: @foreground;
   padding: 7px 11px;
-
   border: 1px solid @border;
   border-radius: 9px;
 }
@@ -75,10 +43,8 @@ tooltip {
    ========================================================= */
 
 .modules-center {
-  background: @bg0;
-
+  background: @module-bg;
   padding: 4px 7px;
-
   border: 1px solid @border;
   border-radius: 999px;
 }
@@ -88,49 +54,42 @@ tooltip {
    ========================================================= */
 
 #workspaces {
-  background: @bg1;
-
+  background: @surface;
   padding: 2px 5px;
-
   border-radius: 999px;
 }
 
 #workspaces button {
   background: transparent;
   color: @fg-dim;
-
   min-width: 20px;
-
   padding: 1px 6px;
   margin: 0 1px;
-
   border-radius: 999px;
-
   transition:
     background-color 150ms ease,
     color 150ms ease;
 }
 
 #workspaces button.empty {
-  color: @gray0;
+  color: alpha(@foreground, 0.35);
 }
 
 #workspaces button:hover {
   background: @hover;
-  color: @fg;
+  color: @foreground;
 }
 
 #workspaces button.active,
 #workspaces button.active label {
-  background: @white;
-  color: @black;
-
+  background: @accent;
+  color: @background;
   font-weight: 700;
 }
 
 #workspaces button.urgent {
-  background: @red;
-  color: @bg1;
+  background: @urgent;
+  color: @background;
 }
 
 /* =========================================================
@@ -138,14 +97,11 @@ tooltip {
    ========================================================= */
 
 #clock {
-  color: @fg;
-
+  color: @foreground;
   padding: 0 9px;
-
   font-weight: 600;
-
-  border-left: 1px solid @separator;
-  border-right: 1px solid @separator;
+  border-left: 1px solid @border;
+  border-right: 1px solid @border;
 }
 
 /* =========================================================
@@ -153,12 +109,12 @@ tooltip {
    ========================================================= */
 
 #pulseaudio {
-  color: @fg;
+  color: @foreground;
   padding: 0 8px;
 }
 
 #pulseaudio:hover {
-  color: @fg-bright;
+  color: @accent;
 }
 
 #pulseaudio.muted {
@@ -170,12 +126,12 @@ tooltip {
    ========================================================= */
 
 #network {
-  color: @fg;
+  color: @foreground;
   padding: 0 8px;
 }
 
 #network:hover {
-  color: @fg-bright;
+  color: @accent;
 }
 
 #network.disconnected {
@@ -187,35 +143,31 @@ tooltip {
    ========================================================= */
 
 #battery {
-  background: @white;
-  color: @bg1;
-
+  background: @surface-alt;
+  color: @foreground;
+  border: 1px solid @border;
   padding: 1px 8px;
-
   border-radius: 999px;
-
   font-weight: 700;
 }
 
 #battery.charging,
 #battery.plugged {
-  background: @green;
-  color: @bg1;
-}
-
-#battery.middle {
-  background: @yellow;
-  color: @bg1;
+  background: @accent-alt;
+  color: @background;
+  border-color: @accent-alt;
 }
 
 #battery.warning {
-  background: @orange;
-  color: @bg1;
+  background: @warning;
+  color: @background;
+  border-color: @warning;
 }
 
 #battery.critical {
-  background: @red;
-  color: @bg1;
+  background: @urgent;
+  color: @background;
+  border-color: @urgent;
 }
 
 /* =========================================================
@@ -225,51 +177,36 @@ tooltip {
 
 #custom-launcher,
 #custom-updatetoggler {
-  background: @bg0;
-  color: @fg;
-
+  background: @module-bg;
+  color: @foreground;
   padding: 4px 12px;
-
   border-top: 1px solid @border;
   border-bottom: 1px solid @border;
-
   transition:
     background-color 150ms ease,
     color 150ms ease;
 }
 
-/* Launcher */
-
 #custom-launcher {
   margin-left: 8px;
-
   padding-left: 14px;
-
   border-left: 1px solid @border;
   border-right: 0;
-
   border-radius: 999px 0 0 999px;
 }
 
-/* Update */
-
 #custom-updatetoggler {
   margin-right: 8px;
-
   padding-right: 14px;
-
   border-right: 1px solid @border;
   border-left: 0;
-
   border-radius: 0 999px 999px 0;
 }
 
-/* Hover */
-
 #custom-launcher:hover,
 #custom-updatetoggler:hover {
-  background: @bg2;
-  color: @fg-bright;
+  background: @surface;
+  color: @accent;
 }
 
 /* =========================================================
@@ -278,23 +215,20 @@ tooltip {
    ========================================================= */
 
 #custom-caffeine {
-  background: @bg0;
+  background: @module-bg;
   color: @fg-dim;
-
   margin-left: 8px;
   padding: 4px 12px;
-
   border: 1px solid @border;
   border-radius: 999px;
-
   transition:
     background-color 150ms ease,
     color 150ms ease;
 }
 
 #custom-caffeine.active {
-  background: @bg2;
-  color: @yellow;
+  background: @surface-alt;
+  color: @accent;
 }
 
 #custom-caffeine:hover {
@@ -303,57 +237,40 @@ tooltip {
 
 #custom-notifications,
 #custom-power {
-  background: @bg0;
-  color: @fg;
-
+  background: @module-bg;
+  color: @foreground;
   padding: 4px 13px;
-
   border-top: 1px solid @border;
   border-bottom: 1px solid @border;
-
   transition:
     background-color 150ms ease,
     color 150ms ease;
 }
 
-/* Notifications */
-
 #custom-notifications {
   margin-left: 8px;
-
   padding-left: 14px;
-
   border-left: 1px solid @border;
   border-right: 0;
-
   border-radius: 999px 0 0 999px;
 }
 
-/* Power */
-
 #custom-power {
   margin-right: 8px;
-
   padding-right: 14px;
-
   border-right: 1px solid @border;
   border-left: 0;
-
   border-radius: 0 999px 999px 0;
 }
 
-/* Hover */
-
-#custom-notifications:hover,
-#custom-power:hover {
-  background: @bg2;
-  color: @fg-bright;
+#custom-notifications:hover {
+  background: @surface;
+  color: @accent;
 }
 
-/* Power hover */
-
 #custom-power:hover {
-  color: @red;
+  background: @surface;
+  color: @urgent;
 }
 
 /* =========================================================

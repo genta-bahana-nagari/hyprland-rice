@@ -1,40 +1,33 @@
-/* Backgrounds */
-@define-color bg0 #1d2021;
-@define-color bg1 #282828;
-@define-color bg2 #3c3836;
-@define-color bg3 #504945;
-@define-color bg4 #665c54;
+/* Fallback colors — replaced by wallust on first run */
+@define-color background #111111;
+@define-color foreground #eeeeee;
+@define-color color0 #111111;
+@define-color color1 #ff5555;
+@define-color color2 #55ff55;
+@define-color color3 #ffff55;
+@define-color color4 #55aaff;
+@define-color color5 #ff55ff;
+@define-color color6 #55ffff;
+@define-color color7 #eeeeee;
+@define-color color8 #444444;
+@define-color color9 #ff7777;
+@define-color color10 #77ff77;
+@define-color color11 #ffff77;
+@define-color color12 #77aaff;
+@define-color color13 #ff77ff;
+@define-color color14 #77ffff;
+@define-color color15 #ffffff;
 
-/* Foreground */
-@define-color fg #ebdbb2;
-@define-color fg-dim #a89984;
-@define-color fg-bright #fbf1c7;
-
-/* Bright colors */
-@define-color white #fbfff7;
-@define-color red #fb4934;
-@define-color green #679440;
-@define-color yellow #fabd2f;
-@define-color blue #83a598;
-@define-color purple #d3869b;
-@define-color aqua #8ec07c;
-@define-color orange #fe8019;
-
-/* Neutral */
-@define-color gray0 #636362;
-@define-color gray1 #3b3b39;
-
-/* Dark (dim) colors */
-@define-color red-dim #cc241d;
-@define-color green-dim #98971a;
-@define-color yellow-dim #d79921;
-@define-color blue-dim #458588;
-@define-color purple-dim #b16286;
-@define-color aqua-dim #689d6a;
-@define-color orange-dim #d65d0e;
-
-/* UI */
-@define-color border #504945;
-@define-color separator #665c54;
-@define-color bg-hover #3c3836;
-@define-color bg-active #504945;
+/* Semantic aliases — hex values for before wallust run */
+@define-color bg0 #111111;
+@define-color bg1 #222222;
+@define-color fg #eeeeee;
+@define-color gray0 #444444;
+@define-color gray1 #111111;
+@define-color red #ff5555;
+@define-color green #55ff55;
+@define-color yellow #ffff55;
+@define-color blue #55aaff;
+@define-color magenta #ff55ff;
+@define-color cyan #55ffff;
+@define-color white #ffffff;

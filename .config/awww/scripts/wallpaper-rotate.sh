@@ -70,9 +70,10 @@ while true; do
 
         wallust_bin=$(command -v wallust || command -v "$HOME/.local/bin/wallust" || command -v "$HOME/.cargo/bin/wallust" || true)
         if [[ -n "$wallust_bin" ]]; then
-            "$wallust_bin" run "$wallpaper" >/dev/null 2>&1 || true
+            "$wallust_bin" run "$wallpaper" -s >/dev/null 2>&1 || true
             pkill -SIGUSR2 -x waybar 2>/dev/null || true
             swaync-client -rs >/dev/null 2>&1 || true
+            kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true
             hyprctl reload >/dev/null 2>&1 || true
         fi
     fi

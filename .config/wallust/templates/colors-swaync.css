@@ -17,3 +17,19 @@
 @define-color color13 {{ color13 }};
 @define-color color14 {{ color14 }};
 @define-color color15 {{ color15 }};
+
+/* Dynamic tinted surfaces & accents for SwayNC */
+@define-color bg0 mix({{ background }}, {{ color1 }}, 0.18);
+@define-color bg1 mix({{ background }}, {{ color4 }}, 0.25);
+@define-color fg {{ foreground }};
+@define-color accent {{ color4 }};
+@define-color accent-alt {{ color2 }};
+@define-color gray0 {{ color4 }};
+@define-color gray1 {{ color1 }};
+@define-color red {{ color1 }};
+@define-color green {{ color2 }};
+@define-color yellow {{ color3 }};
+@define-color blue {{ color4 }};
+@define-color magenta {{ color5 }};
+@define-color cyan {{ color6 }};
+@define-color white {{ color7 }};

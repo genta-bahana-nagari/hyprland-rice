@@ -1,0 +1,29 @@
+/* Fallback colors — replaced by wallust on first run */
+@define-color background #111111;
+@define-color foreground #eeeeee;
+@define-color color0 #111111;
+@define-color color1 #ff5555;
+@define-color color2 #55ff55;
+@define-color color3 #ffff55;
+@define-color color4 #55aaff;
+@define-color color5 #ff55ff;
+@define-color color6 #55ffff;
+@define-color color7 #eeeeee;
+@define-color color8 #444444;
+@define-color color9 #ff7777;
+@define-color color10 #77ff77;
+@define-color color11 #ffff77;
+@define-color color12 #77aaff;
+@define-color color13 #ff77ff;
+@define-color color14 #77ffff;
+@define-color color15 #ffffff;
+
+@define-color accent @color4;
+@define-color urgent @color1;
+@define-color surface @color0;
+@define-color border @color8;
+@define-color module-bg alpha(@background, 0.9);
+@define-color hover alpha(@color4, 0.2);
+@define-color active alpha(@color4, 0.4);
+@define-color fg-dim alpha(@foreground, 0.7);
+@define-color fg-bright @foreground;

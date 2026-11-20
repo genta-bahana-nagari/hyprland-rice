@@ -12,7 +12,7 @@
     "battery",
   ],
 
-  "modules-right": ["custom/caffeine", "custom/notifications", "custom/power"],
+  "modules-right": ["custom/notifications", "custom/power"],
 
   "custom/launcher": {
     "format": "",

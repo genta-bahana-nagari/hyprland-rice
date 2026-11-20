@@ -1,6 +1,12 @@
 * {
     background: {{ background }};
     foreground: {{ foreground }};
+    background-alt: {{ color0 }};
+    selected: {{ color4 }};
+    active: {{ color2 }};
+    urgent: {{ color1 }};
+    border-colour: {{ color8 }};
+    handle-colour: {{ color4 }};
     color0: {{ color0 }};
     color1: {{ color1 }};
     color2: {{ color2 }};
@@ -17,10 +23,4 @@
     color13: {{ color13 }};
     color14: {{ color14 }};
     color15: {{ color15 }};
-    selected: {{ color4 }};
-    background-alt: {{ color0 }};
-    urgent: {{ color1 }};
-    active: {{ color2 }};
-    border-colour: {{ color8 }};
-    handle-colour: {{ color4 }};
 }

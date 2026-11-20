@@ -164,27 +164,28 @@ echo ":: Configuration deployed."
 echo
 
 # ----------------------------------------------------------
-# Install default wallust color cache (prevents rofi errors
-# on first run before any theme has been switched).
+# Generate wallust colors (prevents raw {{ }} template errors)
 # ----------------------------------------------------------
 
-if [[ -d ".config/wallust/cache" ]]; then
-    mkdir -p "$HOME/.cache/wallust"
-    cp -f .config/wallust/cache/* "$HOME/.cache/wallust/" 2>/dev/null || true
-    echo ":: Default wallust color cache installed."
-fi
+wallust_bin="$(command -v wallust || command -v "$HOME/.local/bin/wallust" || command -v "$HOME/.cargo/bin/wallust" || true)"
 
-# ----------------------------------------------------------
-# Regenerate wallust cache if a theme is active
-# ----------------------------------------------------------
+if [[ -n "$wallust_bin" ]]; then
+    # Gunakan wallpaper aktif jika valid, jika tidak pakai wallpaper default
+    if [[ -e "$HOME/.cache/current-wallpaper" ]]; then
+        target_wp="$HOME/.cache/current-wallpaper"
+    elif [[ -f "$HOME/Pictures/Wallpaper/wallpaper-0.jpg" ]]; then
+        target_wp="$HOME/Pictures/Wallpaper/wallpaper-0.jpg"
+    elif [[ -f "$HOME/Wallpaper/wallpaper-0.jpg" ]]; then
+        target_wp="$HOME/Wallpaper/wallpaper-0.jpg"
+    else
+        target_wp=""
+    fi
 
-if [[ -f "$HOME/.local/state/hypr-rice/theme.conf" && -f "$HOME/.cache/current-wallpaper" ]]; then
-    # shellcheck disable=SC1090
-    source "$HOME/.local/state/hypr-rice/theme.conf"
-    wallust_bin=$(command -v wallust || command -v "$HOME/.local/bin/wallust" || command -v "$HOME/.cargo/bin/wallust" || true)
-    if [[ "${THEME:-Default}" != "Default" && -n "$wallust_bin" ]]; then
-        "$wallust_bin" run "$HOME/.cache/current-wallpaper" >/dev/null 2>&1 || true
-        echo ":: Wallust colors regenerated for theme: $THEME"
+    if [[ -n "$target_wp" ]]; then
+        "$wallust_bin" run "$target_wp" -q || true
+        echo ":: Wallust colors generated from: $(basename "$target_wp")"
+    else
+        echo -e "${YELLOW}:: Warning: No wallpaper found for wallust; rofi/waybar templates may remain unrendered.${NONE}"
     fi
 fi
 

@@ -15,13 +15,13 @@
   "blocks": [
     {
       "alignment": "left",
-
+      "newline": true,
       "segments": [
         {
           "type": "text",
           "style": "plain",
           "foreground": "p:path_bg",
-          "template": "╭─"
+          "template": "\n╭─"
         },
         {
           "type": "os",

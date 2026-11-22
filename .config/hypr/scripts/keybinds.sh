@@ -88,6 +88,7 @@ descriptions = {
     "SUPER + S": "Capture Entire Screen",
     "SUPER + SHIFT + S": "Capture Selected Region",
     "SUPER + CTRL + S": "Capture Active Window",
+    "SUPER + SHIFT + T": "Open Theme Switcher",
 }
 
 def pretty_key(key):

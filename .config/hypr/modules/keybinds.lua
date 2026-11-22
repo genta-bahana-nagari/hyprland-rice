@@ -108,6 +108,12 @@ hl.bind(
     hl.dsp.exec_cmd(programs.wallpaperSwitcher)
 )
 
+-- Theme switcher
+hl.bind(
+    mainMod .. " + SHIFT + T",
+    hl.dsp.exec_cmd("/home/sigab/.config/hypr/scripts/theme-switcher.sh")
+)
+
 -- Toggle Waybar
 hl.bind(
     mainMod .. " + SHIFT + W",

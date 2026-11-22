@@ -19,7 +19,9 @@ local programs = {
     wallpaperSwitcher = "~/.config/hypr/scripts/wallpaper-switch.sh",
     screenRecord = "~/.config/hypr/scripts/screen-record.sh",
 
-    waybarSwitcher = "~/.config/waybar/scripts/theme-switcher.sh",
+    themeSwitcher = "~/.config/hypr/scripts/theme-switcher.sh",
+    waybarToggle = "~/.config/waybar/scripts/launch.sh",
+    waybarSwitcher = "~/.config/waybar/scripts/layout-switcher.sh",
 
     keybinds = "~/.config/hypr/scripts/keybinds.sh",
     screenshot = "~/.config/hypr/scripts/screenshot-menu.sh",

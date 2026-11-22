@@ -82,6 +82,18 @@ hl.window_rule({
    center = true,
 })
 
+-- Calendar
+hl.window_rule({
+    name = "gsimplecal-float",
+    match = {
+        class = "gsimplecal",
+    },
+
+    float  = true,
+    center = true,
+    pin    = true,
+})
+
 -- Spotify
 -- hl.window_rule({
 --     name = "spotify-float",

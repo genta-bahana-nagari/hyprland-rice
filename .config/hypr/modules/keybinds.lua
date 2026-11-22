@@ -111,22 +111,26 @@ hl.bind(
 -- Theme switcher
 hl.bind(
     mainMod .. " + SHIFT + T",
-    hl.dsp.exec_cmd("/home/sigab/.config/hypr/scripts/theme-switcher.sh")
+    hl.dsp.exec_cmd(programs.themeSwitcher)
 )
 
 -- Toggle Waybar
 hl.bind(
     mainMod .. " + SHIFT + W",
-    hl.dsp.exec_cmd(
-        "pgrep waybar && pkill waybar || waybar"
-    )
+    hl.dsp.exec_cmd(programs.waybarToggle)
+)
+
+-- Waybar layout switcher
+hl.bind(
+    mainMod .. " + ALT + W",
+    hl.dsp.exec_cmd(programs.waybarSwitcher)
 )
 
 -- Waybar theme switcher
-hl.bind(
-    mainMod .. " + CTRL + W",
-    hl.dsp.exec_cmd(programs.waybarSwitcher)
-)
+-- hl.bind(
+--     mainMod .. " + CTRL + W",
+--     hl.dsp.exec_cmd(programs.waybarSwitcher)
+-- )
 
 -- Fullscreen
 hl.bind(

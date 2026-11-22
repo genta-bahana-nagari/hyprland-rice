@@ -1,0 +1,12 @@
+#gsimplecal {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 16px;
+}
+
+#gsimplecal calendar {
+    padding: 12px;
+}
+
+#gsimplecal button {
+    padding: 6px 12px;
+}

@@ -1,0 +1,143 @@
+/* =========================================================
+   Bottom Dock — macOS/Plank-style Floating Center Dock
+   Layout-only — colors from Wallust
+   ========================================================= */
+
+@import "../../colors-wallust.css";
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 14px;
+  font-weight: 600;
+  color: @foreground;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+/* =========================================================
+   TOOLTIPS
+   ========================================================= */
+
+tooltip {
+  background: @surface;
+  color: @foreground;
+  padding: 8px 12px;
+  border: 1px solid @border;
+  border-radius: 12px;
+}
+
+/* =========================================================
+   FLOATING DOCK CONTAINER
+   ========================================================= */
+
+.modules-center {
+  background: @module-bg;
+  border: 1px solid @border;
+  border-radius: 18px;
+  padding: 6px 12px;
+}
+
+/* =========================================================
+   WORKSPACES — DOCK PILL TABS
+   ========================================================= */
+
+#workspaces {
+  background: @surface;
+  padding: 4px 6px;
+  margin: 0 4px;
+  border-radius: 12px;
+}
+
+#workspaces button {
+  background: transparent;
+  color: @fg-dim;
+  min-width: 28px;
+  padding: 4px 8px;
+  margin: 0 2px;
+  border-radius: 9px;
+}
+
+#workspaces button:hover {
+  background: @hover;
+  color: @fg-bright;
+}
+
+#workspaces button.active {
+  background: @active;
+  color: @background;
+}
+
+#workspaces button.urgent {
+  background: @urgent;
+  color: @background;
+}
+
+/* =========================================================
+   DOCK ACTION ICONS (LARGER ICON TARGETS)
+   ========================================================= */
+
+#custom-launcher,
+#custom-wallpaper,
+#custom-theme,
+#custom-updatetoggler,
+#custom-caffeine,
+#custom-notifications,
+#custom-power {
+  background: @surface;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 16px;
+  padding: 6px 13px 6px 11px; /* Sedikit kompensasi kanan karena glyph Nerd Font cenderung condong ke kiri */
+  margin: 0 3px;
+  border-radius: 12px;
+}
+
+#custom-launcher {
+  color: @accent;
+}
+
+#custom-power {
+  color: @urgent;
+}
+
+/* =========================================================
+   STATUS MODULES
+   ========================================================= */
+
+#clock,
+#pulseaudio,
+#network,
+#battery {
+  background: @surface;
+  padding: 5px 11px;
+  margin: 0 2px;
+  border-radius: 12px;
+}
+
+#custom-launcher:hover,
+#custom-wallpaper:hover,
+#custom-theme:hover,
+#custom-updatetoggler:hover,
+#custom-caffeine:hover,
+#custom-notifications:hover,
+#custom-power:hover,
+#clock:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover {
+  background: @hover;
+}
+
+#battery.warning {
+  color: @warning;
+}
+
+#battery.critical {
+  color: @urgent;
+}

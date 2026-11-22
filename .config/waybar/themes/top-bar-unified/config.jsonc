@@ -1,0 +1,116 @@
+{
+  "spacing": 18,
+  "margin-top": 0,
+
+  "modules-left": ["custom/launcher", "custom/updatetoggler"],
+
+  "modules-center": [
+    "hyprland/workspaces",
+    "clock",
+    "pulseaudio",
+    "network",
+    "battery"
+  ],
+
+  "modules-right": ["custom/notifications", "custom/power"],
+
+  "custom/launcher": {
+    "exec": "~/.config/waybar/os-icon.sh",
+    "interval": "once",
+    "format": "{}",
+    "tooltip": true,
+    "tooltip-format": "App Launcher",
+    "on-click": "~/.config/rofi/launcher.sh"
+  },
+
+  "custom/updatetoggler": {
+    "format": "󰨇",
+    "tooltip": true,
+    "tooltip-format": "System Update",
+    "on-click": "~/.config/waybar/scripts/system-update.sh"
+  },
+
+  "clock": {
+    "interval": 60,
+    "format": "{:%I:%M %p}",
+    "tooltip": true,
+    "tooltip-format": "󰃭 {:%A, %d %B %Y}",
+    "on-click": "pgrep -x gsimplecal > /dev/null && killall gsimplecal || gsimplecal"
+  },
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "warp-on-scroll": false,
+    "sort-by-number": true,
+    "show-special": false,
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "persistent-workspaces": {
+      "*": 5
+    },
+    "format": "{icon}"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": "󰝟",
+    "format-bluetooth": "{volume}% {icon} ",
+    "format-icons": {
+      "default": ["", ""],
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": ""
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol",
+    "on-click-right": "pamixer -t",
+    "ignored-sinks": ["Easy Effects Sink"],
+    "tooltip-format": "{desc}\nVolume: {volume}%"
+  },
+
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+    "format-disconnected": "No WiFi 󰤭",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 40,
+    "on-click": "~/.config/hypr/scripts/wifi-manager.sh"
+  },
+
+  "battery": {
+    "states": {
+      "middle": 40,
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󱐋",
+    "format-plugged": "{capacity}% ",
+    "tooltip-format": "Battery: {capacity}%\n{timeTo}",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  "custom/notifications": {
+    "format": "",
+    "tooltip": true,
+    "tooltip-format": "Notifications",
+    "on-click": "swaync-client -t"
+  },
+
+  "custom/power": {
+    "format": "󰐥",
+    "tooltip": true,
+    "tooltip-format": "Power Menu",
+    "on-click": "~/.config/hypr/scripts/power-menu.sh"
+  },
+}

@@ -15,10 +15,12 @@
   "modules-right": ["custom/notifications", "custom/power"],
 
   "custom/launcher": {
-    "format": "",
+    "exec": "~/.config/waybar/os-icon.sh",
+    "interval": "once",
+    "format": "{}",
     "tooltip": true,
     "tooltip-format": "App Launcher",
-    "on-click": "~/.config/rofi/launcher.sh",
+    "on-click": "~/.config/rofi/launcher.sh"
   },
 
   "custom/updatetoggler": {

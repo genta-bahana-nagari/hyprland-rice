@@ -1,0 +1,146 @@
+/* =========================================================
+   Top Floating Square — Floating Sharp/Boxy Topbar
+   Layout-only — colors from Wallust
+   ========================================================= */
+
+@import "../../colors-wallust.css";
+
+/* =========================================================
+   Global
+   ========================================================= */
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 14px;
+  font-weight: 600;
+  color: @foreground;
+}
+
+window#waybar {
+  background: transparent;
+  color: @foreground;
+}
+
+window#waybar.urgent {
+  background: @urgent;
+}
+
+/* =========================================================
+   TOOLTIPS
+   ========================================================= */
+
+tooltip {
+  background: @surface;
+  color: @foreground;
+  padding: 7px 11px;
+  border: 1px solid @border;
+  border-radius: 4px;
+}
+
+tooltip label {
+  color: @foreground;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 13px;
+}
+
+/* =========================================================
+   MODULE GROUPS — SINGLE FLOATING CONTAINER, RECTANGULAR CORNERS
+   ========================================================= */
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: @module-bg;
+  border: 1px solid @border;
+  border-radius: 4px;
+  padding: 4px 7px;
+  margin: 0 4px;
+}
+
+#workspaces {
+  background: @surface;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+#workspaces button {
+  background: transparent;
+  color: @fg-dim;
+  min-width: 20px;
+  padding: 1px 6px;
+  margin: 0 1px;
+  border-radius: 3px;
+}
+
+#workspaces button:hover {
+  background: @hover;
+  color: @fg-bright;
+}
+
+#workspaces button.active {
+  background: @active;
+  color: @background;
+}
+
+#workspaces button.urgent {
+  background: @urgent;
+  color: @background;
+}
+
+/* =========================================================
+   CONSISTENT MODULE SPACING & STATES
+   ========================================================= */
+
+#custom-launcher,
+#custom-updatetoggler,
+#clock,
+#pulseaudio,
+#network,
+#battery,
+#custom-notifications,
+#custom-power {
+  margin: 0;
+  padding: 0 8px;
+  border-radius: 3px;
+}
+
+#custom-launcher {
+  color: @accent;
+}
+
+#custom-power {
+  color: @urgent;
+}
+
+#custom-launcher:hover,
+#custom-updatetoggler:hover,
+#clock:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#custom-notifications:hover,
+#custom-power:hover {
+  background: @hover;
+}
+
+#pulseaudio.muted {
+  color: @fg-dim;
+}
+
+#network.disconnected {
+  color: @urgent;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @accent-alt;
+}
+
+#battery.warning {
+  color: @warning;
+}
+
+#battery.critical {
+  color: @urgent;
+}

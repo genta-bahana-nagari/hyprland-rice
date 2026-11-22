@@ -1,0 +1,166 @@
+/* =========================================================
+   Left Sidebar Pills — Vertical Left Sidebar (Separated)
+   Layout-only — colors from Wallust
+   ========================================================= */
+
+@import "../../colors-wallust.css";
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 15px;
+  font-weight: 600;
+  color: @foreground;
+}
+
+window#waybar {
+  background: transparent;
+  color: @foreground;
+}
+
+/* =========================================================
+   TOOLTIPS
+   ========================================================= */
+
+tooltip {
+  background: @surface;
+  color: @foreground;
+  border: 1px solid @border;
+  border-radius: 9px;
+  padding: 7px 11px;
+}
+
+tooltip label {
+  color: @foreground;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 13px;
+}
+
+/* =========================================================
+   VERTICAL PILL CONTAINERS
+   ========================================================= */
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: @module-bg;
+  border: 1px solid @border;
+  border-radius: 999px;
+  padding: 6px 4px;
+}
+
+/* =========================================================
+   WORKSPACES — VERTICAL PILL STRIP
+   ========================================================= */
+
+#workspaces {
+  background: @surface;
+  padding: 4px 0;
+  margin: 4px 0;
+  border-radius: 999px;
+}
+
+#workspaces button {
+  background: transparent;
+  color: @fg-dim;
+  min-width: 34px;
+  min-height: 28px;
+  padding: 0;
+  margin: 2px 0;
+  border-radius: 999px;
+}
+
+#workspaces button:hover {
+  background: @hover;
+  color: @fg-bright;
+}
+
+#workspaces button.active {
+  background: @active;
+  color: @background;
+}
+
+#workspaces button.urgent {
+  background: @urgent;
+  color: @background;
+}
+
+/* =========================================================
+   CUSTOM MODULES — COMPENSATE GTK LEFT ALIGNMENT
+   ========================================================= */
+
+#custom-launcher,
+#custom-wallpaper,
+#custom-theme,
+#custom-updatetoggler,
+#custom-notifications,
+#custom-power {
+  padding: 8px 0 8px 10px;
+  margin: 2px 0;
+  border-radius: 999px;
+}
+
+/* =========================================================
+   BUILT-IN MODULES — NATIVELY CENTERED IN GTK
+   ========================================================= */
+
+#clock,
+#pulseaudio,
+#network,
+#battery {
+  padding: 8px 0;
+  margin: 2px 0;
+  border-radius: 999px;
+}
+
+#custom-launcher {
+  font-size: 17px;
+  padding: 8px 0 8px 9px;
+  color: @accent;
+}
+
+#custom-power {
+  color: @urgent;
+}
+
+/* =========================================================
+   STATES & HOVER
+   ========================================================= */
+
+#custom-launcher:hover,
+#custom-wallpaper:hover,
+#custom-theme:hover,
+#custom-updatetoggler:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#clock:hover,
+#custom-notifications:hover,
+#custom-power:hover {
+  background: @hover;
+}
+
+#pulseaudio.muted {
+  color: @fg-dim;
+}
+
+#network.disconnected {
+  color: @urgent;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @accent-alt;
+}
+
+#battery.warning {
+  color: @warning;
+}
+
+#battery.critical {
+  color: @urgent;
+}

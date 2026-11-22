@@ -1,0 +1,112 @@
+/* =========================================================
+   Top Minimal Island — Dynamic Island / Compact Center
+   Layout-only — colors from Wallust
+   ========================================================= */
+
+@import "../../colors-wallust.css";
+
+/* =========================================================
+   Global
+   ========================================================= */
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 14px;
+  font-weight: 600;
+  color: @foreground;
+}
+
+window#waybar {
+  background: transparent;
+  color: @foreground;
+}
+
+window#waybar.urgent {
+  background: @urgent;
+}
+
+/* =========================================================
+   TOOLTIPS
+   ========================================================= */
+
+tooltip {
+  background: @surface;
+  color: @foreground;
+  padding: 5px 8px;
+  border: 1px solid @border;
+  border-radius: 8px;
+}
+
+tooltip label {
+  color: @foreground;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 13px;
+}
+
+/* =========================================================
+   MODULE GROUPS — COMPACT CENTER ISLAND
+   ========================================================= */
+
+.modules-center {
+  background: @module-bg;
+  border: 1px solid @border;
+  border-radius: 999px;
+  padding: 4px 6px;
+  margin: 0;
+}
+
+#workspaces {
+  background: @surface;
+  padding: 1px 4px;
+  border-radius: 999px;
+}
+
+/* Reduce module height/width for compact island */
+#workspaces button {
+  background: transparent;
+  color: @fg-dim;
+  padding: 0 4px;
+  margin: 0 2px;
+  font-size: 12px;
+  border-radius: 999px;
+}
+
+#workspaces button:hover {
+  background: @hover;
+  color: @fg-bright;
+}
+
+#workspaces button.active {
+  background: @active;
+  color: @background;
+}
+
+#workspaces button.urgent {
+  background: @urgent;
+  color: @background;
+}
+
+/* =========================================================
+   CONSISTENT MODULE SPACING & STATES
+   ========================================================= */
+
+#clock,
+#pulseaudio,
+#network,
+#battery {
+  margin: 0;
+  padding: 0 6px;
+  border-radius: 999px;
+}
+
+#clock:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover {
+  background: @hover;
+}
+
+#pulseaudio.muted {
+  color: @fg-dim;
+}

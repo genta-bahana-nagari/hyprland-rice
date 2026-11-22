@@ -1,0 +1,58 @@
+{
+  "spacing": 18,
+  "margin-top": 5,
+
+  "modules-left": [],
+
+  "modules-center": [
+    "hyprland/workspaces",
+    "clock",
+    "pulseaudio"
+  ],
+
+  "modules-right": [],
+
+  "clock": {
+    "interval": 60,
+    "format": "{:%I:%M %p}",
+    "tooltip": true,
+    "tooltip-format": "󰃭 {:%A, %d %B %Y}",
+    "on-click": "pgrep -x gsimplecal > /dev/null && killall gsimplecal || gsimplecal"
+  },
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "warp-on-scroll": false,
+    "sort-by-number": true,
+    "show-special": false,
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "persistent-workspaces": {
+      "*": 5
+    },
+    "format": "{icon}"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": "󰝟",
+    "format-bluetooth": "{volume}% {icon} ",
+    "format-icons": {
+      "default": ["", ""],
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": ""
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol",
+    "on-click-right": "pamixer -t",
+    "ignored-sinks": ["Easy Effects Sink"],
+    "tooltip-format": "{desc}\nVolume: {volume}%"
+  }
+}

@@ -1,0 +1,178 @@
+/* =========================================================
+   Top Pills Separated — Individual Floating Pills
+   Layout-only — colors from Wallust
+   ========================================================= */
+
+@import "../../colors-wallust.css";
+
+/* =========================================================
+   Global
+   ========================================================= */
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 13.5px;
+  font-weight: 600;
+  color: @foreground;
+}
+
+window#waybar {
+  background: transparent;
+  color: @foreground;
+}
+
+window#waybar.urgent {
+  background: @urgent;
+}
+
+/* =========================================================
+   TOOLTIPS
+   ========================================================= */
+
+tooltip {
+  background: @surface;
+  color: @foreground;
+  padding: 7px 11px;
+  border: 1px solid @border;
+  border-radius: 9px;
+}
+
+tooltip label {
+  color: @foreground;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 13px;
+}
+
+/* =========================================================
+   TRANSPARENT CONTAINERS — INDIVIDUAL PILLS PER MODULE
+   ========================================================= */
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+#custom-launcher,
+#custom-updatetoggler,
+#custom-wallpaper,
+#custom-theme,
+#workspaces,
+#clock,
+#pulseaudio,
+#network,
+#battery,
+#custom-caffeine,
+#custom-notifications,
+#custom-power {
+  background: @module-bg;
+  border: 1px solid @border;
+  border-radius: 999px;
+  padding: 4px 12px;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+/* =========================================================
+   WORKSPACES PILL
+   ========================================================= */
+
+#workspaces {
+  padding: 3px 6px;
+}
+
+#workspaces button {
+  background: transparent;
+  color: @fg-dim;
+  min-width: 22px;
+  padding: 1px 6px;
+  margin: 0 2px;
+  border-radius: 999px;
+}
+
+#workspaces button:hover {
+  background: @hover;
+  color: @fg-bright;
+}
+
+#workspaces button.active {
+  background: @active;
+  color: @background;
+  font-weight: 700;
+}
+
+#workspaces button.urgent {
+  background: @urgent;
+  color: @background;
+}
+
+/* =========================================================
+   ACCENTS & INTERACTIVE STATES
+   ========================================================= */
+
+#custom-launcher {
+  color: @accent;
+  padding: 4px 13px;
+}
+
+#clock {
+  color: @accent;
+  font-weight: 700;
+}
+
+#custom-caffeine.active {
+  background: @surface-alt;
+  color: @accent;
+  border-color: @accent;
+}
+
+#custom-power {
+  color: @urgent;
+}
+
+#custom-launcher:hover,
+#custom-updatetoggler:hover,
+#custom-wallpaper:hover,
+#custom-theme:hover,
+#clock:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#custom-caffeine:hover,
+#custom-notifications:hover {
+  background: @surface;
+  border-color: @accent;
+}
+
+#custom-power:hover {
+  background: @urgent;
+  color: @background;
+  border-color: @urgent;
+}
+
+#pulseaudio.muted,
+#network.disconnected {
+  color: @fg-dim;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @accent-alt;
+  border-color: @accent-alt;
+}
+
+#battery.warning {
+  color: @warning;
+  border-color: @warning;
+}
+
+#battery.critical {
+  background: @urgent;
+  color: @background;
+  border-color: @urgent;
+}

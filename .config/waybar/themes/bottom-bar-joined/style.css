@@ -1,0 +1,121 @@
+/* =========================================================
+   Bottom Bar Joined — Classic Joined Bottom Taskbar
+   Layout-only — colors from Wallust
+   ========================================================= */
+
+@import "../../colors-wallust.css";
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans";
+  font-size: 14px;
+  font-weight: 600;
+  color: @foreground;
+}
+
+window#waybar {
+  background: @module-bg;
+  color: @foreground;
+  border-top: 1px solid @border;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* =========================================================
+   TOOLTIPS
+   ========================================================= */
+
+tooltip {
+  background: @surface;
+  color: @foreground;
+  padding: 7px 11px;
+  border: 1px solid @border;
+  border-radius: 0;
+}
+
+/* =========================================================
+   MODULE GROUPS — FULL-WIDTH JOINED, SQUARED RADIUS
+   ========================================================= */
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
+  border-radius: 0;
+  padding: 4px 8px;
+  margin: 0;
+}
+
+/* =========================================================
+   WORKSPACES
+   ========================================================= */
+
+#workspaces {
+  background: @surface;
+  padding: 2px 5px;
+  border-radius: 0;
+}
+
+#workspaces button {
+  background: transparent;
+  color: @fg-dim;
+  min-width: 20px;
+  padding: 2px 8px;
+  margin: 0 1px;
+  border-radius: 0;
+}
+
+#workspaces button:hover {
+  background: @hover;
+  color: @fg-bright;
+}
+
+#workspaces button.active {
+  background: @active;
+  color: @background;
+}
+
+#workspaces button.urgent {
+  background: @urgent;
+  color: @background;
+}
+
+/* =========================================================
+   CONSISTENT MODULE SPACING
+   ========================================================= */
+
+#custom-launcher,
+#custom-updatetoggler,
+#clock,
+#pulseaudio,
+#network,
+#battery,
+#custom-notifications,
+#custom-power {
+  margin: 0;
+  padding: 2px 8px;
+  border-radius: 0;
+}
+
+#custom-launcher:hover,
+#custom-updatetoggler:hover,
+#clock:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#custom-notifications:hover,
+#custom-power:hover {
+  background: @hover;
+}
+
+#battery.warning {
+  color: @warning;
+}
+
+#battery.critical {
+  color: @urgent;
+}

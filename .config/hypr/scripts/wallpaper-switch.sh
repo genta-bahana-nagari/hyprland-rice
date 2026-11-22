@@ -3,8 +3,18 @@
 theme="$HOME/.config/rofi/styles/wallpaper-switch.rasi"
 WALL_DIR="$HOME/Pictures/Wallpaper"
 LOCK_WALL="$HOME/.cache/current-wallpaper"
+THEME_CONF="$HOME/.local/state/hypr-rice/theme.conf"
 
 mkdir -p "$HOME/.cache"
+
+# Lock wallpaper selection to the currently active theme's folder
+if [[ -f "$THEME_CONF" ]]; then
+    # shellcheck disable=SC1090
+    source "$THEME_CONF"
+    if [[ -n "${FOLDER:-}" && -d "$WALL_DIR/$FOLDER" ]]; then
+        WALL_DIR="$WALL_DIR/$FOLDER"
+    fi
+fi
 
 if [ ! -d "$WALL_DIR" ]; then
     echo "Error: Wallpaper directory $WALL_DIR does not exist."

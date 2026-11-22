@@ -2,50 +2,104 @@
 set -Eeuo pipefail
 
 # ============================================================
-# Hyprland Rice — Curated Theme Switcher (Super + Ctrl + W)
+# Hyprland Rice — Curated Theme Switcher (Super + Shift + T)
 # ============================================================
 
 STATE_DIR="$HOME/.local/state/hypr-rice"
 THEME_CONF="$STATE_DIR/theme.conf"
 ROTATE_CONF="$STATE_DIR/wallpaper-rotate.conf"
 WALLPAPER_ROOT="$HOME/Pictures/Wallpaper"
-CACHE_DIR="$HOME/.cache/wallust"
 LOCK_WALL="$HOME/.cache/current-wallpaper"
 
 ROFI_THEME="$HOME/.config/rofi/styles/theme-switcher.rasi"
+NOTIFY_ICON="$HOME/.config/swaync/icons/palette.png"
 
-# Default (Catppuccin Mocha-ish) static baseline used by the "Default" theme.
-D_BG="#1e1e2e"; D_FG="#cdd6f4"
-D_C0="#45475a"; D_C1="#f38ba8"; D_C2="#a6e3a1"; D_C3="#f9e2af"
-D_C4="#89b4fa"; D_C5="#cba6f7"; D_C6="#94e2d5"; D_C7="#bac2de"
-D_C8="#585b70"; D_C9="#f38ba8"; D_C10="#a6e3a1"; D_C11="#f9e2af"
-D_C12="#89b4fa"; D_C13="#cba6f7"; D_C14="#94e2d5"; D_C15="#bac2de"
-
+# ── Daftar tema populer ──────────────────────────────────────
 THEMES=(
-    "Default"
+    "Default (Dynamic Wallpaper)"
     "Catppuccin Mocha"
+    "Catppuccin Latte"
     "Gruvbox Dark"
+    "Gruvbox Light"
     "Tokyo Night"
     "Nord"
     "Rose Pine"
+    "Dracula"
+    "Everforest"
+    "Kanagawa"
+    "Solarized Dark"
+    "One Dark"
+    "Material Ocean"
+    "Ayu Dark"
     "Cyberpunk / Neon"
     "Monochrome"
 )
 
+# ── Mapping nama tema ke subfolder wallpaper ─────────────────
 folder_for() {
     case "$1" in
-        Default) echo "default" ;;
-        "Catppuccin Mocha") echo "catppuccin" ;;
-        "Gruvbox Dark") echo "gruvbox" ;;
-        "Tokyo Night") echo "tokyo-night" ;;
-        Nord) echo "nord" ;;
-        "Rose Pine") echo "rose-pine" ;;
-        "Cyberpunk / Neon") echo "cyberpunk" ;;
-        Monochrome) echo "monochrome" ;;
-        *) echo "default" ;;
+        "Default (Dynamic Wallpaper)") echo "default" ;;
+        "Catppuccin Mocha")            echo "catppuccin-mocha" ;;
+        "Catppuccin Latte")            echo "catppuccin-latte" ;;
+        "Gruvbox Dark")                echo "gruvbox" ;;
+        "Gruvbox Light")               echo "gruvbox" ;;
+        "Tokyo Night")                 echo "tokyo-night" ;;
+        "Nord")                        echo "nord" ;;
+        "Rose Pine")                   echo "rose-pine" ;;
+        "Dracula")                     echo "dracula" ;;
+        "Everforest")                  echo "everforest" ;;
+        "Kanagawa")                    echo "kanagawa" ;;
+        "Solarized Dark")              echo "solarized" ;;
+        "One Dark")                    echo "one-dark" ;;
+        "Material Ocean")              echo "material-ocean" ;;
+        "Ayu Dark")                    echo "ayu" ;;
+        "Cyberpunk / Neon")            echo "cyberpunk" ;;
+        "Monochrome")                  echo "monochrome" ;;
+        *)                             echo "default" ;;
     esac
 }
 
+# ── Terapkan palet warna via Wallust ─────────────────────────
+apply_wallust_theme() {
+    local theme="$1"
+    local wall="$2"
+    local preset=""
+
+    case "$theme" in
+        "Default (Dynamic Wallpaper)")
+            if [[ -n "$wall" ]]; then
+                wallust run "$wall" -s
+            fi
+            return 0
+            ;;
+        "Catppuccin Mocha") preset="Catppuccin-Mocha" ;;
+        "Catppuccin Latte") preset="Catppuccin-Latte" ;;
+        "Gruvbox Dark")     preset="Gruvbox-Dark" ;;
+        "Gruvbox Light")    preset="Gruvbox-Light" ;;
+        "Tokyo Night")      preset="Tokyo-Night" ;;
+        "Nord")             preset="Nord" ;;
+        "Rose Pine")        preset="Rosé-Pine" ;;
+        "Dracula")          preset="Dracula" ;;
+        "Everforest")       preset="Everforest-Dark-Medium" ;;
+        "Kanagawa")         preset="Kanagawa" ;;
+        "Solarized Dark")   preset="Solarized-Dark" ;;
+        "One Dark")         preset="One-Dark" ;;
+        "Material Ocean")   preset="Material-Ocean" ;;
+        "Ayu Dark")         preset="Ayu-Dark" ;;
+        "Monochrome")       preset="base16-grayscale-dark" ;;
+        *)                  preset="" ;;
+    esac
+
+    # Coba jalankan preset bawaan wallust; jika gagal/tidak ada di versi wallust,
+    # otomatis fallback mengekstrak warna langsung dari wallpaper tema tersebut.
+    if [[ -n "$preset" ]] && wallust theme "$preset" -s 2>/dev/null; then
+        return 0
+    elif [[ -n "$wall" ]]; then
+        wallust run "$wall" -s
+    fi
+}
+
+# ── Ambil wallpaper acak dari folder tema (dengan fallback) ──
 pick_wallpaper() {
     local dir="$1"
     [[ -d "$dir" ]] || return 1
@@ -53,103 +107,32 @@ pick_wallpaper() {
     local imgs=("$dir"/*.jpg "$dir"/*.jpeg "$dir"/*.png "$dir"/*.webp)
     shopt -u nullglob nocaseglob
     [[ ${#imgs[@]} -gt 0 ]] || return 1
-    printf '%s\n' "${imgs[0]}"
+
+    # Pilih acak agar tidak selalu gambar pertama jika ada banyak wallpaper di folder tema
+    local rand_idx=$(( RANDOM % ${#imgs[@]} ))
+    printf '%s\n' "${imgs[$rand_idx]}"
 }
 
-write_default_baseline() {
-    cat > "$CACHE_DIR/colors-rofi.rasi" <<EOF
-* {
-    background: $D_BG;
-    foreground: $D_FG;
-    color0: $D_C0; color1: $D_C1; color2: $D_C2; color3: $D_C3;
-    color4: $D_C4; color5: $D_C5; color6: $D_C6; color7: $D_C7;
-    color8: $D_C8; color9: $D_C9; color10: $D_C10; color11: $D_C11;
-    color12: $D_C12; color13: $D_C13; color14: $D_C14; color15: $D_C15;
-    selected: $D_C4;
-    background-alt: $D_C0;
-    urgent: $D_C1;
-    active: $D_C2;
-    border-colour: $D_C8;
-    handle-colour: $D_C4;
-}
-EOF
-
-    cat > "$CACHE_DIR/colors-swaync.css" <<EOF
-@define-color background $D_BG;
-@define-color foreground $D_FG;
-@define-color color0 $D_C0; @define-color color1 $D_C1;
-@define-color color2 $D_C2; @define-color color3 $D_C3;
-@define-color color4 $D_C4; @define-color color5 $D_C5;
-@define-color color6 $D_C6; @define-color color7 $D_C7;
-@define-color color8 $D_C8; @define-color color9 $D_C9;
-@define-color color10 $D_C10; @define-color color11 $D_C11;
-@define-color color12 $D_C12; @define-color color13 $D_C13;
-@define-color color14 $D_C14; @define-color color15 $D_C15;
-EOF
-
-    cat > "$CACHE_DIR/colors-waybar.css" <<EOF
-@define-color background $D_BG;
-@define-color foreground $D_FG;
-@define-color color0 $D_C0; @define-color color1 $D_C1;
-@define-color color2 $D_C2; @define-color color3 $D_C3;
-@define-color color4 $D_C4; @define-color color5 $D_C5;
-@define-color color6 $D_C6; @define-color color7 $D_C7;
-@define-color color8 $D_C8; @define-color color9 $D_C9;
-@define-color color10 $D_C10; @define-color color11 $D_C11;
-@define-color color12 $D_C12; @define-color color13 $D_C13;
-@define-color color14 $D_C14; @define-color color15 $D_C15;
-EOF
-
-    cat > "$CACHE_DIR/colors-kitty.conf" <<EOF
-background $D_BG
-foreground $D_FG
-color0  $D_C0
-color1  $D_C1
-color2  $D_C2
-color3  $D_C3
-color4  $D_C4
-color5  $D_C5
-color6  $D_C6
-color7  $D_C7
-color8  $D_C8
-color9  $D_C9
-color10 $D_C10
-color11 $D_C11
-color12 $D_C12
-color13 $D_C13
-color14 $D_C14
-color15 $D_C15
-EOF
-
-    cat > "$CACHE_DIR/colors-hyprland.lua" <<EOF
-return {
-    general = {
-        col = {
-            active_border   = "$D_C4",
-            inactive_border = "$D_C8",
-        },
-    },
-}
-EOF
-}
-
+# ── Live-reload seluruh komponen desktop ─────────────────────
 reload_desktop() {
     pkill -SIGUSR2 -x waybar 2>/dev/null || true
     swaync-client -rs >/dev/null 2>&1 || true
+    kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true
     hyprctl reload >/dev/null 2>&1 || true
 }
 
-mkdir -p "$STATE_DIR" "$CACHE_DIR"
+# ── Main ─────────────────────────────────────────────────────
+mkdir -p "$STATE_DIR" "$HOME/.cache"
 
-# Baca tema aktif saat ini agar bisa ditandai
-CURRENT_THEME="Default"
+# Baca tema aktif saat ini
+CURRENT_THEME="Default (Dynamic Wallpaper)"
 if [[ -f "$THEME_CONF" ]]; then
     # shellcheck disable=SC1090
     source "$THEME_CONF"
-    CURRENT_THEME="${THEME//\\/}"
+    CURRENT_THEME="${THEME:-Default (Dynamic Wallpaper)}"
 fi
 
-# Buat daftar pilihan dengan indikator tema aktif
+# Buat daftar pilihan Rofi dengan indikator tema aktif
 list=""
 for t in "${THEMES[@]}"; do
     if [[ "$t" == "$CURRENT_THEME" ]]; then
@@ -165,19 +148,33 @@ raw_chosen=$(printf '%s' "$list" | rofi -dmenu -i \
     -theme "$ROFI_THEME")
 [[ -z "$raw_chosen" ]] && exit 0
 
-# Bersihkan spasi/ikon centang di depan nama tema
+# Bersihkan ikon centang / spasi di depan nama tema
 chosen="${raw_chosen#  }"
 chosen="${chosen#   }"
 
+# Tentukan folder dan pilih wallpaper
 folder=$(folder_for "$chosen")
 theme_dir="$WALLPAPER_ROOT/$folder"
 
+wallpaper=""
 wallpaper=$(pick_wallpaper "$theme_dir") \
     || wallpaper=$(pick_wallpaper "$WALLPAPER_ROOT/default") \
     || wallpaper=$(pick_wallpaper "$WALLPAPER_ROOT") \
     || wallpaper=""
 
-# Simpan pilihan tema aktif (bersih tanpa escape backslash)
+# 1. Terapkan palet warna Wallust (menulis ulang ke seluruh target di wallust.toml)
+apply_wallust_theme "$chosen" "$wallpaper"
+
+# 2. Ganti wallpaper via awww & sinkronkan Hyprlock
+if [[ -n "$wallpaper" ]]; then
+    awww img "$wallpaper" \
+        --transition-type grow \
+        --transition-fps 60 \
+        --transition-duration 1.5 >/dev/null 2>&1 || true
+    ln -sfn "$wallpaper" "$LOCK_WALL"
+fi
+
+# 3. Simpan state tema aktif
 cat > "$THEME_CONF" <<EOF
 THEME="$chosen"
 FOLDER="$folder"
@@ -188,20 +185,14 @@ if [[ -f "$ROTATE_CONF" ]]; then
     sed -i "s/^THEME=.*/THEME=\"$folder\"/" "$ROTATE_CONF" 2>/dev/null || true
 fi
 
-if [[ -n "$wallpaper" ]]; then
-    awww img "$wallpaper" --transition-type grow --transition-fps 60 --transition-duration 1.5 >/dev/null 2>&1 || true
-    ln -sfn "$wallpaper" "$LOCK_WALL"
-fi
+# 4. Reload semua komponen UI (Waybar, SwayNC, Kitty, Hyprland)
+reload_desktop
 
-if [[ -n "$wallpaper" && "$chosen" != "Default" ]]; then
-    wallust_bin=$(command -v wallust || command -v "$HOME/.local/bin/wallust" || command -v "$HOME/.cargo/bin/wallust" || true)
-    if [[ -n "$wallust_bin" ]]; then
-        "$wallust_bin" run "$wallpaper" >/dev/null 2>&1 || true
-    fi
-    reload_desktop
-    notify-send -i "$wallpaper" "Theme Switched" "$chosen (dynamic)"
+# 5. Kirim notifikasi desktop
+if [[ -f "$NOTIFY_ICON" ]]; then
+    notify-send -i "$NOTIFY_ICON" "Theme Switched" "Applied: $chosen"
+elif [[ -n "$wallpaper" ]]; then
+    notify-send -i "$wallpaper" "Theme Switched" "Applied: $chosen"
 else
-    write_default_baseline
-    reload_desktop
-    notify-send "Theme Switched" "$chosen (static baseline)"
+    notify-send "Theme Switched" "Applied: $chosen"
 fi

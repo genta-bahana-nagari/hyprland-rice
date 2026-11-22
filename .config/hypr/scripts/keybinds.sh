@@ -40,7 +40,7 @@ descriptions = {
     "SUPER + P": "Open Display Mode",
     "SUPER + W": "Change Wallpaper",
     "SUPER + SHIFT + W": "Toggle Waybar",
-    "SUPER + CTRL + W": "Open Waybar Switcher",
+    "SUPER + ALT + W": "Open Waybar Layout Switcher",
     "SUPER + M": "Toggle Fullscreen",
     "SUPER + SPACE": "Toggle Floating Window",
     "SUPER + ALT + P": "Toggle Pseudo-Tiling",

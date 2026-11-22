@@ -131,7 +131,7 @@ Clipboard history (`wl-clipboard`, `wl-clip-persist`), media keys
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/genta-bahana-nagari/hyprland-rice.git
+git clone --depth 1 https://github.com/genta-bahana-nagari/hyprland-rice.git
 cd hyprland-rice
 ```
 

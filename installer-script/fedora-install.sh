@@ -63,6 +63,11 @@ packages=(
     "waybar"
     "nwg-look"
     "swaync"
+    "gcc-c++"
+    "autoconf"
+    "automake"
+    "pkgconfig"
+    "gtk3-devel"
 
     # Utilities
     "jq"
@@ -628,6 +633,46 @@ _installWallust() {
 }
 
 # ----------------------------------------------------------
+# Install gsimplecal (built from source for Fedora 43)
+# ----------------------------------------------------------
+
+_installGsimplecal() {
+    echo ":: Installing gsimplecal..."
+
+    if _checkCommandExists gsimplecal; then
+        echo ":: gsimplecal is already installed."
+    else
+        local temp_dir
+        temp_dir="$(mktemp -d)"
+
+        GIT_TERMINAL_PROMPT=0 git clone \
+            --depth 1 \
+            https://github.com/dmedvinsky/gsimplecal.git \
+            "$temp_dir/gsimplecal"
+
+        (
+            cd "$temp_dir/gsimplecal"
+            ./autogen.sh
+            ./configure --prefix=/usr/local
+            make
+            sudo make install
+        )
+
+        rm -rf "$temp_dir"
+        echo ":: gsimplecal installed to /usr/local/bin/gsimplecal."
+    fi
+
+    if [[ ! -f "$HOME/.config/gsimplecal/config" ]]; then
+        mkdir -p "$HOME/.config/gsimplecal"
+        cat << 'EOF' > "$HOME/.config/gsimplecal/config"
+close_on_unfocus = 1
+mainwindow_position = mouse
+EOF
+        echo ":: Default gsimplecal config created."
+    fi
+}
+
+# ----------------------------------------------------------
 # Install TUI utilities (pulsemixer & bluetui)
 # ----------------------------------------------------------
 
@@ -684,6 +729,7 @@ _verifyCommands() {
         "fc-cache"
         "fc-match"
         "nmtui"
+        "gsimplecal"
     )
 
     local failed=0
@@ -902,6 +948,13 @@ _installOhMyPosh
 
 echo
 _installWallust
+
+# ----------------------------------------------------------
+# Install gsimplecal
+# ----------------------------------------------------------
+
+echo
+_installGsimplecal
 
 # ----------------------------------------------------------
 # Install TUI utilities

@@ -70,6 +70,7 @@ packages=(
     # ------------------------------------------------------
     "rofi"
     "waybar"
+    "gsimplecal"
     "nwg-look"
     "swaync"
     "swayosd"
@@ -569,6 +570,19 @@ _deployConfigs() {
         mkdir -p "$HOME/.cache/wallust"
         cp -f "$PROJECT_DIR/.config/wallust/cache/"* "$HOME/.cache/wallust/" 2>/dev/null || true
         echo ":: Default wallust color cache seeded."
+    fi
+
+    # ------------------------------------------------------
+    # gsimplecal default config
+    # ------------------------------------------------------
+
+    if [[ ! -f "$HOME/.config/gsimplecal/config" ]]; then
+        mkdir -p "$HOME/.config/gsimplecal"
+        cat << 'EOF' > "$HOME/.config/gsimplecal/config"
+close_on_unfocus = 1
+mainwindow_position = mouse
+EOF
+        echo ":: Default gsimplecal config created."
     fi
 
     echo ":: Configuration files deployed."

@@ -68,7 +68,7 @@ packages=(
     # ------------------------------------------------------
     # Desktop / launcher / bar
     # ------------------------------------------------------
-    "rofi-wayland"
+    "rofi"
     "waybar"
     "nwg-look"
     "swaync"
@@ -96,6 +96,7 @@ packages=(
     "curl"
     "wget"
     "git"
+    "rsync"
 
     # ------------------------------------------------------
     # Audio / wallpaper / recording
@@ -301,7 +302,7 @@ _installYay() {
 
     echo ":: Cloning yay..."
 
-    git clone \
+    GIT_TERMINAL_PROMPT=0 git clone \
         https://aur.archlinux.org/yay.git \
         "$yay_dir/yay"
 
@@ -403,7 +404,7 @@ _verifyPackages() {
         "hyprlock"
         "hyprshot"
         "waybar"
-        "rofi-wayland"
+        "rofi"
         "nwg-look"
         "sddm"
         "networkmanager"
@@ -607,7 +608,7 @@ _deployUserServices() {
 }
 
 # ----------------------------------------------------------
-# Deploy local wallpapers
+# Deploy initial wallpapers
 # ----------------------------------------------------------
 
 _deployWallpapers() {
@@ -623,9 +624,10 @@ _deployWallpapers() {
         return 0
     fi
 
-    cp -rf \
-        "$PROJECT_DIR/Wallpaper/"* \
-        "$wallpaper_dir/" 2>/dev/null || true
+    rsync -a --exclude='README.md' "$PROJECT_DIR/Wallpaper/" "$wallpaper_dir/" 2>/dev/null || {
+        cp -rf "$PROJECT_DIR/Wallpaper/"* "$wallpaper_dir/" 2>/dev/null || true
+        find "$wallpaper_dir" -type f -name "README.md" -delete 2>/dev/null || true
+    }
 
     echo ":: Wallpapers are located in:"
     echo "   $wallpaper_dir"
@@ -643,7 +645,7 @@ _downloadWallpaperCollections() {
     local repo
     local repo_name
 
-    mkdir -p "$wallpaper_dir"
+    mkdir -p "$wallpaper_dir/default"
 
     if ! _checkCommandExists git; then
         echo -e "${RED}:: git is required but was not found.${NONE}"
@@ -652,6 +654,9 @@ _downloadWallpaperCollections() {
 
     temp_dir="$(mktemp -d)"
 
+    # Always clean temporary directory.
+    trap 'rm -rf "$temp_dir"' RETURN
+
     for repo in "${wallpaper_repos[@]}"; do
 
         repo_name="$(basename "$repo" .git)"
@@ -659,14 +664,19 @@ _downloadWallpaperCollections() {
         echo
         echo ":: Downloading ${repo_name}..."
 
-        git clone \
+        if ! GIT_TERMINAL_PROMPT=0 git clone \
             --depth 1 \
             "$repo" \
-            "$temp_dir/$repo_name"
+            "$temp_dir/$repo_name"; then
+            echo -e "${YELLOW}!! Failed to download ${repo_name} (network issue or private repo). Skipping...${NONE}"
+            continue
+        fi
 
         echo ":: Copying wallpapers from ${repo_name}..."
 
+        # Copy root-level images into default/
         find "$temp_dir/$repo_name" \
+            -maxdepth 1 \
             -type f \
             \( \
                 -iname "*.jpg" \
@@ -674,13 +684,30 @@ _downloadWallpaperCollections() {
                 -o -iname "*.png" \
                 -o -iname "*.webp" \
             \) \
-            -exec cp -n {} "$wallpaper_dir/" \;
+            -exec cp -n {} "$wallpaper_dir/default/" \;
+
+        # Copy themed subdirectories preserving folder names
+        for sub in "$temp_dir/$repo_name"/*/; do
+            [[ -d "$sub" ]] || continue
+            local sub_name
+            sub_name="$(basename "$sub")"
+            [[ "$sub_name" == ".git" ]] && continue
+
+            mkdir -p "$wallpaper_dir/$sub_name"
+            find "$sub" \
+                -type f \
+                \( \
+                    -iname "*.jpg" \
+                    -o -iname "*.jpeg" \
+                    -o -iname "*.png" \
+                    -o -iname "*.webp" \
+                \) \
+                -exec cp -n {} "$wallpaper_dir/$sub_name/" \;
+        done
     done
 
-    rm -rf "$temp_dir"
-
     echo
-    echo ":: Wallpaper collections downloaded."
+    echo ":: Wallpaper collections processed."
     echo ":: Wallpapers are located in:"
     echo "   $wallpaper_dir"
 }

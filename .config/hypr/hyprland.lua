@@ -32,6 +32,7 @@ require("modules.autostart")
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 require("modules.environment")
+require("modules.theme.local")
 
 -----------------------
 ----- PERMISSIONS -----

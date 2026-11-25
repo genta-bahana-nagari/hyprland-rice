@@ -1,0 +1,295 @@
+@import "../shared/colors.rasi"
+@import "../shared/fonts.rasi"
+
+/*
+ * Waybar Theme Switcher
+ * ----------------------
+ * Rounded floating card
+ * Clean search field
+ * Comfortable theme list
+ * Minimal visual noise
+ */
+
+/*****----- Global -----*****/
+* {
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+/*****----- Window -----*****/
+window {
+    transparency: "real";
+
+    location: center;
+    anchor: center;
+
+    width: 480px;
+    height: 560px;
+
+    border: 2px;
+    border-radius: 20px;
+    border-color: @selected;
+
+    background-color: @background;
+
+    padding: 18px;
+
+    cursor: default;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled: true;
+
+    spacing: 14px;
+    margin: 0px;
+    padding: 0px;
+
+    background-color: transparent;
+
+    children: [
+        "inputbar",
+        "listview"
+    ];
+}
+
+/*****----- Search -----*****/
+inputbar {
+    enabled: true;
+
+    spacing: 10px;
+    margin: 0px;
+    padding: 12px 14px;
+
+    border: 1px;
+    border-radius: 12px;
+    border-color: @background-alt;
+
+    background-color: @background-alt;
+
+    text-color: @foreground;
+
+    children: [
+        "prompt",
+        "entry"
+    ];
+}
+
+prompt {
+    enabled: true;
+
+    padding: 0px 4px;
+
+    background-color: transparent;
+    text-color: @selected;
+}
+
+textbox-prompt-colon {
+    enabled: false;
+}
+
+entry {
+    enabled: true;
+
+    padding: 0px;
+
+    background-color: transparent;
+    text-color: @foreground;
+
+    cursor: text;
+
+    placeholder: "Search waybar theme...";
+    placeholder-color: @foreground;
+}
+
+/*****----- Theme List -----*****/
+listview {
+    enabled: true;
+
+    columns: 1;
+    lines: 8;
+
+    cycle: true;
+    dynamic: true;
+
+    scrollbar: false;
+
+    layout: vertical;
+    reverse: false;
+
+    spacing: 6px;
+    padding: 2px;
+
+    background-color: transparent;
+    text-color: @foreground;
+
+    cursor: default;
+}
+
+/*****----- Theme Item -----*****/
+element {
+    enabled: true;
+
+    spacing: 0px;
+
+    margin: 0px;
+    padding: 11px 14px;
+
+    border: 1px;
+    border-radius: 11px;
+    border-color: transparent;
+
+    background-color: transparent;
+    text-color: @foreground;
+
+    cursor: pointer;
+}
+
+/*****----- Normal -----*****/
+element normal.normal {
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+/*****----- Hover -----*****/
+element normal.active {
+    background-color: @background-alt;
+    text-color: @foreground;
+}
+
+/*****----- Selected -----*****/
+element selected.normal {
+    background-color: @selected;
+    text-color: @background;
+
+    border-color: @selected;
+}
+
+element selected.active {
+    background-color: @selected;
+    text-color: @background;
+
+    border-color: @selected;
+}
+
+element selected.urgent {
+    background-color: @urgent;
+    text-color: @background;
+
+    border-color: @urgent;
+}
+
+/*****----- Alternate -----*****/
+element alternate.normal {
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+element alternate.active {
+    background-color: @background-alt;
+    text-color: @foreground;
+}
+
+element alternate.urgent {
+    background-color: @urgent;
+    text-color: @background;
+}
+
+/*****----- Theme Text -----*****/
+element-text {
+    enabled: true;
+
+    padding: 0px;
+    margin: 0px;
+
+    background-color: transparent;
+    text-color: inherit;
+
+    highlight: inherit;
+
+    cursor: inherit;
+
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+}
+
+/*****----- Icons -----*****/
+element-icon {
+    enabled: false;
+
+    size: 0px;
+    margin: 0px;
+
+    background-color: transparent;
+}
+
+/*****----- Scrollbar -----*****/
+scrollbar {
+    enabled: false;
+}
+
+/*****----- Mode Switcher -----*****/
+mode-switcher {
+    enabled: false;
+}
+
+/*****----- Buttons -----*****/
+button {
+    enabled: true;
+
+    padding: 8px 12px;
+
+    border: 0px;
+    border-radius: 8px;
+
+    background-color: @background-alt;
+    text-color: @foreground;
+
+    cursor: pointer;
+}
+
+button selected {
+    background-color: @selected;
+    text-color: @background;
+}
+
+/*****----- Messages -----*****/
+message {
+    enabled: true;
+
+    margin: 0px;
+    padding: 0px;
+
+    border: 0px;
+
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+textbox {
+    padding: 10px;
+
+    border: 0px;
+    border-radius: 10px;
+
+    background-color: @background-alt;
+    text-color: @foreground;
+
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+
+    highlight: none;
+    placeholder-color: @foreground;
+
+    markup: true;
+}
+
+error-message {
+    padding: 10px;
+
+    border: 0px;
+    border-radius: 10px;
+
+    background-color: @background-alt;
+    text-color: @foreground;
+}

@@ -1,43 +1,27 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Colors — Wallust-generated (fallback)
- * 
- * Available Colors Schemes
- *
- * adapta    catppuccin    everforest    navy       paper
- * arc       cyberpunk     gruvbox       nord       solarized
- * black     dracula       lovelace      onedark    yousai
- *
- **/
-
-/* Fallback colors — replaced by wallust on first run */
 * {
-    background:     {{ background }};
-    foreground:     {{ foreground }};
-    background-alt: rgba({{ foreground.rgb }}, 0.08);
-    selected:       rgba({{ foreground.rgb }}, 0.16);
-    border-colour:  rgba({{ foreground.rgb }}, 0.14);
-    handle-colour:  rgba({{ foreground.rgb }}, 0.22);
-    active:         {{ color4 }};
-    urgent:         {{ color1 }};
+    background:     #0C0C0C;
+    foreground:     #B4B4B4;
+    background-alt: #0C0C0C;
+    selected:       #616161;
+    active:         #76504F;
+    urgent:         #515151;
+    border-colour:  #616161;
+    handle-colour:  #616161;
 
-    color0:  {{ color0 }};
-    color1:  {{ color1 }};
-    color2:  {{ color2 }};
-    color3:  {{ color3 }};
-    color4:  {{ color4 }};
-    color5:  {{ color5 }};
-    color6:  {{ color6 }};
-    color7:  {{ color7 }};
-    color8:  {{ color8 }};
-    color9:  {{ color9 }};
-    color10: {{ color10 }};
-    color11: {{ color11 }};
-    color12: {{ color12 }};
-    color13: {{ color13 }};
-    color14: {{ color14 }};
-    color15: {{ color15 }};
+    color0:  #473C28;
+    color1:  #515151;
+    color2:  #76504F;
+    color3:  #706752;
+    color4:  #6A7270;
+    color5:  #AE4F4B;
+    color6:  #8C794A;
+    color7:  #8B8B8B;
+    color8:  #616161;
+    color9:  #595959;
+    color10: #8A5756;
+    color11: #82775A;
+    color12: #737F7B;
+    color13: #D24D47;
+    color14: #98782C;
+    color15: #8B8B8B;
 }

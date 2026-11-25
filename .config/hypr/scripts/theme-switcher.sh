@@ -41,8 +41,8 @@ folder_for() {
         "Default (Dynamic Wallpaper)") echo "default" ;;
         "Catppuccin Mocha")            echo "catppuccin-mocha" ;;
         "Catppuccin Latte")            echo "catppuccin-latte" ;;
-        "Gruvbox Dark")                echo "gruvbox" ;;
-        "Gruvbox Light")               echo "gruvbox" ;;
+        "Gruvbox Dark")                echo "gruvbox-dark" ;;
+        "Gruvbox Light")               echo "gruvbox-light" ;;
         "Tokyo Night")                 echo "tokyo-night" ;;
         "Nord")                        echo "nord" ;;
         "Rose Pine")                   echo "rose-pine" ;;

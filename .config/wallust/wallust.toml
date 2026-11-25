@@ -1,11 +1,11 @@
 # Wallust v3 configuration for Hyprland Rice
 # Generates a curated color palette from the active wallpaper.
 
-backend = "resized"
+backend = "fastresize"
 
-color_space = "lch"
+color_space = "lab"
 
-palette = "softdark16"
+palette = "harddark16"
 
 check_contrast = true
 
